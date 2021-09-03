@@ -17,6 +17,7 @@ class CreateRequestsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('requester_id');
             $table->unsignedBigInteger('give_id');
+            $table->string('pic_id');
             $table->boolean('mail_flag');
             $table->string('ship_from',5);
             $table->enum('days', ['2', '4','7']);
@@ -24,7 +25,7 @@ class CreateRequestsTable extends Migration
             $table->string('place',10);
             $table->enum('condition', ['Unopen', 'open','others']);
             $table->string('notes');
-            $table->enum('status_flag', ['accept', 'reject','hold']);
+            $table->enum('status', ['accept', 'reject','hold']);
             $table->timestamps();
             
             // 外部キー制約

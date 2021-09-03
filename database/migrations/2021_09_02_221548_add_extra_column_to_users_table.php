@@ -18,8 +18,6 @@ class AddExtraColumnToUsersTable extends Migration
             $table->enum('age', ['under18', 'over18','over20']);
             $table->boolean('age_public');
             $table->enum('gender', ['woman', 'man','others']);
-            $table->boolean('age_public');
-            $table->string('prefecture',5);
             $table->text('introduce');
         });
     }

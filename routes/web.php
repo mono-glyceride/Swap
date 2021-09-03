@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'GivesController@index');
+
+// resource Restful
+// index
+// URL
+/*
+/gives => GivesController@index
+
+*/
+Route::resource('gives', 'GivesController');
+
+
+// サンプル
+// Route::get('/mypage', 'UserController@index');
+// Route::post('/mypage', 'UserController@edit');

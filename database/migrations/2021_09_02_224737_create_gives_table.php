@@ -28,12 +28,12 @@ class CreateGivesTable extends Migration
             $table->enum('status_flag', ['already', 'yet']);
             
             // 自分の求めているグッズの情報
-            $table->string('pic_id');
-            $table->string('origin');
-            $table->string('character');
-            $table->string('goods_type');
-            $table->string('goods_name');
-            $table->string('notes');
+            $table->string('want_pic_id');
+            $table->string('want_origin');
+            $table->string('want_character');
+            $table->string('want_goods_type');
+            $table->string('want_goods_name');
+            $table->string('want_notes');
             
             // 交換方法
             $table->boolean('mail_flag');

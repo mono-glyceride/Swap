@@ -18,7 +18,6 @@ class CreateBartersTable extends Migration
             $table->unsignedBigInteger('give_id');
             $table->unsignedBigInteger('request_id');
             $table->enum('status', ['yet', 'alredy','cancel']);
-            $table->date('timelimit');
             $table->timestamps();
             
             // 外部キー制約
