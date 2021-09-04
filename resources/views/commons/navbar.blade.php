@@ -16,7 +16,9 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                
+                <div class="d-sm-none d-block w-100">
+                    <img src="{{ asset('storage/images/icon.png') }}" width="100" height="100">
+                </div>
                 {{-- プロフィール編集へのリンク --}}
                 <li class="nav-item"><a href="#" class="nav-link">プロフィール編集</a></li>
                 {{-- 交換リクエストへのリンク --}}
