@@ -2,10 +2,11 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <title>Microposts</title>
+        <title>Swap</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/main.css">
     </head>
 
     <body>
@@ -19,6 +20,9 @@
 
             @yield('content')
         </div>
+        
+        {{-- 出品ボタン --}}
+        @include('gives.exhibit_button')
         
         {{-- 固定フッター --}}
         @include('commons.footer')

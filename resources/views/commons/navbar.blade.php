@@ -17,7 +17,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 <div class="d-sm-none d-block w-100">
-                    <img src="{{ asset('storage/images/icon.png') }}" width="100" height="100">
+                    <img src="{{ asset('storage/images/icon.png') }}" width="70" height="70">
                 </div>
                 {{-- プロフィール編集へのリンク --}}
                 <li class="nav-item"><a href="#" class="nav-link">プロフィール編集</a></li>
