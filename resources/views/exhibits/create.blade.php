@@ -22,7 +22,7 @@
             <div class="exhibit_form">
 
                     {!! Form::open(['route' => 'exhibits.store', 'files' => true]) !!}
-                    {!! Form::label('pic', '画像') !!}
+                    {!! Form::label('pic', '画像 【必須】') !!}
                     {{Form::file('pic_id', null, ['id' => 'pic'])}}
                 
                 
@@ -30,7 +30,7 @@
                     {{Form::text('origin', null, ['id' => 'origin'])}}
                     
                 
-                    {!! Form::label('character', 'キャラクター') !!}
+                    {!! Form::label('character', 'キャラクター　【必須】') !!}
                     {{Form::text('character', null, ['id' => 'character'])}}
                 
                 
@@ -63,7 +63,7 @@
                     {{Form::text('want_origin', null, ['id' => 'want_origin'])}}
                     
                 
-                    {!! Form::label('want_character', 'キャラクター') !!}
+                    {!! Form::label('want_character', 'キャラクター【必須】') !!}
                     {{Form::text('want_character', null, ['id' => 'want_character'])}}
                 
                 
@@ -83,7 +83,7 @@
         　交換方法            
         </h2>       
             <div class="exhibit_form">
-                    {!! Form::label('mail', '郵送') !!}
+                    {!! Form::label('mail', '郵送　【必須】') !!}
                     {{Form::select('mail_flag', [true => '対応する', false => '対応しない'],  ['id' => 'mail'])}}
                     
                     {!! Form::label('ship_from', '発送元') !!}
@@ -141,11 +141,13 @@
                     {!! Form::label('days', '発送までの日数') !!}
                     {{Form::select('days', [1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
 
-                    {!! Form::label('handing', '手渡し') !!}
+                    {!! Form::label('handing', '手渡し　【必須】') !!}
                     {{Form::select('handing_flag',[true => '対応する', false => '対応しない'],  ['id' => 'handing'])}}
                 
                     {!! Form::label('place', '手渡し対応地域') !!}
                     {{Form::text('place', null, ['id' => 'place'])}}
+                    
+                
                     
             </div>   
             {!! Form::submit('出品', ['class' => 'btn-block btn-primary']) !!}

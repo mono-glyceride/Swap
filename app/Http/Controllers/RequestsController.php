@@ -61,10 +61,10 @@ class RequestsController extends Controller
         // バリデーション
         $request->validate([
             'pic_id' => 'required',
-            'mail_flag' => 'required|max:255',
-            'ship_from' => 'required|max:255',
-            'handing_flag' => 'required|max:255',
-            'condition' => 'required|max:255',
+            'mail_flag' => 'required',
+            'handing_flag' => 'required',
+            'place' => 'max:255',
+            'notes' => 'max:255',
         ]);
         
         
@@ -216,15 +216,21 @@ class RequestsController extends Controller
         // ユーザーのリクエスト一覧のうち、取引中のものを抽出
         $swapping_requests = $user->requests()->where('requests.status',2)->get();
         
-        
-        
         // ユーザーが貰ったリクエスト一覧のうち、取引中ものを抽出
         $swapping_recieve_requests = $user->receive_requests()->where('requests.status',2)->get();
+        
+        // ユーザーのリクエスト一覧のうち、取引が終了したのものを抽出
+        $finished_requests = $user->requests()->where('requests.status',4)->get();
+        
+        // ユーザーが貰ったリクエスト一覧のうち、取引が終了したものを抽出
+        $finished_recieve_requests = $user->receive_requests()->where('requests.status',4)->get();
         
 
         $data = [
                 'receive_requests' => $swapping_recieve_requests,
                 'requests' => $swapping_requests,
+                'finished_receive_requests' => $finished_recieve_requests,
+                'finished_requests' => $finished_requests,
             ];
             
         // exhibit一覧ビューでそれを表示
@@ -274,12 +280,12 @@ class RequestsController extends Controller
                 'partner'=>$partner
                 ];
             
-            if ($user->id == $receive_request->requester_id || $user->id == $exhibit->exhibitor_id) { // 出品者かリクエスターの場合
+            if ($user->id === $receive_request->requester_id || $user->id === $exhibit->exhibitor_id) { // 出品者かリクエスターの場合
             // トーク画面でそれを表示
             return view('requests.talk', $data);
             }
             else{
-                return redirect()->action('ExhibitConstController@index');
+                return redirect()->action('ExhibitsController@index');
             }
     
         

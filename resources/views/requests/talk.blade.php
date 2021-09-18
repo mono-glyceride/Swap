@@ -13,8 +13,13 @@
                 <h1>
                 {{ $partner->name }}さんとのトーク画面
                 
-                
+                {!! Form::model($receive_request, ['route' => ['requests.update', $receive_request->id], 'method' => 'patch']) !!}
+    　  {{Form::hidden('status','4')}}
+        {!! Form::submit('この取引を終了', ['class' => 'btn btn-danger requ_button']) !!}
+        {!! Form::close() !!}
                 </h1>
+                
+                
                 
             </div>
         </div>
@@ -22,18 +27,15 @@
         <div class="talk">
             {{-- 表示している本人のコメントならmineクラス、相手のものならyoursクラスで生成 --}}
             
-            
-            @if ($receive_request->requester_id != $user->id) {
+            @if ($receive_request->requester_id != $user->id) 
             <div class="yours">
                 {{-- 求めるグッズのサムネイル --}}
                 <img src="{{ asset( 'storage/'.$receive_request->pic_id )}}" width="100" height="100" >
             </div>
-            
             <div class="mine">
                 {{-- 譲るグッズのサムネイル --}}
                 <img src="{{ asset( 'storage/'.$exhibit->pic_id )}}" width="100" height="100" >
             </div>
-            
             @else
             
             <div class="yours">

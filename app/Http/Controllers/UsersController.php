@@ -58,6 +58,7 @@ class UsersController extends Controller
         $data = [];
         $user = \Auth::user();
         
+        
          //定数を取得
         $age = \App\Consts\UserConst::AGE_LIST[$user->age];
         $gender = \App\Consts\UserConst::GENDER_LIST[$user->gender];
@@ -103,6 +104,13 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
+        
+        // バリデーション
+        $request->validate([
+            'name' => 'max:255',
+            'introduce' => 'max:65535',
+        ]);
+        
         // userをを更新
        if (\Auth::check()) { // 認証済みの場合
             // 認証済みユーザを取得

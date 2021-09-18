@@ -12,8 +12,8 @@ class ExhibitsController extends Controller
     public function index()
     {
         // exhibit一覧を取得
-        $exhibits = Exhibit::paginate(10);
-
+        $exhibits = Exhibit::where('exhibits.status',1)->paginate(10);
+        
         // exhibit一覧ビューでそれを表示
         return view('exhibits.index', [
             'exhibits' => $exhibits,
@@ -33,24 +33,32 @@ class ExhibitsController extends Controller
     {
         // バリデーション
         $request->validate([
-            'pic_id' => 'required|max:255',
-            'origin' => 'required|max:255',
+            'pic_id' => 'required',
             'character' => 'required|max:255',
-            'goods_type' => 'required|max:255',
-            'condition' => 'required|max:255',
-            'want_pic_id' => 'required|max:255',
-            'want_origin' => 'required|max:255',
             'want_character' => 'required|max:255',
-            'want_goods_type' => 'required|max:255',
             'mail_flag' => 'required|max:255',
-            'ship_from' => 'required|max:255',
             'handing_flag' => 'required|max:255',
+            'origin' => 'max:255',
+            'goods_type' => 'max:255',
+            'key_wprd' => 'max:255',
+            'notes' => 'max:255',
+            'want_origin' => 'max:255',
+            'want_goods_type' => 'max:255',
+            'want_key_word' => 'max:255',
+            'want_notes' => 'max:255',
+            'place' => 'max:255',
         ]);
         
         
         //画像データを変数$path1,$want_path1に代入＋storage/app/publicに保存
         $path1 = $request->pic_id->store('public');
+        
+        if ($request->want_pic_id != null) { // 画像がある場合
         $want_path1 = $request->want_pic_id->store('public');
+        }
+        else{
+            $want_path1 = null;
+        }
         
         // 認証済みユーザ（閲覧者）の出品として作成（リクエストされた値をもとに作成）
         $request->user()->exhibits()->create([
@@ -99,8 +107,8 @@ class ExhibitsController extends Controller
         //定数を取得
         $condition = \App\Consts\ExhibitConst::CONDITION_LIST[$exhibit->condition];
         $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$exhibit->mail_flag];
-        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$exhibit->ship_from];
-        $days = \App\Consts\ExhibitConst::DAY_LIST[$exhibit->days];
+        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$exhibit->ship_from ?? 0];
+        $days = \App\Consts\ExhibitConst::DAY_LIST[$exhibit->days ?? 0];
         $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->condition];
         
         $data = [
@@ -128,7 +136,17 @@ class ExhibitsController extends Controller
     // putまたはpatchでexhibits/（任意のid）にアクセスされた場合の「更新処理」
     public function update(Request $request, $id)
     {
-        //
+        // idの値で出品を検索して取得
+        $exhibit = \App\Exhibit::findOrFail($id);
+        
+        // 出品をを更新
+       if (\Auth::id() === $exhibit->exhibitor_id){
+        $exhibit->status = $request->status;    // 追加
+        $exhibit->save();
+       }
+       
+       //リダイレクトさせる
+         return redirect()->action('RequestsController@index');
     }
 
     // deleteでexhibits/（任意のid）にアクセスされた場合の「削除処理」
@@ -155,7 +173,7 @@ class ExhibitsController extends Controller
         
         
         // ユーザーの出品一覧を取得
-        $exhibits =$user->exhibits()->paginate(2);
+        $exhibits =$user->exhibits()->where('exhibits.status',1)->paginate(2);
         //$exhibits = $user->exhibits->paginate(2);
 
         // exhibit一覧ビューでそれを表示

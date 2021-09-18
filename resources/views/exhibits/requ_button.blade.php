@@ -1,8 +1,11 @@
 
 @if (Auth::id() == $exhibit->exhibitor_id) 
-    <a href="{{ route('exhibits.destroy', ['exhibit' => $exhibit->id]) }}">
-        <button class="btn btn-danger btn-block requ_button">この出品を削除</button>
-    </a>
+    <div>
+        {!! Form::model($exhibit, ['route' => ['exhibits.update', $exhibit->id], 'method' => 'patch']) !!}
+    　  {{Form::hidden('status','3')}}
+        {!! Form::submit('この出品を削除', ['class' => 'btn btn-danger btn-block requ_button']) !!}
+        {!! Form::close() !!}
+    </div>
     
 @else
 {{--この出品が受け取ったリクエストのなかに、閲覧ユーザーからのものはあるか--}}
