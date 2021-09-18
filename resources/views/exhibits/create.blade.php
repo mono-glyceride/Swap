@@ -43,8 +43,8 @@
                     {{Form::text('key_wprd', null, ['id' => 'key_wprd'])}}
                 
                 
-                    {!! Form::label('condition', '状態') !!}
-                    {{Form::select('condition', [1 => '未開封', 2=> '確認のため開封',3=> 'その他',],  ['id' => 'condition'])}}
+                    {!! Form::label('condition', '状態 【必須】') !!}
+                    {{Form::select('condition', [null,1 => '未開封', 2=> '確認のため開封',3=> 'その他',],  ['id' => 'condition'])}}
                 
                 
                     {!! Form::label('notes', '備考') !!}
@@ -84,7 +84,7 @@
         </h2>       
             <div class="exhibit_form">
                     {!! Form::label('mail', '郵送　【必須】') !!}
-                    {{Form::select('mail_flag', [true => '対応する', false => '対応しない'],  ['id' => 'mail'])}}
+                    {{Form::select('mail_flag', [null,1 => '対応する', 2 => '対応しない'],  ['id' => 'mail'])}}
                     
                     {!! Form::label('ship_from', '発送元') !!}
                     {{Form::select('ship_from',  [
@@ -142,7 +142,7 @@
                     {{Form::select('days', [1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
 
                     {!! Form::label('handing', '手渡し　【必須】') !!}
-                    {{Form::select('handing_flag',[true => '対応する', false => '対応しない'],  ['id' => 'handing'])}}
+                    {{Form::select('handing_flag', [null,1 => '対応する', 2 => '対応しない'],  ['id' => 'handing'])}}
                 
                     {!! Form::label('place', '手渡し対応地域') !!}
                     {{Form::text('place', null, ['id' => 'place'])}}

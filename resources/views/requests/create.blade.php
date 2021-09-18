@@ -27,6 +27,7 @@
                     
                     {!! Form::label('ship_from', '発送元') !!}
                     {{Form::select('ship_from',  [
+                    '0' => '--',
                         '1' => '北海道',
                         '2' => '青森県',
                         '3' => '岩手県',
@@ -78,7 +79,7 @@
                         ['id' => 'ship_from'])}}
                         
                     {!! Form::label('days', '発送までの日数') !!}
-                    {{Form::select('days', [1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
+                    {{Form::select('days', [0 => '--',1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
 
                     {!! Form::label('handing', '手渡し　【必須】') !!}
                     {{Form::select('handing_flag', [true => '対応する', false => '対応しない'],  ['id' => 'handing'])}}

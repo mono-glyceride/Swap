@@ -14,7 +14,9 @@ class ExhibitConst
    ];
     
     
-    public const MAIL_FLAG_LIST = [ 
+    public const MAIL_FLAG_LIST = [
+     
+       '--',
      '対応する',
      '対応しない',
    ];
@@ -81,7 +83,7 @@ class ExhibitConst
    ];
    
    public const HANDING_FLAG_LIST = [ 
-       '',
+       '--',
      '対応する',
      '対応しない',
    ];
