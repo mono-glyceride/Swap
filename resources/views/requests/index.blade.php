@@ -62,6 +62,30 @@
             
             </div>
             
+            <div>
+                @if (count($requests) > 0)      
+                <div>
+                
+                <p>以下のリクエストは成立しませんでした</p>
+                
+            </div>
+        @foreach ($reject_requests as $reject_request)
+            <div class="container">
+                <div class="row">
+                    <div class="col  d-block">
+                        {{-- 出品詳細ページへのリンク --}}
+                        <img src="{{ asset( 'storage/'.$reject_request->pic_id )}}" width="70" height="70" >
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    {{-- ページネーションのリンク --}}
+     {{--{{ $receive_requests->links() }}--}}
+            
+@endif
+            
+            </div>
+            
         </div>
         
         

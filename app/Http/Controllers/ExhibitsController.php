@@ -122,8 +122,15 @@ class ExhibitsController extends Controller
             'handing_flag' => $handing_flag
             ];
 
-        // 出品詳細ビューでそれらを表示
+        
+        if (1 === $exhibit->status) {
+           // 出品詳細ビューでそれらを表示
         return view('exhibits.show', $data);
+        }
+        else{
+        // 前のURLへリダイレクトさせる
+        return back();
+        }
     }
     
 

@@ -25,10 +25,14 @@ class RequestsController extends Controller
             // ユーザの送った交換リクエスト一覧を取得
             $requests = $user->requests()->where('requests.status',1)->get();
             
+            // ユーザの送った交換リクエストで、拒否されたもの一覧を取得
+            $reject_requests = $user->requests()->where('requests.status',3)->get();
+            
             $data = [
                 'user' => $user,
                 'receive_requests' => $receive_requests,
-                'requests' => $requests
+                'requests' => $requests,
+                'reject_requests' => $reject_requests,
             ];
         }
 

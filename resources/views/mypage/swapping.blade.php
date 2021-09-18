@@ -86,7 +86,7 @@
                         <div class="row no-gutters">
                             <div class="col-lg-6">
                                 {{-- メッセージページへのリンク --}}
-                                <img src="{{ asset( 'storage/'.$request->exhibit->pic_id )}}" width="70" height="70" >
+                                <img src="{{ asset( 'storage/'.$finished_request->exhibit->pic_id )}}" width="70" height="70" >
                             </div>
                         </div>
                     </div>
