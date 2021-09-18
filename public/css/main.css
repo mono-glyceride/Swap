@@ -8,3 +8,102 @@ h1{
 .midasi{
     margin: 1em;
 }
+
+.intoroduce{
+    margin-bottom:  2em;
+    margin-top:  0px;
+}
+
+.simple_header{
+    width: 100%;
+    margin-bottom:  0.3em;
+}
+
+.goods_detail{
+    width: 100%;
+    margin-bottom:  2em;
+}
+
+
+h2{ 
+    font-size: 1.5em; 
+    width:100%;
+}
+
+h3{ 
+    font-size: 1.5em; 
+    width:100%;
+    background-color: #f0f8ff;
+}
+
+
+.swap_button{
+    margin:2em 1em 5em 1em;
+    width: 30%;
+}
+
+
+input{
+    font-size:0.8em ! important;
+}
+
+select{
+    font-size:0.8em ! important;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+label{
+    font-size:0.8em ! important;
+}
+
+.page{
+}
+
+.page-item {
+    text-align: center;
+}
+
+.introduce{
+    min-height: 13em;
+    margin-bottom: 1em;
+    
+}
+
+/* 親要素(コンテナ) */
+.swapping {
+    display: grid;
+    grid-template-rows: 100px auto 100px;
+  grid-template-columns: auto 500px;
+}
+/* 子要素(アイテム) */
+.swapping_item {
+    display: grid;
+  grid-template-columns: repeat(2, 400px);
+}
+/**/
+
+/* 親要素(コンテナ) */
+.exhibit_index {
+    display: grid;
+    grid-template-rows: 100px auto 100px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+}
+/* 子要素(アイテム) */
+.exhibit_item {
+    grid-template-rows: 100px auto 100px;
+  grid-template-columns: 100px 100px 100px;
+}
+
+/* 親要素(コンテナ) */
+.repry_btn {
+    display: grid;
+    grid-template-rows: 100px auto 100px;
+  grid-template-columns: 1fr 1fr ;
+}
+/* 子要素(アイテム) */
+.repry_item {
+    grid-template-rows:  auto ;
+  grid-template-columns: repeat(2, 40px);
+}
+/**/

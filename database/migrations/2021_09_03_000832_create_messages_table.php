@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTalksTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTalksTable extends Migration
      */
     public function up()
     {
-        Schema::create('talks', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('barter_id');
-            $table->text('message');
+            $table->unsignedBigInteger('request_id');
+            $table->text('content');
             $table->unsignedBigInteger('sender_id');
             $table->timestamps();
-            
+        
             // 外部キー制約
-            $table->foreign('barter_id')->references('id')->on('barters');
+            $table->foreign('request_id')->references('id')->on('requests');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateTalksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('talks');
+        Schema::dropIfExists('messages');
     }
 }

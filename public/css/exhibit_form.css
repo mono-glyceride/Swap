@@ -1,0 +1,31 @@
+
+.exhibit_form h2{
+    width: 100%; 
+    
+}
+
+.exhibit_form form{
+    display: grid; 
+    
+}
+
+.exhibit_form label{
+    grid-column: 1;
+    
+}
+
+.exhibit_form input{
+    grid-column: 2;
+    margin-bottom:1em;
+    
+}
+
+.exhibit_form serect{
+    grid-column: 2;
+    
+}
+
+.exhibit_form div{
+    margin-bottom:2em;
+}
+

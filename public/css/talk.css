@@ -1,0 +1,36 @@
+.mine{
+    margin: 1em 0px 1em auto;
+    padding: 0.3em;
+    width: 60%;
+    background-color: #3399FF;
+    
+}
+
+.my_comment{
+    color: white;
+}
+
+.yours{
+    margin: 1em auto 1em 0px;
+    padding: 0.3em;
+    width: 60%;
+    border: 1px solid #3399FF;
+}
+
+.talk_footer{
+    position: fixed;       /* 要素の位置を固定する */
+    bottom: 0px;           /* 絶対位置を指定する(下0px) */
+    background-color: white;
+    width: 100%;
+    border-top: 1px solid #3399FF;
+    margin-top: 1px;
+}
+
+.talk{
+    margin-bottom: 100px;
+}
+
+.message_box{
+    width: 80%;
+    height: 2em;
+}

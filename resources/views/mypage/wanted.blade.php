@@ -7,10 +7,14 @@
             {{-- 見出し --}}
             <div class="border border-primary midasi">
                 
-                <h1>お迎え募集中のグッズ</h1>
+                <h1>
+                    あなたが出品中のグッズ</h1>
             </div>
             {{-- 出品一覧 --}}
-            @include('../commons.gives')
+            @include('../commons.exhibits')
+            
         </div>
+        
+        
     </div>
 @endsection

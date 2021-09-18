@@ -6,13 +6,14 @@
         <div class="text-center">
             {{-- 見出し --}}
             <div class="border border-primary midasi">
-                <h1>マイページ</h1>
+                
+                <h1>貰った交換リクエスト一覧</h1>
             </div>
-            {{-- ユーザー情報 --}}
-            
-            {{-- ユーザーメニュー --}}
-
+            {{-- 交換リクエスト一覧 --}}
+            @include('../commons.requests')
             
         </div>
+        
+        
     </div>
 @endsection
