@@ -20,7 +20,7 @@
                             <div class="col-lg-6">
                                 {{-- メッセージページへのリンク --}}
                                 <a href="{{ route('requests.talk', ['id' => $receive_request ->id]) }}">
-                                <img src="{{ asset( 'storage/'.$receive_request->pic_id )}}" width="70" height="70" >
+                                <img src="{{ $receive_request->pic_id }}" width="70" height="70" >
                                 </a>
                             </div>
                             <div class="col-lg-6">
@@ -44,7 +44,7 @@
                             <div class="col-lg-6">
                                 {{-- メッセージページへのリンク --}}
                                 <a href="{{ route('requests.talk', ['id' => $request ->id]) }}">
-                                <img src="{{ asset( 'storage/'.$request->exhibit->pic_id )}}" width="70" height="70" >
+                                <img src="{{$request->exhibit->pic_id }}" width="70" height="70" >
                                 </a>
                             </div>
                             <div class="col-lg-6">
@@ -60,17 +60,18 @@
             @endif
             </div>
             
+            
+            
+            <div class="swapping">            {{-- 取引中のグッズ（自分が出品者のもの） --}}
+            @if (count($finished_receive_requests) > 0) 
             <p>
                 ※以下の取引は終了しました。
             </p>
-            
-            <div class="swapping">            {{-- 取引中のグッズ（自分が出品者のもの） --}}
-            @if (count($finished_receive_requests) > 0)      
                 @foreach ($finished_receive_requests as $finished_receive_request)
                     <div class="card mb-3 swapping_item" style="width: 500px;">
                         <div class="row no-gutters">
                             <div class="col-lg-6">
-                                <img src="{{ asset( 'storage/'.$finished_receive_request->pic_id )}}" width="70" height="70" >
+                                <img src="{{ $finished_receive_request->pic_id }}" width="70" height="70" >
                             </div>
                             
                         </div>
@@ -80,13 +81,16 @@
             @endif
             
                      {{-- 取引中のグッズ（相手が出品者のもの） --}}
-            @if (count($finished_requests) > 0)      
+            @if (count($finished_requests) > 0)     
+            <p>
+                ※以下の取引は終了しました。
+            </p>
                 @foreach ($finished_requests as $finished_request)
                     <div class="card mb-3 swapping_item" style="width: 500px;">
                         <div class="row no-gutters">
                             <div class="col-lg-6">
                                 {{-- メッセージページへのリンク --}}
-                                <img src="{{ asset( 'storage/'.$finished_request->exhibit->pic_id )}}" width="70" height="70" >
+                                <img src="{{$finished_request->exhibit->pic_id }}" width="70" height="70" >
                             </div>
                         </div>
                     </div>

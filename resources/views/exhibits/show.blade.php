@@ -21,7 +21,7 @@
                 <div>
                     {{-- グッズ情報 --}}
                     <div>
-                        <img src="{{ asset( 'storage/'.$exhibit->pic_id )}}" width="200" height="200" >
+                        <img src="{{ $exhibit->pic_id }}" width="200" height="200" >
                     </div>
                     
                     
@@ -45,7 +45,7 @@
                 <div>
                     {{-- グッズ情報 --}}
                     <div>
-                        <img src="{{ asset( 'storage/'.$exhibit->want_pic_id )}}" width="200" height="200" >
+                        <img src="{{ $exhibit->want_pic_id }}" width="200" height="200" >
                     </div>
                     <table class="table table-striped table-sm goods_detail">
                         <tr><th>作品</th><td>{{ $exhibit->want_origin }}</td></tr>

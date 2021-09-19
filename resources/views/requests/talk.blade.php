@@ -30,22 +30,22 @@
             @if ($receive_request->requester_id != $user->id) 
             <div class="yours">
                 {{-- 求めるグッズのサムネイル --}}
-                <img src="{{ asset( 'storage/'.$receive_request->pic_id )}}" width="100" height="100" >
+                <img src="{{ $receive_request->pic_id }}" width="100" height="100" >
             </div>
             <div class="mine">
                 {{-- 譲るグッズのサムネイル --}}
-                <img src="{{ asset( 'storage/'.$exhibit->pic_id )}}" width="100" height="100" >
+                <img src="{{ $exhibit->pic_id }}" width="100" height="100" >
             </div>
             @else
             
             <div class="yours">
                 {{-- 求めるグッズのサムネイル --}}
-                <img src="{{ asset( 'storage/'.$exhibit->pic_id )}}" width="100" height="100" >
+                <img src="{{ $exhibit->pic_id }}" width="100" height="100" >
             </div>
             
             <div class="mine">
                 {{-- 譲るグッズのサムネイル --}}
-                <img src="{{ asset( 'storage/'.$receive_request->pic_id )}}" width="100" height="100" >
+                <img src="{{$receive_request->pic_id }}" width="100" height="100" >
             </div>
             
             @endif

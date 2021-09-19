@@ -7,7 +7,7 @@
                     <div class="col  d-block exhibit_item">
                         {{-- 出品詳細ページへのリンク --}}
                         <a href="{{ route('exhibits.show', ['exhibit' => $exhibit ->id]) }}">
-                        <img src="{{ asset( 'storage/'.$exhibit->pic_id )}}" width="70" height="70" >
+                        <img src="{{ $exhibit->pic_id }}" width="70" height="70" >
                         </a>
                     </div>
             

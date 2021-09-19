@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Exhibit;
+use Storage;
 
 class ExhibitsController extends Controller
 {
@@ -13,6 +14,8 @@ class ExhibitsController extends Controller
     {
         // exhibit一覧を取得
         $exhibits = Exhibit::where('exhibits.status',1)->paginate(10);
+        
+        
         
         // exhibit一覧ビューでそれを表示
         return view('exhibits.index', [
@@ -51,10 +54,23 @@ class ExhibitsController extends Controller
         
         
         //画像データを変数$path1,$want_path1に代入＋storage/app/publicに保存
-        $path1 = $request->pic_id->store('public');
+        //$path1 = $request->pic_id->store('public');
+        
+        //画像データを変数$fileに代入
+        $file = $request->file('pic_id');
+        
+        //アップロードし、パスを取得
+        $path1 = Storage::disk('s3')->putFile('/', $file, 'public');
+        
+        //パスからURLを作成
+        $path1 = Storage::disk('s3')->url($path1);
+        
+        
         
         if ($request->want_pic_id != null) { // 画像がある場合
-        $want_path1 = $request->want_pic_id->store('public');
+        $file = $request->file('want_pic_id');
+        $want_path1 = Storage::disk('s3')->putFile('/', $file, 'public');
+        $want_path1 = Storage::disk('s3')->url($want_path1);
         }
         else{
             $want_path1 = null;
@@ -62,14 +78,14 @@ class ExhibitsController extends Controller
         
         // 認証済みユーザ（閲覧者）の出品として作成（リクエストされた値をもとに作成）
         $request->user()->exhibits()->create([
-            'pic_id' => basename($path1),
+            'pic_id' => $path1,
             'origin' => $request->origin,
             'character' => $request->character,
             'goods_type' => $request->goods_type,
             'key_wprd' => $request->key_wprd,
             'condition' => $request->condition,
             'notes' => $request->notes,
-            'want_pic_id' => basename($want_path1),
+            'want_pic_id' => $want_path1,
             'want_origin' => $request->want_origin,
             'want_character' => $request->want_character,
             'want_goods_type' => $request->want_goods_type,
@@ -81,6 +97,7 @@ class ExhibitsController extends Controller
             'handing_flag' => $request->handing_flag,
             'place' => $request->place,
         ]);
+        
         
         
         
@@ -102,6 +119,8 @@ class ExhibitsController extends Controller
         // 出品したユーザーを取得
         $user = \App\User::findOrFail($exhibit->exhibitor_id);
         
+        //画像データを取得
+        $path = Storage::disk('s3')->url('$exhibit->pic_id');
         
         
         //定数を取得
@@ -119,7 +138,8 @@ class ExhibitsController extends Controller
             'mail_flag' => $mail_flag,
             'ship_from' => $ship_from,
             'days' => $days,
-            'handing_flag' => $handing_flag
+            'handing_flag' => $handing_flag,
+            'path' => $path
             ];
 
         
@@ -174,20 +194,20 @@ class ExhibitsController extends Controller
     // getでexhibits/（任意のid）にアクセスされた場合の出品一覧表示処理
     public function wanted($id)
     {   
-        if (\Auth::check()) { // 認証済みの場合
+        
             // 認証済みユーザを取得
             $user = \Auth::user();
         
         
         // ユーザーの出品一覧を取得
-        $exhibits =$user->exhibits()->where('exhibits.status',1)->paginate(2);
+        $exhibits =$user->exhibits()->where('exhibits.status',1)->paginate(10);
         //$exhibits = $user->exhibits->paginate(2);
-
+        
         // exhibit一覧ビューでそれを表示
         return view('mypage.wanted', [
             'exhibits' => $exhibits,
         ]);
-        }
+        
         
     }
     

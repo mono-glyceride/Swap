@@ -12,9 +12,28 @@
     @if ($exhibit->requests()->where('requester_id', Auth::id())->exists())
         <p>この出品へはすでに交換リクエストを送っています</p>
     @else
-     <a href="{{ route('requests.create', ['id' => $exhibit->id]) }}">
-        <button class="btn btn-primary btn-block requ_button">交換リクエストを送る</button>
+    <div class="repry_btn">
+                     
+                        
+                        <div class="repry_item">
+                       
+                        <a href="{{ route('requests.create_mail', ['id' => $exhibit->id]) }}">
+        <button class="btn btn-primary swap_button">交換リクエストを作成【郵送】</button>
     </a>
+                        </div>
+                        <div class="repry_item">
+                       
+                        <a href="{{ route('requests.create_handing', ['id' => $exhibit->id]) }}">
+        <button class="btn btn-outline-primary swap_button">交換リクエストを作成【手渡し】</button>
+    </a>
+                        </div>
+                        
+                        </div>
+                        
+
+                     
+                    </div>
+    
     @endif
 
 @endif

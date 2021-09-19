@@ -6,10 +6,9 @@
             {{-- 見出し --}}
             <div class="border border-primary simple_header">
                 
-                <h2 sticky-top>
-                    {{-- 戻るボタン --}}
+                <h1 sticky-top>
                     {{ $user->name }}さんのプロフィール編集
-                </h2>
+                </h1>
                 
             </div>
             
@@ -28,11 +27,11 @@
                     {{Form::text('name', null, ['id' => 'name'])}}
                     
                     {!! Form::label('age', '年齢') !!}
-                    {{Form::select('age', [1 => '18歳未満', 2=> '18歳以上',3=> '20歳以上',4=> '非公開'],null,  ['id' => 'age'])}}
+                    {{Form::select('age', [null,1 => '18歳未満', 2=> '18歳以上',3=> '20歳以上',4=> '非公開'],null,  ['id' => 'age'])}}
            
                     
                     {!! Form::label('prefecture', '地域') !!}
-                    {{Form::select('prefecture',  [
+                    {{Form::select('prefecture',  [null,
                         '1' => '北海道',
                         '2' => '青森県',
                         '3' => '岩手県',
@@ -85,7 +84,7 @@
                         ['id' => 'prefecture'])}}
                         
                     {!! Form::label('gender', '性別') !!}
-                    {{Form::select('gender', [1 => '女性', 2=> '男性',3=> 'その他',4=> '非公開'],  null, ['id' => 'gender'])}}
+                    {{Form::select('gender', [null,1 => '女性', 2=> '男性',3=> 'その他',4=> '非公開'],  null, ['id' => 'gender'])}}
                     
                     {!! Form::label('introduce', '自己紹介') !!}
                     {{Form::textarea('introduce', null, ['id' => 'introduce'])}}

@@ -52,7 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('requests', 'RequestsController');
 
-    Route::get('exhibits/{id}/requests/create', 'RequestsController@create')->name('requests.create');
+    Route::get('exhibits/{id}/requests/create_mail', 'RequestsController@create_mail')->name('requests.create_mail');
+    Route::get('exhibits/{id}/requests/create_handing', 'RequestsController@create_handing')->name('requests.create_handing');
 
     Route::resource('messages', 'MessagesController');
 });

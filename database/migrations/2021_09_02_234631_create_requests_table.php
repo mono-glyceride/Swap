@@ -19,13 +19,13 @@ class CreateRequestsTable extends Migration
             $table->unsignedBigInteger('exhibit_id');
             $table->string('pic_id')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->integer('mail_flag');
+            $table->integer('mail_flag')->nullable();
             $table->integer('ship_from')->nullable();
                 //47都道府県を数字で管理
             $table->integer('days')->nullable();
                 // 1:1~2日 2:3~4日 3:5~7日
-            $table->integer('handing_flag');
-            $table->string('place',40)->nullable();
+            $table->integer('handing_flag')->nullable();
+            $table->string('place')->nullable();
             $table->integer('condition');
                 // 1:未開封 2:確認のため開封 3:その他
             $table->string('notes')->nullable();

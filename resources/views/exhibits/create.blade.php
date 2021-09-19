@@ -15,9 +15,8 @@
          
         
         
-        
         <h2 class="border border-primary">
-                あなたの譲るグッズ
+        　あなたの譲るグッズ            
         </h2>
             <div class="exhibit_form">
 
@@ -88,6 +87,7 @@
                     
                     {!! Form::label('ship_from', '発送元') !!}
                     {{Form::select('ship_from',  [
+                        null,
                         '1' => '北海道',
                         '2' => '青森県',
                         '3' => '岩手県',
@@ -139,7 +139,7 @@
                         ['id' => 'ship_from'])}}
                         
                     {!! Form::label('days', '発送までの日数') !!}
-                    {{Form::select('days', [1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
+                    {{Form::select('days', [null,1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
 
                     {!! Form::label('handing', '手渡し　【必須】') !!}
                     {{Form::select('handing_flag', [null,1 => '対応する', 2 => '対応しない'],  ['id' => 'handing'])}}

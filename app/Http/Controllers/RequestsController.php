@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Storage;
 
 class RequestsController extends Controller
 {
@@ -45,10 +46,18 @@ class RequestsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $id) 
+    public function create_mail(Request $request, $id) 
     {
         //
-        return view('requests.create',[
+        return view('requests.create_mail',[
+            'exhibit_id' => $id,    
+        ]);
+    }
+    
+    public function create_handing(Request $request, $id) 
+    {
+        //
+        return view('requests.create_handing',[
             'exhibit_id' => $id,    
         ]);
     }
@@ -65,13 +74,11 @@ class RequestsController extends Controller
         // バリデーション
         $request->validate([
             'pic_id' => 'required',
-            'mail_flag' => 'required',
-            'handing_flag' => 'required',
             'place' => 'max:255',
             'notes' => 'max:255',
         ]);
         
-        
+        //'mail_flag' とhanding_flag'はどちらか一方必ずvalidateすべきだけど、hiddenで自動的に入力されるので。
         /*
         // 画像を読み込む
         $image = \Image::make($request->pic_id);
@@ -89,15 +96,21 @@ class RequestsController extends Controller
         */
         
         //画像データを変数$requ_path1に代入＋storage/app/publicに保存
-        $requ_path1 = $request->pic_id->store('public');
+        //$requ_path1 = $request->pic_id->store('public');
         
+        //画像データを変数$fileに代入
+        $file = $request->file('pic_id');
         
+        //アップロードし、パスを取得
+        $requ_path1 = Storage::disk('s3')->putFile('/', $file, 'public');
         
+        //パスからURLを作成
+        $requ_path1 = Storage::disk('s3')->url($requ_path1);
         
         // 認証済みユーザ（閲覧者）のリクエストとして作成（リクエストされた値をもとに作成）
         $request->user()->requests()->create([
             'exhibit_id' => $request->exhibit_id,
-            'pic_id' => basename($requ_path1),
+            'pic_id' => $requ_path1,
             'mail_flag' => $request->mail_flag,
             'ship_from' => $request->ship_from,
             'days' => $request->days,
@@ -124,14 +137,27 @@ class RequestsController extends Controller
         // idの値でリクエストを検索して取得
         $request = \App\Request::findOrFail($id);
         
-        // 対応する自分の出品を検索して取得
+        
+        //認証ユーザーがリクエストを送ったユーザーなら
+        if ($request->requester_id == \Auth::id()) {
+        
+        // 対応する出品を検索して取得
         $exhibit = $request->exhibit;
-
+        
+        //定数を取得
+        $condition = \App\Consts\ExhibitConst::CONDITION_LIST[$request->condition];
+        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$request->ship_from ?? 0];
+        $days = \App\Consts\ExhibitConst::DAY_LIST[$request->days ?? 0];
+        
         // リクエスト詳細ビューでそれらを表示
         return view('requests.show',[
             'request' => $request,    
             'exhibit' => $exhibit,
+            'condition' => $condition,
+            'ship_from' => $ship_from,
+            'days' => $days,
         ]);
+        }
     }
 
     /**
@@ -146,6 +172,7 @@ class RequestsController extends Controller
          // idの値でリクエストを検索して取得
         $request = \App\Request::findOrFail($id);
         
+        //認証ユーザーがリクエストをもらった人物なら
         if (\Auth::id() === $request->exhibit()->first()->exhibitor_id) {
         
         // 対応する自分の出品を検索して取得
@@ -153,10 +180,10 @@ class RequestsController extends Controller
         
         //定数を取得
         $condition = \App\Consts\ExhibitConst::CONDITION_LIST[$request->condition];
-        $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$request->mail_flag];
-        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$request->ship_from];
-        $days = \App\Consts\ExhibitConst::DAY_LIST[$request->days];
-        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$request->condition];
+        $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$request->mail_flag ?? 0];
+        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$request->ship_from ?? 0];
+        $days = \App\Consts\ExhibitConst::DAY_LIST[$request->days ?? 0];
+        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$request->condition ?? 0];
         
         $data = [
             'exhibit' => $exhibit,
@@ -188,7 +215,7 @@ class RequestsController extends Controller
         $receive_request = \App\Request::findOrFail($id);
         
         // リクエストをを更新
-       if (\Auth::id() === $receive_request->exhibit()->first()->exhibitor_id){
+       if (\Auth::id() === $receive_request->exhibit()->first()->exhibitor_id || \Auth::id() ===$receive_request->requester_id){
         $receive_request->status = $request->status;    // 追加
         $receive_request->save();
        }
