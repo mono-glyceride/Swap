@@ -183,7 +183,7 @@ class RequestsController extends Controller
         $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$request->mail_flag ?? 0];
         $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$request->ship_from ?? 0];
         $days = \App\Consts\ExhibitConst::DAY_LIST[$request->days ?? 0];
-        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$request->condition ?? 0];
+        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$request->handing_flag ?? 0];
         
         $data = [
             'exhibit' => $exhibit,
