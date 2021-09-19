@@ -44,9 +44,11 @@
             
                 <div>
                     {{-- グッズ情報 --}}
+                    @if ($exhibit->want_pic_id != null) 
                     <div>
                         <img src="{{ $exhibit->want_pic_id }}" width="200" height="200" >
                     </div>
+                    @endif
                     <table class="table table-striped table-sm goods_detail">
                         <tr><th>作品</th><td>{{ $exhibit->want_origin }}</td></tr>
                         <tr><th>キャラクター</th><td>{{ $exhibit->want_character }}</td></tr>

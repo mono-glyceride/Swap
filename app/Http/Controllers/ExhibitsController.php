@@ -128,7 +128,7 @@ class ExhibitsController extends Controller
         $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$exhibit->mail_flag];
         $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$exhibit->ship_from ?? 0];
         $days = \App\Consts\ExhibitConst::DAY_LIST[$exhibit->days ?? 0];
-        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->condition];
+        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->handing_flag];
         
         $data = [
             'exhibit' => $exhibit,
