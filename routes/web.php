@@ -33,9 +33,6 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 
-// サンプル
-// Route::get('/mypage', 'UserController@index');
-// Route::post('/mypage', 'UserController@edit');
 
 
 // 認証が必要なもの
@@ -47,7 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('swapping/{id}', 'RequestsController@swapping') ->name('requests.swapping');
     Route::get('talk/{id}', 'RequestsController@talk') ->name('requests.talk');
     Route::resource('exhibits', 'ExhibitsController');
-
+    Route::resource('exhibits', 'ExhibitsController', ['only' => ['store','index','edit']]);
     Route::resource('users', 'UsersController');
 
     Route::resource('requests', 'RequestsController');

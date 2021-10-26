@@ -80,9 +80,6 @@ class User extends Authenticatable
     }
     
     
-    
-    
-    
     /**
      * このユーザに関係するモデルの件数をロードする。
      */
@@ -91,5 +88,11 @@ class User extends Authenticatable
         $this->loadCount('exhibits','requests');
     }
     
-    
+    /**
+     * このユーザへの通知。（ Notificationモデルとの関係を定義）
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

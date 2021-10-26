@@ -28,10 +28,18 @@ class Request extends Model
     }
     
     /**
-     * このリクエストでのメッセージ。（ requestモデルとの関係を定義）
+     * このリクエストでのメッセージ。（ Messageモデルとの関係を定義）
      */
     public function Messages()
     {
         return $this->hasMany(Message::class);
+    }
+    
+    /**
+     * このリクエストが所有する通知。（ Notificationモデルとの関係を定義）
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }
