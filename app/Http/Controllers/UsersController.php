@@ -6,11 +6,6 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
          if (\Auth::check()) { // 認証済みの場合
@@ -23,11 +18,6 @@ class UsersController extends Controller
          
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -39,12 +29,6 @@ class UsersController extends Controller
         return view('users.edit');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     
     // getでuser/（任意のid）にアクセスされた場合の「取得表示処理」
     public function show($id)
@@ -68,13 +52,7 @@ class UsersController extends Controller
          // ユーザー詳細ビューでそれらを表示
          return view('users.show', $data);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
      //getでusers/（任意のid）/editにアクセスされた場合の「更新画面表示処理」
     public function edit($id)
    {
@@ -113,12 +91,6 @@ class UsersController extends Controller
          return redirect()->route('users.show', [$user ->id]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

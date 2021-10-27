@@ -41,11 +41,6 @@ class RequestsController extends Controller
         return view('requests/index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create_mail(Request $request, $id) 
     {
         //
@@ -62,12 +57,6 @@ class RequestsController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
       // postでrequests/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
@@ -124,13 +113,6 @@ class RequestsController extends Controller
          return redirect()->action('ExhibitsController@index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     
      // getでrequests/（任意のid）にアクセスされた場合の「取得表示処理」
     public function show($id)
     {   
@@ -160,12 +142,6 @@ class RequestsController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = [];
@@ -201,14 +177,7 @@ class RequestsController extends Controller
         }
         
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         // idの値でリクエストを検索して取得
@@ -224,12 +193,6 @@ class RequestsController extends Controller
          return redirect()->action('RequestsController@index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

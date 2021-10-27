@@ -7,11 +7,6 @@ use Storage;
 
 class propositionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
       // getでproposition/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
@@ -41,11 +36,6 @@ class propositionsController extends Controller
         return view('propositions.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create_mail(Request $request, $id) 
     {
         //
@@ -62,12 +52,6 @@ class propositionsController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
       // postでpropositions/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
@@ -124,13 +108,6 @@ class propositionsController extends Controller
          return redirect()->action('ExhibitsController@index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     
      // getでpropositions/（任意のid）にアクセスされた場合の「取得表示処理」
     public function show($id)
     {   
@@ -160,12 +137,6 @@ class propositionsController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = [];
