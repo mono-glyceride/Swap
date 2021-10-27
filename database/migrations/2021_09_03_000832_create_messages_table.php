@@ -15,7 +15,7 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('request_id');
+            $table->unsignedBigInteger('proposition_id');
             $table->text('content');
             $table->unsignedBigInteger('sender_id');
             $table->integer('status')->default(1);
@@ -23,7 +23,7 @@ class CreateMessagesTable extends Migration
             $table->timestamps();
         
             // 外部キー制約
-            $table->foreign('request_id')->references('id')->on('requests');
+            $table->foreign('proposition_id')->references('id')->on('propositions');
         });
     }
 

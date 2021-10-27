@@ -114,7 +114,7 @@ class ExhibitsController extends Controller
         $exhibit = Exhibit::findOrFail($id);
         
         // 出品に対応したリクエスト一覧を取得
-        $requests = $exhibit->requests;
+        $propositions = $exhibit->propositions;
         
         // 出品したユーザーを取得
         $user = \App\User::findOrFail($exhibit->exhibitor_id);
@@ -132,7 +132,7 @@ class ExhibitsController extends Controller
         
         $data = [
             'exhibit' => $exhibit,
-            'requests' => $requests,
+            'propositions' => $propositions,
             'user' => $user,
             'condition' => $condition,
             'mail_flag' => $mail_flag,
@@ -173,7 +173,7 @@ class ExhibitsController extends Controller
        }
        
        //リダイレクトさせる
-         return redirect()->action('RequestsController@index');
+         return redirect()->action('PropositionsController@index');
     }
 
     // deleteでexhibits/（任意のid）にアクセスされた場合の「削除処理」

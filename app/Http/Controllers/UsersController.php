@@ -33,12 +33,6 @@ class UsersController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
@@ -93,18 +87,9 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
      // putまたはpatchでusers/（任意のid）にアクセスされた場合の「更新処理」
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-        
         // バリデーション
         $request->validate([
             'name' => 'max:255',

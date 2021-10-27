@@ -29,7 +29,7 @@ class MessagesController extends Controller
         ]);
         
         \App\Message::create([
-            'request_id' => $request->request_id,
+            'proposition_id' => $request->proposition_id,
             'content' => $request->content,
             'sender_id' => $request->sender_id,
         ]);

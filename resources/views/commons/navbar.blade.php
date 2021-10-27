@@ -45,12 +45,12 @@
                 
                 {{-- 交換リクエストへのリンク --}}
                 <li class="nav-item">
-                    <a href="{{ route('requests.index') }}" class="nav-link">交換リクエスト一覧</a>
+                    <a href="{{ route('propositions.index') }}" class="nav-link">交換リクエスト一覧</a>
                 </li>
                 
                 {{-- 取引中へのリンク--}}
                 <li class="nav-item">
-                    <a href="{{ route('requests.swapping', ['id' => Auth::id()])}}" class="nav-link">取引中一覧</a>
+                    <a href="{{ route('propositions.swapping', ['id' => Auth::id()])}}" class="nav-link">取引中一覧</a>
                 </li>
                 
                 

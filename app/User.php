@@ -46,11 +46,11 @@ class User extends Authenticatable
     }
     
     /**
-     * このユーザが出したリクエスト。（ Requestモデルとの関係を定義）
+     * このユーザが出したリクエスト。（ Propositionモデルとの関係を定義）
      */
-    public function requests()
+    public function propositions()
     {
-        return $this->hasMany(Request::class,'requester_id');
+        return $this->hasMany(Proposition::class,'user_id');
     }
     
     /**
@@ -64,18 +64,18 @@ class User extends Authenticatable
     /**
      * このユーザが貰ったリクエスト（このユーザーの出品に出されたリクエスト）
      */
-    public function receive_requests()
+    public function receive_propositions()
     {
-        return $this->hasManyThrough('App\Request', 'App\Exhibit','exhibitor_id');
+        return $this->hasManyThrough('App\Proposition', 'App\Exhibit','exhibitor_id');
         
     }
     
     /**
      * このユーザがリクエストを送った出品
      */
-    public function requesting_exhibits()
+    public function proposing_exhibits()
     {
-        return $this->hasManyThrough('App\Exhibit', 'App\Request','requester_id');
+        return $this->hasManyThrough('App\Exhibit', 'App\Proposition','user_id');
         
     }
     
@@ -85,7 +85,7 @@ class User extends Authenticatable
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount('exhibits','requests');
+        $this->loadCount('exhibits','propositions');
     }
     
     /**

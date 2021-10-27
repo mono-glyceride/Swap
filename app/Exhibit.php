@@ -21,11 +21,11 @@ class Exhibit extends Model
     }
     
     /**
-     * この出品が所有するリクエスト。（ Requestモデルとの関係を定義）
+     * この出品が所有するプロポジション。（ Propositionモデルとの関係を定義）
      */
-    public function requests()
+    public function propositions()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(Proposition::class);
     }
     
     

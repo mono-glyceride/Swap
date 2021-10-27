@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     protected $fillable = [
-        'request_id','sender_id','content'
+        'proposition_id','sender_id','content'
     ];
     
     /**
-     * このメッセージを所有するリクエスト。（ Requestモデルとの関係を定義）
+     * このメッセージを所有するプロポジション。（ Propositionモデルとの関係を定義）
      */
-    public function Request()
+    public function Proposition()
     {
-        return $this->belongsTo(Request::class);
+        return $this->belongsTo(Proposition::class);
     }
     
     /**

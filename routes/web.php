@@ -41,16 +41,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('exhibits', 'ExhibitsController', ['only' => ['store']]);
     // マイページ
     Route::get('wanted/{id}', 'ExhibitsController@wanted') ->name('exhibits.wanted');
-    Route::get('swapping/{id}', 'RequestsController@swapping') ->name('requests.swapping');
-    Route::get('talk/{id}', 'RequestsController@talk') ->name('requests.talk');
+    Route::get('swapping/{id}', 'PropositionsController@swapping') ->name('propositions.swapping');
+    Route::get('talk/{id}', 'PropositionsController@talk') ->name('propositions.talk');
     Route::resource('exhibits', 'ExhibitsController');
     Route::resource('exhibits', 'ExhibitsController', ['only' => ['store','index','edit']]);
     Route::resource('users', 'UsersController');
 
-    Route::resource('requests', 'RequestsController');
+    Route::resource('propositions', 'PropositionsController');
 
-    Route::get('exhibits/{id}/requests/create_mail', 'RequestsController@create_mail')->name('requests.create_mail');
-    Route::get('exhibits/{id}/requests/create_handing', 'RequestsController@create_handing')->name('requests.create_handing');
+    Route::get('exhibits/{id}/propositions/create_mail', 'PropositionsController@create_mail')->name('propositions.create_mail');
+    Route::get('exhibits/{id}/propositions/create_handing', 'PropositionsController@create_handing')->name('propositions.create_handing');
 
     Route::resource('messages', 'MessagesController');
 });

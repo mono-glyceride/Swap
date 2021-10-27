@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequestsTable extends Migration
+class CreatePropositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('propositions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('requester_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('exhibit_id');
             $table->string('pic_id')->nullable();
             $table->string('thumbnail')->nullable();
@@ -35,7 +35,7 @@ class CreateRequestsTable extends Migration
             $table->timestamps();
             
             // 外部キー制約
-            $table->foreign('requester_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('exhibit_id')->references('id')->on('exhibits');
         });
     }
@@ -47,6 +47,6 @@ class CreateRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('propositions');
     }
 }

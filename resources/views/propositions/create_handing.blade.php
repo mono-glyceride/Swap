@@ -14,7 +14,7 @@
         </div>    
                     
             <div class="exhibit_form">
-                {!! Form::open(['route' => 'requests.store', 'files' => true]) !!}
+                {!! Form::open(['route' => 'propositions.store', 'files' => true]) !!}
                 
                     
                     {{Form::hidden('exhibit_id',$exhibit_id)}}

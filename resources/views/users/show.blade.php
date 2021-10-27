@@ -40,7 +40,7 @@
         
         <div class="list-group d-black d-md-none">
             <a href="{{ route('users.edit', ['user' => 1]) }}" class="list-group-item list-group-item-action">プロフィール編集</a>
-            <a href="{{ route('requests.index') }}" class="list-group-item list-group-item-action">交換リクエスト</a>
+            <a href="{{ route('propositions.index') }}" class="list-group-item list-group-item-action">交換リクエスト</a>
             <a href="#" class="list-group-item list-group-item-action">取引中一覧</a>
             <a href="{{ route('exhibits.wanted', ['id' => 1]) }}" class="list-group-item list-group-item-action">出品中一覧</a>
         </div>

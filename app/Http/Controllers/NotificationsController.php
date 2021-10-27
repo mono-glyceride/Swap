@@ -31,7 +31,7 @@ class NotificationsController extends Controller
         
         //該当するリクエストの通知として作成
         \App\Message::create([
-            'request_id' => $request->request_id,
+            'proposition_id' => $request->proposition_id,
             'content' => $request->content,
             'sender_id' => $request->sender_id,
         ]);

@@ -11,5 +11,6 @@
                 
         @endforeach
     {{-- ページネーションのリンク --}}
+            
 @endif
 </div>

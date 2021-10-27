@@ -11,11 +11,11 @@ class Notification extends Model
     ];
     
     /**
-     * この通知を所有するリクエスト。（ Requestモデルとの関係を定義）
+     * この通知を所有するプロポジション。（ Propositionモデルとの関係を定義）
      */
-    public function request()
+    public function proposition()
     {
-        return $this->belongsTo(Request::class);
+        return $this->belongsTo(Proposition::class);
     }
     
     /**
