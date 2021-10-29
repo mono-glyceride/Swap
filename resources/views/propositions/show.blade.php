@@ -68,14 +68,15 @@
                 
                 {{-- 削除ボタン --}}
                 @if($proposition->status == 1)
-                {!! Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) !!}
-    　  {{Form::hidden('status','6')}}
-        {!! Form::submit('この交換リクエストを削除', ['class' => 'btn btn-danger btn-block requ_button']) !!}
-        {!! Form::close() !!}
+                    {!! Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) !!}
+    　               {{Form::hidden('status','6')}}
+                    {!! Form::submit('この交換リクエストを削除', ['class' => 'btn btn-danger btn-block requ_button']) !!}
+                    {!! Form::close() !!}
+                @elseif($proposition->status == 3)
+                    この交換リクエストは成立しませんでした。
+                @endif
+                
             </div>
-            @endif
-            
-            
             
         </div>
         

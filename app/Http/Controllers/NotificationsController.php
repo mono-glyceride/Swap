@@ -12,33 +12,34 @@ class NotificationsController extends Controller
         //認証済みユーザーを取得
         $user = \Auth::user();
         
-        // notification一覧を取得
-        $notification = $user->notifications()->where('Notifications.status','<>',0)->paginate(10);
+        // notification一覧を日付新しい順に10件ずつ取得
+        $notifications = $user->notifications()->where('status','<>',0)->latest()->paginate(10);
         
         // notification一覧ビューでそれを表示
-        return view('notification.index', [
-            'notification' => $notification,
+        return view('notifications.index', [
+            'notifications' => $notifications,
         ]);
         
     }
     
     // postでexhibit/にアクセスされた場合の「新規登録処理」
-    public function store()
+    public function store(Request $request, $id)
     {
         // バリデーション
         $request->validate([
         ]);
         
+        //status2は承諾、3は拒否　typeは0が成立、１が拒否
+        $type = $request->status - 2;
+        
         //該当するリクエストの通知として作成
-        \App\Message::create([
-            'proposition_id' => $request->proposition_id,
-            'content' => $request->content,
-            'sender_id' => $request->sender_id,
+        $receive_proposition->notifications()->create([
+            'user_id' => $receive_proposition->user_id,
+            'type' => $type,
+            'proposition_id' => $request->sender_id,
         ]);
         
         
-        //リダイレクトさせる
-         return back();
         
     }
 }

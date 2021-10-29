@@ -15,8 +15,6 @@ class ExhibitsController extends Controller
         // exhibit一覧を取得
         $exhibits = Exhibit::where('exhibits.status',1)->paginate(10);
         
-        
-        
         // exhibit一覧ビューでそれを表示
         return view('exhibits.index', [
             'exhibits' => $exhibits,
@@ -64,7 +62,6 @@ class ExhibitsController extends Controller
         
         //パスからURLを作成
         $path1 = Storage::disk('s3')->url($path1);
-        
         
         
         if ($request->want_pic_id != null) { // 画像がある場合

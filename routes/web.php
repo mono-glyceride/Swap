@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController');
 
     Route::resource('propositions', 'PropositionsController');
+    Route::resource('notifications', 'NotificationsController');
 
     Route::get('exhibits/{id}/propositions/create_mail', 'PropositionsController@create_mail')->name('propositions.create_mail');
     Route::get('exhibits/{id}/propositions/create_handing', 'PropositionsController@create_handing')->name('propositions.create_handing');

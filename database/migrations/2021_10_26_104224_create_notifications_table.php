@@ -17,7 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->integer('type');
-                        //0:リクエストが通った（取引成立）→リンクはトーク 1:リクエスト却下→交換リクエスト詳細　2:リクエストもらった→リンクは承認可否　
+                        //1:リクエスト届いた 2:リクエスト承認された　3:取引不成立　4:評価された
             $table->unsignedBigInteger('proposition_id');
             $table->integer('status')->default(2);
                         //0：false:非表示　1:True:表示（既読）　２：表示（未読）　論理削除、既読か未読か、50件溜まったら削除

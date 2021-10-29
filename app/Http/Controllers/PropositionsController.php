@@ -137,6 +137,7 @@ class propositionsController extends Controller
         }
     }
 
+    //リクエストの許可を選ぶ画面
     public function edit($id)
     {
         $data = [];
@@ -172,7 +173,8 @@ class propositionsController extends Controller
         }
         
     }
-
+    
+    //リクエストの許可を決定する
     public function update(Request $request, $id)
     {
         // idの値でリクエストを検索して取得
@@ -184,6 +186,18 @@ class propositionsController extends Controller
         $receive_proposition->save();
        }
        
+        //承諾の場合相手のやることリストに追加
+        
+        //拒否の場合相手への通知を送る
+            //該当するリクエストの通知として作成
+        if($request->status == 3){
+                $receive_proposition->notifications()->create([
+                'user_id' => $receive_proposition->user_id,
+                'type' => 0,
+                'proposition_id' => $request->sender_id,
+                ]);
+        
+        }
        //リダイレクトさせる
          return redirect()->action('PropositionsController@index');
     }
@@ -238,7 +252,7 @@ class propositionsController extends Controller
         
             
             // idの値でリクエストを検索して取得
-            $receive_proposition = \App\Proposition::findOrFail($id);
+            $receive_proposition = \App\Proposition::find($id);
             
         
             // リクエストの持つメッセージ一覧を作成日時の降順で取得
@@ -250,11 +264,11 @@ class propositionsController extends Controller
             //　自分が出品者じゃないとき（）
                 if ($exhibit->exhibitor_id != $user->id) {
                     
-                    $partner = \App\User::findOrFail($receive_proposition->propositioner_id);
+                    $partner = \App\User::find($receive_proposition->propositioner_id);
                     
                 }
                 else{
-                    $partner = \App\User::findOrFail($exhibit->exhibitor_id);
+                    $partner = \App\User::find($exhibit->exhibitor_id);
                 }
                 
         

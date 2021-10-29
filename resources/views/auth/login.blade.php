@@ -4,7 +4,7 @@
     <div class="text-center">
         <h1>Log in</h1>
     </div>
-
+    @csrf
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
 

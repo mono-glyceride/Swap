@@ -11,7 +11,7 @@
             <div class="border border-primary midasi">
                 
                 <h1>
-                {{ $partner->name }}さんとのトーク画面
+                さんとのトーク画面
                 
                 {!! Form::model($receive_proposition, ['route' => ['propositions.update', $receive_proposition->id], 'method' => 'patch']) !!}
     　  {{Form::hidden('status','4')}}
