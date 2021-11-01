@@ -15,6 +15,7 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('proposition_id');
             $table->text('content');
             $table->unsignedBigInteger('sender_id');
@@ -24,6 +25,7 @@ class CreateMessagesTable extends Migration
         
             // 外部キー制約
             $table->foreign('proposition_id')->references('id')->on('propositions');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
