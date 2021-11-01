@@ -193,7 +193,8 @@ class propositionsController extends Controller
         if($request->status == 3){
                 $receive_proposition->notifications()->create([
                 'user_id' => $receive_proposition->user_id,
-                'type' => 0,
+                '' => 0,
+                'category' => 0,
                 'proposition_id' => $request->sender_id,
                 ]);
         

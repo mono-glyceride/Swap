@@ -10,7 +10,7 @@
         <ul>
         @if (count($notifications) > 0)      
                 @foreach ($notifications as $notification)
-                        @if($notification->type == 0)
+                        @if($notification->content_id == 0)
                             <a href="{{ route('propositions.show', ['proposition' => $notification->proposition->id]) }}">
                                 <figure>
                                 <img src="{{$notification->proposition->exhibit->pic_id }}" width="70" height="70" >
