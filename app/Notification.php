@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     protected $fillable = [
-        'user_id','content_id','category','status'
+        'user_id','content_id','status'
     ];
     
     /**
@@ -16,6 +16,14 @@ class Notification extends Model
     public function proposition()
     {
         return $this->belongsTo(Proposition::class);
+    }
+    
+    /**
+     * この通知を所有するexhibit。（ Propositionモデルとの関係を定義）
+     */
+    public function exhibit()
+    {
+        return $this->belongsTo(Exhibit::class);
     }
     
     /**

@@ -29,15 +29,6 @@ class NotificationsController extends Controller
         $request->validate([
         ]);
         
-        //status2は承諾、3は拒否　typeは0が成立、１が拒否
-        $type = $request->status - 2;
-        
-        //該当するリクエストの通知として作成
-        $receive_proposition->notifications()->create([
-            'user_id' => $receive_proposition->user_id,
-            'type' => $type,
-            'proposition_id' => $request->sender_id,
-        ]);
         
         
         

@@ -28,5 +28,13 @@ class Exhibit extends Model
         return $this->hasMany(Proposition::class);
     }
     
+    /**
+     * この出品が所有する通知。（ Notificationモデルとの関係を定義）
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+    
     
 }

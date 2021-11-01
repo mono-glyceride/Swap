@@ -186,19 +186,15 @@ class propositionsController extends Controller
         $receive_proposition->save();
        }
        
-        //承諾の場合相手のやることリストに追加
-        
-        //拒否の場合相手への通知を送る
-            //該当するリクエストの通知として作成
+        //  不成立通知を作成
         if($request->status == 3){
                 $receive_proposition->notifications()->create([
                 'user_id' => $receive_proposition->user_id,
-                '' => 0,
-                'category' => 0,
-                'proposition_id' => $request->sender_id,
+                'content_id' => 0,
+                'proposition_id' => $receive_proposition->id,
                 ]);
-        
         }
+        
        //リダイレクトさせる
          return redirect()->action('PropositionsController@index');
     }
