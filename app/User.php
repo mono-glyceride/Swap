@@ -58,7 +58,7 @@ class User extends Authenticatable
      */
     public function messages()
     {
-        return $this->hasMany(Message::class,'sender_id');
+        return $this->hasMany(Message::class);
     }
     
     /**
@@ -94,5 +94,13 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+    
+    /**
+     * このユーザのチェックリスト。（ Checklistモデルとの関係を定義）
+     */
+    public function checklists()
+    {
+        return $this->hasMany(Checklist::class);
     }
 }

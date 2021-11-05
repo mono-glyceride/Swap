@@ -28,10 +28,27 @@ class MessagesController extends Controller
             'content' => 'required',
         ]);
         
+        $user = \Auth::user();
+        
         \App\Message::create([
             'proposition_id' => $request->proposition_id,
             'content' => $request->content,
-            'sender_id' => $request->sender_id,
+            'user_id' => $user->id,
+        ]);
+        
+        //相手ユーザーのチェックリストに返信を追加
+        $proposition = \App\Proposition::find($request->proposition_id);
+        //自分が出品者の時
+        if ($proposition->user_id != $user->id) {
+            $user_id = $proposition->user_id;
+        }
+        else{
+            $user_id = $proposition->exhibit->exhibitor_id;
+        }
+        $proposition->checklists()->create([
+            'user_id' => $user_id,
+            'content_id' => 1,
+            'proposition_id' => $proposition->id,
         ]);
         
         

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Proposition extends Model
 {
     protected $fillable = [
-        'exhibit_id','pic_id',
+        'exhibit_id','pic_id','user_id',
         'mail_flag','ship_from','days','handing_flag','place','condition','notes','status'
     ];
     
@@ -41,5 +41,13 @@ class Proposition extends Model
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+    
+    /**
+     * このリクエストが所有するチェックリスト。（ Checklistモデルとの関係を定義）
+     */
+    public function checklists()
+    {
+        return $this->hasMany(Checklist::class);
     }
 }

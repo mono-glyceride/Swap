@@ -62,17 +62,14 @@
             
            
             <div>
-                {{-- 出品者のアイコン
                 <h2 class="border border-primary">
-                    リクエストユーザー
+                    リクエストユーザー:{{$proposition->user->name}}
                 </h2>
-                <img src="{{ asset('storage/images/icon.png') }}" class="img-responsive img-rounded "  width="80" height="80"> --}}
                 
                 
                 {{-- 交換ボタン --}}
                     <div class="repry_btn">
                      
-                        
                         <div class="repry_item">
                         {!! Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) !!}
                             {{Form::hidden('status','2')}}
@@ -86,9 +83,6 @@
                             {!! Form::submit('お断りする', ['class' => 'btn btn-outline-primary swap_button']) !!}
                         {!! Form::close() !!}
                         </div>
-                        
-
-                     
                     </div>
             </div>
             

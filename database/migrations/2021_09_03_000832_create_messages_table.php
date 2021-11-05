@@ -18,7 +18,6 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('proposition_id');
             $table->text('content');
-            $table->unsignedBigInteger('sender_id');
             $table->integer('status')->default(1);
                 // 1:表示 2:非表示　論理削除用
             $table->timestamps();

@@ -36,5 +36,12 @@ class Exhibit extends Model
         return $this->hasMany(Notification::class);
     }
     
+    /**
+     * この出品が所有するチェックリスト。（ Notificationモデルとの関係を定義）
+     */
+    public function checklists()
+    {
+        return $this->hasMany(Checklist::class);
+    }
     
 }

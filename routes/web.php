@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('talk/{id}', 'PropositionsController@talk') ->name('propositions.talk');
     Route::resource('exhibits', 'ExhibitsController');
     Route::resource('exhibits', 'ExhibitsController', ['only' => ['store','index','edit']]);
+    Route::resource('checklists', 'ChecklistsController', ['only' => ['index','update']]);
     Route::resource('users', 'UsersController');
 
     Route::resource('propositions', 'PropositionsController');
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('exhibits/{id}/propositions/create_mail', 'PropositionsController@create_mail')->name('propositions.create_mail');
     Route::get('exhibits/{id}/propositions/create_handing', 'PropositionsController@create_handing')->name('propositions.create_handing');
-
+    
+    
     Route::resource('messages', 'MessagesController');
 });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Storage;
+use App\Proposition;
+use App\Checklist;
 
 class propositionsController extends Controller
 {
@@ -92,7 +94,7 @@ class propositionsController extends Controller
         $requ_path1 = Storage::disk('s3')->url($requ_path1);
         
         // 認証済みユーザ（閲覧者）のリクエストとして作成（リクエストされた値をもとに作成）
-        $request->user()->propositions()->create([
+        $proposition = $request->user()->propositions()->create([
             'exhibit_id' => $request->exhibit_id,
             'pic_id' => $requ_path1,
             'mail_flag' => $request->mail_flag,
@@ -103,6 +105,16 @@ class propositionsController extends Controller
             'condition' => $request->condition,
             'notes' => $request->notes,
         ]);
+        
+        //リクエストの可否を出品者のやることリストに追加
+        $exhibit = \App\Exhibit::find($request->exhibit_id);
+        
+        $proposition->checklists()->create([
+            'user_id' => $exhibit->exhibitor_id,
+            'content_id' => 3,
+            'proposition_id' => $proposition->id,
+            ]);
+        
         
          // トップへリダイレクトさせる
          return redirect()->action('ExhibitsController@index');
@@ -182,21 +194,38 @@ class propositionsController extends Controller
         
         // リクエストをを更新
        if (\Auth::id() === $receive_proposition->exhibit()->first()->exhibitor_id || \Auth::id() ===$receive_proposition->proposition_id){
-        $receive_proposition->status = $request->status;    // 追加
+        $receive_proposition->status = $request->status;
         $receive_proposition->save();
-       }
+       
        
         //  不成立通知を作成
         if($request->status == 3){
-                $receive_proposition->notifications()->create([
-                'user_id' => $receive_proposition->user_id,
-                'content_id' => 0,
-                'proposition_id' => $receive_proposition->id,
-                ]);
-        }
+            $receive_proposition->notifications()->create([
+            'user_id' => $receive_proposition->user_id,
+            'content_id' => 0,
+            'proposition_id' => $receive_proposition->id,
+            ]);
+            }
+        //取引開始をリクエストしたユーザーのチェックリストに追加
+        else{
+            $receive_proposition->checklists()->create([
+            'user_id' => $receive_proposition->user_id,
+            'content_id' => 0,
+            'proposition_id' => $receive_proposition->id,
+            ]);
+            }
         
+        
+        //出品者に交換リクエストの返答を求めるチェックリストを削除
+        //この交換リクエストのもつ通知のうち、出品者あてのもの
+        $checklist = $receive_proposition->checklists()->where('user_id',\Auth::id())->first();
+        //論理削除
+        $checklist->status = 0;
+        $checklist->save();
+       
+        }
        //リダイレクトさせる
-         return redirect()->action('PropositionsController@index');
+         return redirect()->action('PropositionsController@talk',['id' => $receive_proposition->id]);
     }
 
     public function destroy($id)
@@ -249,36 +278,33 @@ class propositionsController extends Controller
         
             
             // idの値でリクエストを検索して取得
-            $receive_proposition = \App\Proposition::find($id);
+            $proposition = \App\Proposition::find($id);
             
         
             // リクエストの持つメッセージ一覧を作成日時の降順で取得
-            $messages = $receive_proposition->messages()->orderBy('created_at')->get();
+            $messages = $proposition->messages()->orderBy('created_at')->get();
         
             // 対応する出品を検索して取得
-            $exhibit = $receive_proposition->exhibit;
+            $exhibit = $proposition->exhibit;
             
-            //　自分が出品者じゃないとき（）
-                if ($exhibit->exhibitor_id != $user->id) {
-                    
-                    $partner = \App\User::find($receive_proposition->propositioner_id);
-                    
+            //相手ユーザーの情報　自分が出品者じゃないとき
+                if ($exhibit->exhibitor_id == $user->id) {
+                    $partner = \App\User::find($proposition->user_id);
                 }
                 else{
                     $partner = \App\User::find($exhibit->exhibitor_id);
                 }
                 
-        
 
             $data = [
-                'receive_proposition' => $receive_proposition,
+                'proposition' => $proposition,
                 'exhibit' => $exhibit,
                 'messages' => $messages,
                 'user'=>$user,
                 'partner'=>$partner
                 ];
             
-            if ($user->id === $receive_proposition->user_id || $user->id === $exhibit->exhibitor_id) { // 出品者かリクエスターの場合
+            if ($user->id === $proposition->user_id || $user->id === $exhibit->exhibitor_id) { // 出品者かリクエスターの場合
             // トーク画面でそれを表示
             return view('propositions.talk', $data);
             }
