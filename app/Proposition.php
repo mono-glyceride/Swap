@@ -36,14 +36,6 @@ class Proposition extends Model
     }
     
     /**
-     * このリクエストが所有する通知。（ Notificationモデルとの関係を定義）
-     */
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class);
-    }
-    
-    /**
      * このリクエストが所有するチェックリスト。（ Checklistモデルとの関係を定義）
      */
     public function checklists()

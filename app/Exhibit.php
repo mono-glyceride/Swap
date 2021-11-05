@@ -37,11 +37,12 @@ class Exhibit extends Model
     }
     
     /**
-     * この出品が所有するチェックリスト。（ Notificationモデルとの関係を定義）
+     * この出品のリクエストが持つチェックリスト（この出品のリクエストのチェックリスト）
      */
     public function checklists()
     {
-        return $this->hasMany(Checklist::class);
+        return $this->hasManyThrough('App\Checklist', 'App\Proposition');
+        
     }
     
 }

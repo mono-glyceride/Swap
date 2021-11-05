@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('talk/{id}', 'PropositionsController@talk') ->name('propositions.talk');
     Route::resource('exhibits', 'ExhibitsController');
     Route::resource('exhibits', 'ExhibitsController', ['only' => ['store','index','edit']]);
-    Route::resource('checklists', 'ChecklistsController', ['only' => ['index','update']]);
+    Route::resource('checklists', 'ChecklistsController', ['only' => ['index','update','destroy']]);
     Route::resource('users', 'UsersController');
 
     Route::resource('propositions', 'PropositionsController');

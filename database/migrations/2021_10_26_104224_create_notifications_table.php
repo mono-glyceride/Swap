@@ -16,8 +16,7 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('proposition_id')->nullable()->default(null);
-            $table->unsignedBigInteger('exhibit_id')->nullable()->default(null);
+            $table->unsignedBigInteger('exhibit_id');
             $table->integer('content_id');
                         //通知　0:リクエスト届いた　1:取引不成立 
             $table->integer('status')->default(2);
@@ -26,7 +25,6 @@ class CreateNotificationsTable extends Migration
             
             // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('proposition_id')->references('id')->on('propositions');
             $table->foreign('exhibit_id')->references('id')->on('exhibits');
         });
     }

@@ -24,17 +24,15 @@
                                     </figure>
                                 @endif
                             </a>
-                            {!! Form::model($checklist, ['route' => ['checklists.update',$checklist->id], 'method' => 'patch']) !!}
-                                {{Form::hidden('status','0')}}
-                                {!! Form::button('完了', ['class' => "btn btn-dark btn-sm", 'type' => 'submit']) !!}
-                            {!! Form::close() !!}
+                            {{ Form::open(['route' => ['checklists.destroy',$checklist->id],'method' => 'delete','class'=>'form-horizontal']) }}
+                                <p><button type="submit" class="btn btn-dark">完了</button></p>
+                            {{ Form::close() }}
                             
-        
                         @elseif($checklist->content_id == 1) 
-                                {!! Form::model($checklist, ['route' => ['checklists.update',$checklist->id], 'method' => 'patch']) !!}
-                                        {{Form::hidden('status','0')}}
-                                        {!! Form::button('取引メッセージが届きました。返信をお願いします', ['class' => "btn btn-light", 'type' => 'submit']) !!}
-                                {!! Form::close() !!}
+                            {{ Form::open(['route' => ['checklists.destroy',$checklist->id],'method' => 'delete','class'=>'form-horizontal']) }}
+                                <p><button type="submit" class="btn btn-light">取引メッセージが届きました。返信をお願いします</button></p>
+                            {{ Form::close() }}
+                                
                         @elseif($checklist->content_id == 3) 
                             <a href="{{ route('propositions.edit', ['proposition' => $checklist ->proposition->id]) }}">
                                 <figure>

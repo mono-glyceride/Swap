@@ -191,46 +191,42 @@ class propositionsController extends Controller
     {
         // idの値でリクエストを検索して取得
         $receive_proposition = \App\Proposition::findOrFail($id);
+        $exhibit = $receive_proposition->exhibit;
         
         // リクエストをを更新
-       if (\Auth::id() === $receive_proposition->exhibit()->first()->exhibitor_id || \Auth::id() ===$receive_proposition->proposition_id){
+       if (\Auth::id() === $exhibit->exhibitor_id){
         $receive_proposition->status = $request->status;
         $receive_proposition->save();
        
+        //リクエストの返事を求めるチェックリストを削除
+        $receive_proposition->checklists()->where('checklists.user_id',\Auth::id())->delete();
        
         //  不成立通知を作成
         if($request->status == 3){
-            $receive_proposition->notifications()->create([
+            $exhibit->notifications()->create([
             'user_id' => $receive_proposition->user_id,
             'content_id' => 0,
-            'proposition_id' => $receive_proposition->id,
+            'exhibit_id' => $exhibit->id,
             ]);
+            return redirect()->action('ChecklistsController@index');
             }
-        //取引開始をリクエストしたユーザーのチェックリストに追加
         else{
+            //取引開始をリクエストしたユーザーのチェックリストに追加
             $receive_proposition->checklists()->create([
             'user_id' => $receive_proposition->user_id,
             'content_id' => 0,
             'proposition_id' => $receive_proposition->id,
             ]);
+            return redirect()->action('PropositionsController@talk',['id' => $receive_proposition->id]);
             }
-        
-        
-        //出品者に交換リクエストの返答を求めるチェックリストを削除
-        //この交換リクエストのもつ通知のうち、出品者あてのもの
-        $checklist = $receive_proposition->checklists()->where('user_id',\Auth::id())->first();
-        //論理削除
-        $checklist->status = 0;
-        $checklist->save();
        
         }
-       //リダイレクトさせる
-         return redirect()->action('PropositionsController@talk',['id' => $receive_proposition->id]);
     }
-
+    
+    //リクエストしたユーザーがリクエストを削除する
     public function destroy($id)
     {
-        //
+        if(\Auth::id() ===$receive_proposition->proposition_id){}
     }
     
     // getでswapping/（任意のid）にアクセスされた場合の取引中一覧表示処理
