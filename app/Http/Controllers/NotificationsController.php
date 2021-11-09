@@ -33,4 +33,18 @@ class NotificationsController extends Controller
         
         
     }
+    
+    // patchでnotification/にアクセスされた場合の「更新処理」
+    public function update(Request $request, $id)
+    {
+        // idの値でチェックリストを検索して取得
+        $notification = \App\Notification::find($id);
+        $notification->status = $request->status;
+        $notification->save();
+        
+        
+        //リダイレクトさせる
+            return redirect()->action('ExhibitsController@show',['exhibit' => $notification->exhibit_id]);
+        
+    }
 }

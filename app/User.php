@@ -85,7 +85,8 @@ class User extends Authenticatable
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount('exhibits','propositions');
+        
+        $this->loadCount('notifications','checklists');
     }
     
     /**
@@ -103,4 +104,29 @@ class User extends Authenticatable
     {
         return $this->hasMany(Checklist::class);
     }
+    
+    /**
+     * このユーザの新着チェックリストの件数
+     */
+    public function count_checklists()
+    {
+        //このユーザーの新着チェックリスト
+        $checklists = $this ->checklists()-> where('checklists.status',2)->get();
+        //カウント
+        $checklists_counter = $checklists ->count();
+        return $checklists_counter;
+    }
+    
+    /**
+     * このユーザの新着通知の件数
+     */
+    public function count_notifications()
+    {
+        //このユーザーの新着通知
+        $notifications = $this ->notifications()-> where('notifications.status',2)->get();
+        //カウント
+        $notifications_counter = $notifications ->count();
+        return $notifications_counter;
+    }
+    
 }

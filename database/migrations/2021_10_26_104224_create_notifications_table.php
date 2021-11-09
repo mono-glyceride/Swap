@@ -18,7 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('exhibit_id');
             $table->integer('content_id');
-                        //通知　0:リクエスト届いた　1:取引不成立 
+                        //通知　0:取引不成立 
             $table->integer('status')->default(2);
                         //0：false:非表示　1:True:表示（既読）　２：表示（未読）　論理削除、既読か未読か、50件溜まったら削除
             $table->timestamps();

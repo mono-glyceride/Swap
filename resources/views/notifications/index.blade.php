@@ -11,13 +11,11 @@
         @if (count($notifications) > 0)      
                 @foreach ($notifications as $notification)
                         @if($notification->content_id == 0)
-                            <a href="{{ route('propositions.show', ['proposition' => $notification->proposition->id]) }}">
-                                <figure>
-                                <img src="{{$notification->proposition->exhibit->pic_id }}" width="70" height="70" >
-                                <figcaption>「{{$notification->proposition->exhibit->character}} {{$notification->proposition->exhibit->goods_type}}」
-                                への交換リクエストは成立しませんでした。</figcaption>
-                                </figure>
-                            </a>
+                            {{ Form::open(['route' => ['notifications.update',$notification->id],'method' => 'patch','class'=>'form-horizontal']) }}
+                                {{Form::hidden('status','1')}}
+                                <button type="submit" class="btn btn-light"><img src="{{$notification->exhibit->pic_id }}" width="70" height="70" >
+                                <div>「{{$notification->exhibit->character}} {{$notification->exhibit->goods_type}}」への交換リクエストは成立しませんでした</div></button>
+                            {{ Form::close() }}
                         @endif
                 @endforeach
             @endif
