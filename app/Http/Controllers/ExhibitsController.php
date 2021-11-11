@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Exhibit;
@@ -74,7 +74,7 @@ class ExhibitsController extends Controller
         }
         
         // 認証済みユーザ（閲覧者）の出品として作成（リクエストされた値をもとに作成）
-        $request->user()->exhibits()->create([
+        $exhibit = $request->user()->exhibits()->create([
             'pic_id' => $path1,
             'origin' => $request->origin,
             'character' => $request->character,
@@ -95,11 +95,29 @@ class ExhibitsController extends Controller
             'place' => $request->place,
         ]);
         
+        //空白区切りで単語を要素数10の配列$wordsに取り出す（全角と半角の場合あり）
+        $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->key_wprd, 10, PREG_SPLIT_NO_EMPTY);
+        
+        //配列すべてでループ
+        foreach($words as $word){
+        
+        //既存のタグか
+        $tag = DB::table('tags')->where('keyword', $word)->first();
+        
+        //タグにないなら$wordをタグテーブルのレコードに追加
+        if (is_null($tag)) {
+        $tag = \App\Tag::create(['keyword' => $word,]);
+        }
+        
+        //タグと出品を紐づけ
+        $exhibit->add_tagging($tag->id);
+        
+        }
+        
+        //トップにリダイレクト
+        return redirect()->action('ExhibitsController@index');
         
         
-        
-        // トップへリダイレクトさせる
-         return redirect()->action('ExhibitsController@index');
         
     }
 
