@@ -223,7 +223,41 @@ class ExhibitsController extends Controller
             'exhibits' => $exhibits,
         ]);
         
+    }
+    
+    // getでsearchにアクセスされた場合の検索結果表示処理
+    public function search(Request $request)
+    {
+        //空白区切りで単語を最大要素数10の配列$wordsに取り出す（全角と半角の場合あり）
+        $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->keyword, 10, PREG_SPLIT_NO_EMPTY);
         
+        $exhibit_ids = array();
+        //ワード配列すべてでループ
+        foreach($words as $word){
+            $tag = DB::table('tags')->where('keyword', $word)->first();
+            
+            //入力された文字と部分一致するタグが見つかった場合
+            if (!is_null($tag)) {
+            $tag_id = $tag->id;
+            //中間テーブル(exhibit_tagging)からtag_idカラムに$tag_idとつながるexhibit_idを取り出す
+            $exhibit_ids = $exhibit_ids + DB::table('exhibit_tagging')->where('tag_id', $tag_id)->pluck('exhibit_id')->toArray();
+            }
+        }
+        
+        //取得した出品を絞り込み日付順にして、ページネーション
+        if (empty($exhibit_ids)) {
+            $exhibits = null;
+        }
+        else{
+            $exhibits = Exhibit::whereIn('id',$exhibit_ids)->where('status', 1)->latest()->paginate(10);
+        }
+        
+        $keyword = $request->keyword;
+        // exhibit一覧ビューでそれを表示
+        return view('exhibits.search', [
+            'exhibits' => $exhibits,
+            'keyword'=>$keyword,
+        ]);
     }
     
     

@@ -1,5 +1,11 @@
 <header class="mb-4 sticky-top">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid mt-3">
+        {{ Form::open(['route' => 'exhibits.search', 'method' => 'get']) }}
+            {{Form::text('keyword', null, ['id' => 'keyword'])}}
+            {{ Form::submit('検索', ['class' => 'btn btn-light']) }}
+        {{ Form::close() }}
+    </div>
     @if (Auth::check())
         
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar ">

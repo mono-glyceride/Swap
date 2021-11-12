@@ -8,6 +8,7 @@
             
             {{-- 見出し --}}
             <div class="border border-primary midasi">
+                @include('commons.back_button')
                 <h2>
                     グッズ詳細
                 </h2>

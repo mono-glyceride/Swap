@@ -33,6 +33,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 
+//検索結果の表示用
+Route::get('/search','ExhibitsController@search')->name('exhibits.search');;
 
 
 // 認証が必要なもの
