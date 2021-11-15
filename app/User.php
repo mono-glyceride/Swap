@@ -86,7 +86,7 @@ class User extends Authenticatable
     public function loadRelationshipCounts()
     {
         
-        $this->loadCount('notifications','checklists');
+        $this->loadCount('reviews');
     }
     
     /**
@@ -129,4 +129,19 @@ class User extends Authenticatable
         return $notifications_counter;
     }
     
+    /**
+     * このユーザへのレビュー。（ Reviewモデルとの関係を定義）
+     */
+    public function reviewers()
+    {
+        return $this->hasMany(Review::class);
+    }
+    
+    /**
+     * このユーザからのレビュー。（ Reviewモデルとの関係を定義）
+     */
+    public function reviewings()
+    {
+        return $this->hasMany(Review::class,'reviewer_id');
+    }
 }
