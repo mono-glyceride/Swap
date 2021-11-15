@@ -234,7 +234,7 @@ class ExhibitsController extends Controller
         $exhibit_ids = array();
         //ワード配列すべてでループ
         foreach($words as $word){
-            $tag = DB::table('tags')->where('keyword', $word)->first();
+            $tag = DB::table('tags')->where('keyword','like','%'.$word.'%')->first();
             
             //入力された文字と部分一致するタグが見つかった場合
             if (!is_null($tag)) {
