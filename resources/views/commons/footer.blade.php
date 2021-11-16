@@ -4,7 +4,7 @@
       <a href="{{ route('exhibits.index') }}"><i class="fas fa-home"></i></a> <!-- アイコンを追加 -->
     </div>
     <div class="col">
-      <a href="{{ route('users.show', ['user' => 1]) }}"><i class="far fa-user-circle"></i></a> <!-- アイコンを追加 -->
+      <a href="{{ route('users.show', ['user' => Auth::id()]) }}"><i class="far fa-user-circle"></i></a> <!-- アイコンを追加 -->
     </div>
     <div class="col">
       <a href="{{ route('notifications.index') }}"><i class="fas fa-bell"></i></a> <!-- アイコンを追加 -->

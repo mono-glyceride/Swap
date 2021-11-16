@@ -9,7 +9,7 @@
             {{-- 見出し --}}
             <div class="border border-primary midasi">
                 <h1>
-                    マイページ
+                    {{$user->name}}さんのユーザーページ
                 </h1>
             </div>
             
@@ -18,8 +18,7 @@
 <div>
     
     <table class="table table-sm">
-        <tr>    <th>名前</th> <td>{{ $user->name }}</td>
-                <th>年齢</th> <td>{{ $age }}</td>
+        <tr>    <th>年齢</th> <td>{{ $age }}</td>
                 <th>地域</th> <td>{{ $prefecture }}</td>
                 <th>性別</th> <td>{{ $gender }}</td>
         </tr>        
@@ -39,10 +38,8 @@
         
         
         <div class="list-group d-black d-md-none">
-            <a href="{{ route('users.edit', ['user' => 1]) }}" class="list-group-item list-group-item-action">プロフィール編集</a>
-            <a href="{{ route('propositions.index') }}" class="list-group-item list-group-item-action">交換リクエスト</a>
-            <a href="{{ route('propositions.swapping', ['id' => Auth::id()])}}" class="list-group-item list-group-item-action">取引中一覧</a>
-            <a href="{{ route('exhibits.wanted', ['id' => 1]) }}" class="list-group-item list-group-item-action">出品中一覧</a>
+            <a href="{{ route('exhibits.wanted', ['id' => $user->id]) }}" class="list-group-item list-group-item-action">出品中一覧</a>
+            <a href="{{ route('reviews.index', ['id' => $user->id]) }}" class="list-group-item list-group-item-action">評価一覧</a>
         </div>
        
             

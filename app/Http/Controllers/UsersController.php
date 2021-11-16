@@ -34,7 +34,8 @@ class UsersController extends Controller
     public function show($id)
     {
         $data = [];
-        $user = \Auth::user();
+        // idの値でユーザーを検索して取得
+        $user = \App\User::findOrFail($id);
         
         
          //定数を取得
@@ -50,14 +51,19 @@ class UsersController extends Controller
             ];
          
          // ユーザー詳細ビューでそれらを表示
-         return view('users.show', $data);
+         if($user->id === \Auth::user()->id){
+            return view('users.show', $data);
+         }
+         else{
+             return view('users.other_show', $data);
+         }
     }
     
      //getでusers/（任意のid）/editにアクセスされた場合の「更新画面表示処理」
     public function edit($id)
    {
          // idの値でリクエストを検索して取得
-        $user = \App\User::findOrFail($id);
+        $user = \Auth::user();
         
         // リクエスト更新ビューでそれらを表示
         return view('users.edit',[

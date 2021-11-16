@@ -83,10 +83,9 @@
                 <img src="{{ asset('storage/images/icon.png') }}" class="img-responsive img-rounded "  width="80" height="80">
                 <img src="{{ asset( 'storage/'.$user->icon_id )}}" width="70" height="70" >
                 --}}
-               <p>出品したユーザー：{{ $user->name }}</p>
-               {{-- とりあえず表示させるために　$exhibit->exhibitor_id　となっています。本当はユーザー名を表示したいです。 --}}
-                
-                {{-- 交換ボタン @include('../exhibits.requ_button') --}}
+               <a href="{{ route('users.show', ['user' => $user->id]) }}" class="nav-link">
+                   <p>出品したユーザー：{{ $user->name }}</p>
+               </a>
                 
                 
                 @include('exhibits.requ_button')
