@@ -44,6 +44,11 @@
                 <a href="{{ route('exhibits.create') }}" class="nav-link">出品</a>
                 </li>
                 
+                {{-- 評価一覧へのリンク --}}
+                <li class="nav-item">
+                <a href="{{ route('reviews.index', ['id' => Auth::id()]) }}" class="nav-link">評価一覧</a>
+                </li>
+                
                 {{-- プロフィール編集へのリンク --}}
                 <li class="nav-item">
                     <a href="{{ route('users.edit', ['user' => Auth::id()])}}" }}" class="nav-link">プロフィール編集</a>

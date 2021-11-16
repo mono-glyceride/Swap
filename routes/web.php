@@ -52,7 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('propositions', 'PropositionsController');
     Route::resource('notifications', 'NotificationsController');
-    Route::resource('reviews', 'ReviewsController', ['only' => ['create','store','index']]);
+    Route::get('index/{id}', 'ReviewsController@index') ->name('reviews.index');
+    Route::resource('reviews', 'ReviewsController', ['only' => ['create','store']]);
 
     Route::get('exhibits/{id}/propositions/create_mail', 'PropositionsController@create_mail')->name('propositions.create_mail');
     Route::get('exhibits/{id}/propositions/create_handing', 'PropositionsController@create_handing')->name('propositions.create_handing');

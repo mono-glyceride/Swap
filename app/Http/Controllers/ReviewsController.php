@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 class ReviewsController extends Controller
 {
     // getでreview/にアクセスされた場合の「一覧表示処理」
-    public function index()
+    public function index($id)
     {
+        // idの値でユーザーを検索して取得
+        $user = \App\User::findOrFail($id);
         
-        // exhibit一覧を取得
-        $exhibits = Exhibit::where('exhibits.status',1)->paginate(10);
+        // review一覧を取得
+        $reviews = \App\Review::where('reviews.user_id',$id)->paginate(20);
         
         // exhibit一覧ビューでそれを表示
-        return view('exhibits.index', [
-            'exhibits' => $exhibits,
+        return view('reviews.index', [
+            'reviews' => $reviews,
         ]);
         
     }

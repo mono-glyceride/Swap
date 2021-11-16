@@ -210,8 +210,8 @@ class ExhibitsController extends Controller
     public function wanted($id)
     {   
         
-            // 認証済みユーザを取得
-            $user = \Auth::user();
+        // 認証済みユーザを取得
+        $user = \App\User::findOrFail($id);
         
         
         // ユーザーの出品一覧を取得
@@ -221,6 +221,7 @@ class ExhibitsController extends Controller
         // exhibit一覧ビューでそれを表示
         return view('mypage.wanted', [
             'exhibits' => $exhibits,
+            'user'=>$user,
         ]);
         
     }
