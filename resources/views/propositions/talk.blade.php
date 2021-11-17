@@ -3,27 +3,30 @@
 @section('content')
     
     <div class="talk">
-        
-        
-        
         <div class="text-center">
             {{-- 見出し --}}
             <div class="border border-primary midasi">
-                
                 <h1>
-                {{$partner->name}}
-                
-                さんとのトーク画面
-                
-                {!! Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) !!}
-    　  {{Form::hidden('status','4')}}
-        {!! Form::submit('この取引を終了', ['class' => 'btn btn-danger requ_button']) !!}
-        {!! Form::close() !!}
+                {{$partner->name}}さんとの取引画面
                 </h1>
-                
-                
-                
             </div>
+            
+            
+            {{ Form::open(['route' => 'reviews.store']) }}
+            {{-- {{Form::hidden('status',4)}} --}}
+            {{Form::hidden('proposition_id',$proposition->id)}}
+            <label class="radio-button">
+                {{ Form::radio('point', 1, true,['class' => 'radio-button__input']) }}
+                <span class="radio-button__icon">よかった</span>
+            </label>
+            <label class="radio-button">
+                {{ Form::radio('point', 0, false,['class' => 'radio-button__input']) }}
+                <span class="radio-button__icon">残念だった</span>
+            </label>
+            {{Form::textarea('comment', 'お取引ありがとうございました。', ['class' => 'form-control', 'id' => 'comment',  'rows' => '3'])}}
+            {{ Form::submit('評価してこの取引を終了', ['class' => 'btn btn-info']) }}
+            {{ Form::close() }}
+            
         </div>
         
         <div class="talk">

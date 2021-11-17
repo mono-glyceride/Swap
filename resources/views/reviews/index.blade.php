@@ -3,9 +3,9 @@
 
 @section('content')
         <div class="text-center border border-primary midasi">
-                <h1>
-                    評価
-                </h1>
+            <h1>
+                {{$user->name}}さんの評価 {{$user->review_avarage()}}
+            </h1>
         </div>
         <ul>
         @if (count($reviews) > 0)      
@@ -15,7 +15,6 @@
                 <td>{{$review->reviewer->name}}</td>
                 <td>
                  @if($review->point == 0) <i class="fas fa-umbrella"></i>
-                 @elseif($review->point == 1) <i class="fas fa-cloud"></i>
                  @else <i class="fas fa-sun"></i>
                  @endif
                 </td>

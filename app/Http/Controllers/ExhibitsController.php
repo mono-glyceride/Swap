@@ -210,9 +210,8 @@ class ExhibitsController extends Controller
     public function wanted($id)
     {   
         
-        // 認証済みユーザを取得
+        // $idのユーザを取得（認証ユーザーではないかも）
         $user = \App\User::findOrFail($id);
-        
         
         // ユーザーの出品一覧を取得
         $exhibits =$user->exhibits()->where('exhibits.status',1)->paginate(10);

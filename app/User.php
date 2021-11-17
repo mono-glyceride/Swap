@@ -36,7 +36,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     /**
      * このユーザが出した出品。（ Exhibitモデルとの関係を定義）
      */
@@ -44,7 +44,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Exhibit::class,'exhibitor_id');
     }
-    
+
     /**
      * このユーザが出したリクエスト。（ Propositionモデルとの関係を定義）
      */
@@ -52,7 +52,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Proposition::class,'user_id');
     }
-    
+
     /**
      * このユーザが送ったメッセージ。（ Messageモデルとの関係を定義）
      */
@@ -60,35 +60,34 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
-    
+
     /**
      * このユーザが貰ったリクエスト（このユーザーの出品に出されたリクエスト）
      */
     public function receive_propositions()
     {
         return $this->hasManyThrough('App\Proposition', 'App\Exhibit','exhibitor_id');
-        
+
     }
-    
+
     /**
      * このユーザがリクエストを送った出品
      */
     public function proposing_exhibits()
     {
         return $this->hasManyThrough('App\Exhibit', 'App\Proposition','user_id');
-        
+
     }
-    
-    
+
+
     /**
      * このユーザに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        
-        $this->loadCount('reviews');
+        $this->loadCount('reviewers');
     }
-    
+
     /**
      * このユーザへの通知。（ Notificationモデルとの関係を定義）
      */
@@ -96,7 +95,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
-    
+
     /**
      * このユーザのチェックリスト。（ Checklistモデルとの関係を定義）
      */
@@ -104,7 +103,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Checklist::class);
     }
-    
+
     /**
      * このユーザの新着チェックリストの件数
      */
@@ -116,7 +115,7 @@ class User extends Authenticatable
         $checklists_counter = $checklists ->count();
         return $checklists_counter;
     }
-    
+
     /**
      * このユーザの新着通知の件数
      */
@@ -128,7 +127,7 @@ class User extends Authenticatable
         $notifications_counter = $notifications ->count();
         return $notifications_counter;
     }
-    
+
     /**
      * このユーザへのレビュー。（ Reviewモデルとの関係を定義）
      */
@@ -136,12 +135,34 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
-    
+
     /**
      * このユーザからのレビュー。（ Reviewモデルとの関係を定義）
      */
     public function reviewings()
     {
         return $this->hasMany(Review::class,'reviewer_id');
+    }
+
+    /**
+     * レビューの平均点を求める
+     * @return int
+     */
+    public function review_avarage()
+    {
+        //0の除算に注意
+        // レビューの件数
+        $number = $this->reviewers()->get()->count();
+        if($number === null || $number<5){
+            return null;
+        }
+
+        //1ポイント（良い）評価の件数
+        $high = $this ->reviewers()-> where('point',1)->count();
+
+        //良いレビュー（小数点以下四捨五入)
+        $average = round($high/$number*10);
+
+        return $average;
     }
 }

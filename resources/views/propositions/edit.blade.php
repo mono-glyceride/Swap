@@ -62,9 +62,9 @@
             
            
             <div>
-                <h2 class="border border-primary">
-                    リクエストユーザー:{{$proposition->user->name}}
-                </h2>
+                <a href="{{ route('users.show', ['user' => $proposition->user->id]) }}" class="nav-link">
+                   <p>リクエストユーザー：{{ $proposition->user->name }}</p>
+                </a>
                 
                 
                 {{-- 交換ボタン --}}

@@ -8,15 +8,11 @@
     </div>
     <div class="col">
       <a href="{{ route('notifications.index') }}"><i class="fas fa-bell"></i></a> <!-- アイコンを追加 -->
-      @auth
         {{ auth()->user() ->count_notifications() }}
-      @endauth
     </div>
     <div class="col">
       <a href="{{ route('checklists.index') }}"><i class="fas fa-check"></i></a> <!-- アイコンを追加 -->
-      @auth
         {{ auth()->user() ->count_checklists() }}
-      @endauth
     </div>
   </div>
 </div>

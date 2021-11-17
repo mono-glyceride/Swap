@@ -42,4 +42,22 @@ class Proposition extends Model
     {
         return $this->hasMany(Checklist::class);
     }
+    
+    /**
+     * 与えられたuser_idの取引相手のidを返す
+     * * @param  int  $user_id
+     * @return int id
+     */
+    public function partner($user_id)
+    {
+        // 出品者のid
+        $exhibitor_id = $this->exhibit->exhibitor_id;
+        //認証ユーザーが出品者なら
+        if($exhibitor_id === $user_id){
+            return $this->user_id;
+        }
+        else{
+            return $exhibitor_id;
+        }
+    }
 }
