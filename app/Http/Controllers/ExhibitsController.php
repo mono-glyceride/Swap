@@ -36,17 +36,11 @@ class ExhibitsController extends Controller
         $request->validate([
             'pic_id' => 'required',
             'character' => 'required|max:255',
-            'want_character' => 'required|max:255',
-            'mail_flag' => 'required|max:255',
-            'handing_flag' => 'required|max:255',
+            'shipping' => 'required',
             'origin' => 'max:255',
             'goods_type' => 'max:255',
-            'key_wprd' => 'max:255',
+            'keyword' => 'max:255',
             'notes' => 'max:255',
-            'want_origin' => 'max:255',
-            'want_goods_type' => 'max:255',
-            'want_key_word' => 'max:255',
-            'want_notes' => 'max:255',
             'place' => 'max:255',
         ]);
         
@@ -64,13 +58,16 @@ class ExhibitsController extends Controller
         $path1 = Storage::disk('s3')->url($path1);
         
         
-        if ($request->want_pic_id != null) { // 画像がある場合
-        $file = $request->file('want_pic_id');
-        $want_path1 = Storage::disk('s3')->putFile('/', $file, 'public');
-        $want_path1 = Storage::disk('s3')->url($want_path1);
+        //交換方法　1：対応する 2:対応しない
+        $mail_flag = 1;
+        $handing_flag = 1;
+        
+        if($request->shipping == 1){
+            $handing_flag = 2;
         }
-        else{
-            $want_path1 = null;
+        
+        if($request->shipping == 2){
+            $mail_flag = 2;
         }
         
         // 認証済みユーザ（閲覧者）の出品として作成（リクエストされた値をもとに作成）
@@ -79,24 +76,16 @@ class ExhibitsController extends Controller
             'origin' => $request->origin,
             'character' => $request->character,
             'goods_type' => $request->goods_type,
-            'key_wprd' => $request->key_wprd,
-            'condition' => $request->condition,
+            'keyword' => $request->keyword,
             'notes' => $request->notes,
-            'want_pic_id' => $want_path1,
-            'want_origin' => $request->want_origin,
             'want_character' => $request->want_character,
-            'want_goods_type' => $request->want_goods_type,
-            'want_key_word' => $request->want_key_word,
-            'want_notes' => $request->want_notes,
-            'mail_flag' => $request->mail_flag,
-            'ship_from' => $request->ship_from,
-            'days' => $request->days,
-            'handing_flag' => $request->handing_flag,
+            'mail_flag' => $mail_flag,
+            'handing_flag' => $handing_flag,
             'place' => $request->place,
         ]);
         
         //空白区切りで単語を要素数10の配列$wordsに取り出す（全角と半角の場合あり）
-        $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->key_wprd, 10, PREG_SPLIT_NO_EMPTY);
+        $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->keyword, 10, PREG_SPLIT_NO_EMPTY);
         
         //配列すべてでループ
         foreach($words as $word){
@@ -139,20 +128,14 @@ class ExhibitsController extends Controller
         
         
         //定数を取得
-        $condition = \App\Consts\ExhibitConst::CONDITION_LIST[$exhibit->condition];
         $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$exhibit->mail_flag];
-        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$exhibit->ship_from ?? 0];
-        $days = \App\Consts\ExhibitConst::DAY_LIST[$exhibit->days ?? 0];
         $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->handing_flag];
         
         $data = [
             'exhibit' => $exhibit,
             'propositions' => $propositions,
             'user' => $user,
-            'condition' => $condition,
             'mail_flag' => $mail_flag,
-            'ship_from' => $ship_from,
-            'days' => $days,
             'handing_flag' => $handing_flag,
             'path' => $path
             ];

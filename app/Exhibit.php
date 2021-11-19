@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Exhibit extends Model
 {
     protected $fillable = [
-        'pic_id','origin', 'character', 'goods_type','key_wprd','condition','notes',
-        'want_pic_id','want_origin','want_character','want_goods_type','want_key_word','want_notes',
-        'mail_flag','ship_from','days','handing_flag','place'
+        'pic_id','origin', 'character','thumbnail', 'goods_type','keyword','notes',
+        'want_pic_id','want_character',
+        'mail_flag','handing_flag','place'
     ];
     
     /**
