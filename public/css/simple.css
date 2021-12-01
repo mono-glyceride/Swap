@@ -1,0 +1,21 @@
+.header{
+    height:40px;
+    position: fixed;
+    width: 100%;
+    border-bottom: solid 1px ;
+    top: 0;
+    background-color: white;
+}
+
+img{
+    width: 100%;
+}
+
+h1{
+    line-height: 40px;
+}
+
+th{
+    font-weight: normal;
+    background-color:  silver;
+}

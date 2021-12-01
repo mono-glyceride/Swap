@@ -1,0 +1,12 @@
+body{
+    font-family: "メイリオ" ;
+}
+h1{ 
+    font-size: 1.5em; 
+}
+
+.container{
+    margin:0;
+    padding:0;
+    display: grid; 
+}
