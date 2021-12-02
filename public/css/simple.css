@@ -1,21 +1,38 @@
-.header{
+header{
     height:40px;
-    position: fixed;
-    width: 100%;
-    border-bottom: solid 1px ;
+    border-bottom: solid 1px #F0F0E8;
     top: 0;
     background-color: white;
 }
-
-img{
-    width: 100%;
-}
-
 h1{
     line-height: 40px;
 }
 
+
+img{
+    max-width: 100%;
+}
+
+.tags{
+    color: rgb(29, 155, 240);
+}
+
 th{
     font-weight: normal;
-    background-color:  silver;
+    background-color:  #F0F0E8;
+}
+
+footer{
+    height: 40px;
+    background-color: white;
+    border-top: solid 1px #F0F0E8;
+}
+form{
+    text-align: center;
+}
+
+.requ_button{
+    height: 30px;
+    margin: 5px;  
+    width: 80%;
 }

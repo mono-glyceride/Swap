@@ -1,6 +1,5 @@
-<header class="mb-4 sticky-top">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid mt-3">
+<nav class="navbar-dark">
+    <div>
         {{ Form::open(['route' => 'exhibits.search', 'method' => 'get']) }}
             {{Form::text('keyword', null, ['id' => 'keyword'])}}
             {{ Form::submit('検索', ['class' => 'btn btn-light']) }}
@@ -51,7 +50,7 @@
                 
                 {{-- プロフィール編集へのリンク --}}
                 <li class="nav-item">
-                    <a href="{{ route('users.edit', ['user' => Auth::id()])}}" }}" class="nav-link">プロフィール編集</a>
+                    <a href="{{ route('users.edit', ['user' => Auth::id()])}}" class="nav-link">プロフィール編集</a>
                 </li>
                 
                 {{-- 交換リクエストへのリンク --}}
@@ -71,7 +70,6 @@
                 </li>
             </ul>
         </div>
-    
     @else
         <div class="btn-toolbar">
             <div class="btn-group ml-auto">
@@ -80,6 +78,4 @@
             </div>
         </div>
     @endif
-    
-    </nav>
-</header>
+<nav>

@@ -14,7 +14,8 @@
             {{-- エラーメッセージ --}}
             @include('commons.error_messages')
 
-        <div class="container">    
+        <div class="container">
+            @include('commons.navbar') 
             @yield('content')
         <div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

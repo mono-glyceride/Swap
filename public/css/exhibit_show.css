@@ -1,0 +1,27 @@
+
+.imgs{
+    margin-top: 40px;
+}
+
+h1{
+    line-height: 40px;
+}
+
+img{
+    max-width: 100%;
+}
+
+th{
+    font-weight: normal;
+    background-color:  #F0F0E8;
+}
+
+form{
+    height: 30px;
+    margin-top: 10px;
+}
+.requ_button{
+    width:80%;
+    padding:0;
+    height: 100%;
+}
