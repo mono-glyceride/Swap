@@ -4,8 +4,12 @@ header{
     top: 0;
     background-color: white;
 }
+
+
+
 h1{
     line-height: 40px;
+    margin: 0;
 }
 
 
@@ -20,6 +24,7 @@ img{
 th{
     font-weight: normal;
     background-color:  #F0F0E8;
+    width: 38%;
 }
 
 footer{

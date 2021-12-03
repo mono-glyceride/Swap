@@ -15,7 +15,9 @@
             @include('commons.error_messages')
 
         <div class="container">
-            @include('commons.navbar') 
+            <div class="simple_nav d-none d-sm-block">
+            @include('commons.navbar')
+            </div>
             @yield('content')
         <div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

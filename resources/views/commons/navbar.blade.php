@@ -1,4 +1,4 @@
-<nav class="navbar-dark">
+<nav>
     <div>
         {{ Form::open(['route' => 'exhibits.search', 'method' => 'get']) }}
             {{Form::text('keyword', null, ['id' => 'keyword'])}}
@@ -78,4 +78,4 @@
             </div>
         </div>
     @endif
-<nav>
+</nav>
