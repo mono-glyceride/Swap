@@ -6,20 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
         <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-        <link rel="stylesheet" href="css/footer.css">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/exhibit_form.css">
-        <link rel="stylesheet" href="/css/talk.css">
+        <link rel="stylesheet" href="/css/common.css">
         
     </head>
 
     <body>
-
-        {{-- ナビゲーションバー --}}
-        @include('commons.navbar')
-
-        
         <div class="container">
             {{-- エラーメッセージ --}}
             @include('commons.error_messages')
@@ -29,7 +20,7 @@
         
         
         {{-- 出品ボタン --}}
-        @include('exhibits.exhibit_button')
+        {{--@include('exhibits.exhibit_button') --}}
         @auth
         {{-- 固定フッター --}}
         @include('commons.footer')

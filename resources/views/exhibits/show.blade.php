@@ -1,4 +1,4 @@
-@extends('layouts.appsimple')
+@extends('layouts.app')
 
 
 @section('content')
@@ -16,7 +16,6 @@
                 </div>
                 <div class="col-sm-6">
                     <p class="tags">
-                        <i class="fas fa-arrow-circle-left"></i>
                     　＃{{ $exhibit->origin }}
                     　＃{{ $exhibit->goods_type }}
                     　＃{{ $exhibit->keyword }}
@@ -29,7 +28,6 @@
                         <tr><th>補足説明</th><td>{{ $exhibit->notes }}</td></tr>
                     </table>
                     <div class="user">
-                        @include('commons.back_button')
                         <p>出品したユーザー</p>
                         @include('users.info')
                     </div>
