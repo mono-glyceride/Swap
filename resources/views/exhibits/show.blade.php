@@ -4,7 +4,7 @@
 @section('content')
             {{-- 見出し --}}
             <header class="sticky-top d-block d-sm-none">
-                <h1>
+                <h1 class="d-flex align-items-center">
                     @include('commons.back_button')
                     グッズ詳細
                 </h1>
@@ -12,7 +12,7 @@
             
             <div class="row">
                 <div class="imgs col-sm-6">
-                    <img src="{{ $exhibit->pic_id }}">
+                    <img src="{{ $exhibit->pic_id }}" class="show_imgs">
                 </div>
                 <div class="col-sm-6">
                     <p class="tags">

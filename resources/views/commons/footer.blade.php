@@ -16,12 +16,3 @@
     </div>
   </div>
 </div>
-
-<style>
-.footer-menu-bar
-{
-    position: fixed;       /* 要素の位置を固定する */
-    bottom: 0px;           /* 絶対位置を指定する(下0px) */
-    background-color: white;
-}
-</style>
