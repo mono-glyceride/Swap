@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="/css/common.css">
         <link rel="stylesheet" href="/css/exhibit/show.css">
         <link rel="stylesheet" href="/css/exhibit/index.css">
+        <link rel="stylesheet" href="/css/common/footer.css">
         
     </head>
 
@@ -19,12 +20,6 @@
 
             @yield('content')
         </div>
-        
-        @auth
-        {{-- 固定フッター --}}
-        @include('commons.footer')
-        @endauth
-
        
     </body>
 </html>
