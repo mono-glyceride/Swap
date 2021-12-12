@@ -7,8 +7,7 @@
     color: rgb(29, 155, 240);
 }
 
-th{
-    font-weight: normal;
+.item_table th{
     background-color:  #F0F0E8;
     width: 38%;
 }

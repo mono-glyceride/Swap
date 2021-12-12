@@ -1,6 +1,6 @@
 {{--  出品されたデータの一覧--}}
     
-<div class="thumbnails row">           
+<main class="row">           
 @if (count($exhibits) > 0)      
         @foreach ($exhibits as $exhibit)
                     <div class="col-4 col-md-3 col-md-2 col-xl-1 thumbnail">
@@ -14,4 +14,4 @@
 
 @endif
 
-</div>
+</main>

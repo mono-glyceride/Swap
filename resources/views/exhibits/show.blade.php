@@ -20,7 +20,7 @@
                     　＃{{ $exhibit->goods_type }}
                     　＃{{ $exhibit->keyword }}
                     </p>
-                    <table class="table table-sm something">
+                    <table class="table table-sm item_table">
                         <tr><th>キャラクター（譲）</th><td>{{ $exhibit->character }}</td></tr>
                         <tr><th>キャラクター（求）</th><td>{{ $exhibit->want_character }}</td></tr>
                         <tr><th>交換方法</th></th><td>{{ $mail_flag }}/{{ $handing_flag }}</td></tr>

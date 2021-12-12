@@ -7,6 +7,10 @@ body{
     max-width: 100vw;
 }
 
+body p {
+    margin-bottom: 0.2rem;
+}
+
 /**/
 
 h1{ 
@@ -66,14 +70,22 @@ a img{
     background-color: red;
 }
 
-.thumbnails{
+main{
     margin-top: 1vh;
-    padding: 0px 15px;
+}
+
+th{
+    font-weight: normal;
 }
 
 .thumbnail{
     position: relative;
     padding: 1px;
+}
+
+/*評価*/
+.fa-star{
+    color:#ffc107;
 }
 
 /*出品ボタン*/

@@ -1,0 +1,27 @@
+
+
+.user_info{
+    margin: 1vh;
+}
+
+.user_info div{
+    margin: 10px 0px;
+}
+
+.user_info p{
+    margin: 0;
+}
+
+.user_info th{
+    width: 50%;
+}
+
+.user_info td{
+    width: 50%;
+}
+
+.introduce{
+    padding: 1vh;
+    border-top: solid 3px #F0F0E8;
+    border-bottom: solid 3px #F0F0E8;
+}

@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="/css/exhibit/show.css">
         <link rel="stylesheet" href="/css/exhibit/index.css">
         <link rel="stylesheet" href="/css/common/footer.css">
+        <link rel="stylesheet" href="/css/user/show.css">
         
     </head>
 
