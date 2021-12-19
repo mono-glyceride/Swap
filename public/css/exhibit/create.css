@@ -1,0 +1,56 @@
+.goods_form{
+    padding: 10px;
+}
+
+.goods_form lavel,input,select,text,textarea{
+    width: 100%;
+    height: 40px;
+    border:solid #ccc 1px;
+    border-radius: 4px;
+}
+
+.form_items{
+    margin-bottom: 2vh;
+}
+
+.form_items label{
+    margin-bottom: 0px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.form_items .file {
+    width: 100%;
+    height: 40px;
+    border:solid #ccc 1px;
+    border-radius: 4px;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  padding: .5em;
+  background-color: white;
+}
+
+.file input[type="file"] {
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+header input[type="submit"]{
+    padding: 0px;
+    color: #fff;
+    background-color: rgb(85, 172, 238);
+    border-color: rgb(85, 172, 238);
+    width: 30%;
+    height: 5vh;
+    border-radius: 15px;
+    margin-right: 10px;
+    margin-left: auto;
+}

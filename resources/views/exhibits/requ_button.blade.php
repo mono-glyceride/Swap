@@ -1,6 +1,6 @@
 
 @if (Auth::id() == $exhibit->exhibitor_id) 
-        {!! Form::model($exhibit, ['route' => ['exhibits.update', $exhibit->id], 'method' => 'patch']) !!}
+        {!! Form::model($exhibit, ['route' => ['exhibits.update', $exhibit->id], 'method' => 'patch','class' =>'requ_form']) !!}
         {{Form::hidden('status','3')}}
         {!! Form::submit('この出品を削除', ['class' => 'btn btn-danger requ_button']) !!}
         {!! Form::close() !!}
@@ -13,12 +13,12 @@
     @else
     <div>
         <div class="repry_item">
-            <a href="{{ route('propositions.create_mail', ['id' => $exhibit->id]) }}">
+            <a href="{{ route('propositions.create_mail', ['id' => $exhibit->id,'class' =>'requ_form']) }}">
             <button class="btn btn-primary requ_button ">交換リクエスト【郵送】</button>
             </a>
         </div>
         <div>
-            <a href="{{ route('propositions.create_handing', ['id' => $exhibit->id]) }}">
+            <a href="{{ route('propositions.create_handing', ['id' => $exhibit->id,'class' =>'requ_form']) }}">
             <button class="btn btn-outline-primary requ_button">交換リクエスト【手渡し】</button>
             </a>
         </div>
