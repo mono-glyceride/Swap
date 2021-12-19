@@ -43,6 +43,7 @@
             <a href="{{ route('propositions.swapping', ['id' => Auth::id()])}}" class="list-group-item list-group-item-action">取引中一覧</a>
             <a href="{{ route('exhibits.wanted', ['id' => Auth::id()]) }}" class="list-group-item list-group-item-action">出品中一覧</a>
             <a href="{{ route('reviews.index', ['id' => Auth::id()]) }}" class="list-group-item list-group-item-action">評価一覧</a>
+            <a href="{{ route('logout.get') }}"class="list-group-item list-group-item-action">ログアウト</a>
     </div>
        
             

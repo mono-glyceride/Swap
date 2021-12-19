@@ -12,26 +12,9 @@
         <p>この出品へはすでに交換リクエストを送っています</p>
     @else
     <div>
-        <div class="repry_item">
-            <a href="{{ route('propositions.create_mail', ['id' => $exhibit->id,'class' =>'requ_form']) }}">
-            <button class="btn btn-primary requ_button ">交換リクエスト【郵送】</button>
-            </a>
-        </div>
-        <div>
-            <a href="{{ route('propositions.create_handing', ['id' => $exhibit->id,'class' =>'requ_form']) }}">
-            <button class="btn btn-outline-primary requ_button">交換リクエスト【手渡し】</button>
-            </a>
-        </div>
+        <a href="{{ route('propositions.create_mail', ['id' => $exhibit->id]) }}" class="requ_button btn btn-primary">リクエスト【郵送】</a>
+        <a href="{{ route('propositions.create_handing', ['id' => $exhibit->id]) }}" class="requ_button btn btn-outline-primary">リクエスト【手渡し】</a>
     </div>
 @endif
 
 @endif
-
-<style>
-     .requ_button{
-        margin-bottom:100px;
-    }
-    .requ_button:hover{
-        opacity:1;
-    }
-</style>

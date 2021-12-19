@@ -17,7 +17,17 @@
 }
 
 .requ_button{
-    height: 30px;
-    margin: 5px; 
-    width: 80%;
+    height: 2.5rem;
+    width: 40vw;
+    margin: 0.5rem 5vw;
+    font-size: 3vw;
+    padding: 0.375rem 0px;
+}
+
+.requ_button.btn-primary a{
+    color: white;
+}
+
+.requ_button.btn-outline-primary a{
+    color: rgb(85, 172, 238);
 }
