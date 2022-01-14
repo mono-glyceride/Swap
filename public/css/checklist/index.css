@@ -1,0 +1,23 @@
+.lists{
+    padding: 5px;
+}
+
+.lists a{
+    color: black;
+}
+
+.lists div{
+    background-color: 	#f8f9fa;
+}
+
+.lists .col-9{
+    margin-bottom: 5px;
+}
+
+.lists .col-3{
+    padding: 0px;
+}
+
+.lists div p{
+    margin: 5px;
+}
