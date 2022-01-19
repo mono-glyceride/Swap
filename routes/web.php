@@ -58,6 +58,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('exhibits/{id}/propositions/create_mail', 'PropositionsController@create_mail')->name('propositions.create_mail');
     Route::get('exhibits/{id}/propositions/create_handing', 'PropositionsController@create_handing')->name('propositions.create_handing');
     
-    
     Route::resource('messages', 'MessagesController');
+    
+    // LINEの認証画面に遷移
+    Route::get('auth/line', 'Auth\LineOAuthController@redirectToProvider')->name('line.login');
+    // 認証後にリダイレクトされるURL(コールバックURL)
+    Route::get('auth/line', 'Auth\LineOAuthController@handleProviderCallback');
 });
