@@ -87,6 +87,33 @@ th{
     color:#ffc107;
 }
 
+/*リスト上のもの（通知、やることリスト）*/
+
+.lists{
+    padding: 5px;
+}
+
+.lists a{
+    color: black;
+}
+
+.lists div{
+    background-color: 	#f8f9fa;
+}
+
+.lists .col-9{
+    margin-bottom: 5px;
+}
+
+.lists .col-3{
+    padding: 5px;
+}
+
+.lists div p{
+    margin: 5px;
+}
+
+
 /*出品ボタン*/
  #exhibit_button{
     position:fixed;
@@ -111,7 +138,7 @@ goods_form{
     
 }
 
-/**/
+/*フッター*/
 
 footer{
     height: 3.5rem;
