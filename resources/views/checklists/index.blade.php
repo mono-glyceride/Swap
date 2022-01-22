@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-9">
                         {{ Form::open(['route' => ['checklists.destroy',$checklist->id],'method' => 'delete','class'=>'form-horizontal']) }}
-                        さんから取引メッセージが届きました。
+                        {{Form::submit('取引メッセージが届きました。')}}
                         {{ Form::close() }}
                     </div>
                 </div>
