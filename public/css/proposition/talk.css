@@ -1,0 +1,66 @@
+.talk{
+    height: 100vh;
+    background-color:#f8f9fa;
+}
+
+.messages{
+    padding-bottom: 35px;
+    background-color: #f8f9fa;
+}
+
+.review_form {
+    margin: 10px;
+    padding: 10px;
+    border:solid 1px gray;
+    background-color: white;
+}
+
+.review_form .btn-info{
+    color: white;
+}
+
+.review_form textarea.form-control{
+    height: calc(1.6em + 0.75rem + 2px);
+}
+
+.my_img{
+    text-align:right;
+    margin-right: 3vw;
+}
+
+.your_img{
+    margin-left: 3vw;
+}
+
+.talk .yours{
+    width: 70vw;
+}
+
+.our_comment{
+    padding: 4px;
+    margin: 6px;
+}
+
+.talk .your_comment{
+    background-color: white;
+    margin-left: 3vw;
+}
+
+.talk .mine{
+    width: 70vw;
+    margin:0 0 0 auto;
+}
+
+.talk .my_comment{
+    background-color: rgb(85, 172, 238);
+    margin-right: 3vw;
+    color: white;
+}
+
+.message_box{
+    width: 100vw;
+}
+
+.talk_footer{
+    height: 30px;
+}
