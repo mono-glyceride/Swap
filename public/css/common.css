@@ -151,6 +151,15 @@ footer a {
     color: black;
 }
 
+.basic-footer .col{
+    padding-left: 0px;
+}
+
+.basic-footer .btn-primary{
+    width: 40vw;
+    max-width: 500px;
+    background-color: #00acee;
+}
 
 .footer-menu-bar
 {

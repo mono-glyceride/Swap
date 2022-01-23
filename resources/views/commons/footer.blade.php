@@ -1,4 +1,4 @@
-<footer class="fixed-bottom row text-center d-flex align-items-center"> 
+<footer class="basic-footer fixed-bottom row text-center d-flex align-items-center"> 
 
     <span class="col">
     <a href="{{ route('exhibits.index') }}">

@@ -18,7 +18,17 @@
         @include('../commons.exhibits')
         @include('exhibits.exhibit_button')
         
-        @auth
-        @include('commons.footer')
-        @endauth
+        @if (Auth::check())
+            @include('commons.footer')
+        @else
+            <footer class="basic-footer fixed-bottom row text-center d-flex align-items-center"> 
+                <span class="col">
+                    <a class="btn btn-primary" href="{{ route('login') }}" role="button">ログイン</a>
+                </span>
+    
+                <span class="col">
+                    <a class="btn btn-primary" href="{{ route('signup.get') }}" role="button">新規登録</a>
+                </span>
+            </footer>
+        @endif
 @endsection
