@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     protected $fillable = [
-        'user_id', 'point', 'comment'
+        'user_id', 'proposition_id','point', 'comment'
     ];
     
     /**
@@ -24,5 +24,13 @@ class Review extends Model
     public function reviewer()
     {
         return $this->belongsTo(User::class,'reviewer_id');
+    }
+    
+    /**
+     * この評価に関連するリクエスト。（ Propositionモデルとの関係を定義）
+     */
+    public function proposition()
+    {
+        return $this->belongsTo(Proposition::class);
     }
 }

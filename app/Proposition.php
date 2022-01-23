@@ -60,4 +60,23 @@ class Proposition extends Model
             return $exhibitor_id;
         }
     }
+    
+    /**
+     * このリクエストに関連する評価。（ Reviewモデルとの関係を定義）
+     */
+    public function Reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    
+    /**
+     * 指定されたuser_idがこのリクエストにおいて評価されているか調べる。既に評価されているならtrueを返す
+     * * @param  int  $user_id
+     * @return bool
+     */
+    public function is_reviewed($user_id)
+    {
+        // 関連する評価の中に $user_idのものが存在するか
+        return $this->reviews()->where('user_id', $user_id)->exists();
+    }
 }

@@ -42,6 +42,7 @@ class ReviewsController extends Controller
         // 認証済みユーザ（閲覧者）からの評価として作成
         $user = $request->user()->reviewings()->create([
             'user_id' => $partner_id,
+            'proposition_id' => $proposition->id,
             'point' => $request->point,
             'comment' => $request->comment,
         ]);

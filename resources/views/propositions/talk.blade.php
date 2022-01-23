@@ -20,6 +20,7 @@
             </label>
             --}}
             {{-- まだレビューがない（0件なら） --}}
+            @if(!$proposition->is_reviewed($partner->id))
             <div class="review_form">
             {{ Form::open(['route' => 'reviews.store']) }}
             {{Form::hidden('proposition_id',$proposition->id)}}
@@ -30,6 +31,9 @@
             {{ Form::submit('評価してこの取引を終了', ['class' => 'btn btn-info']) }}
             {{ Form::close() }}
             </div>
+            @else
+            ※既に相手ユーザーを評価済みです。
+            @endif
             
             {{-- 表示している本人のコメントならmineクラス、相手のものならyoursクラスで生成 --}}
     

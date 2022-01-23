@@ -48,9 +48,7 @@ class ChecklistsController extends Controller
     {
         // idの値で投稿を検索して取得
         $checklist = \App\Checklist::find($id);
-
-        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
-            $checklist->delete();
+        $checklist->delete();
 
         // リダイレクトさせる。返信のやつならトークへ
         if($checklist->content_id == 1){
