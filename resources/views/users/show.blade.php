@@ -43,7 +43,6 @@
             <a href="{{ route('propositions.swapping', ['id' => Auth::id()])}}" class="list-group-item list-group-item-action">取引中一覧</a>
             <a href="{{ route('exhibits.wanted', ['id' => Auth::id()]) }}" class="list-group-item list-group-item-action">出品中一覧</a>
             <a href="{{ route('reviews.index', ['id' => Auth::id()]) }}" class="list-group-item list-group-item-action">評価一覧</a>
-            <a class="list-group-item-action list-group-item" href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id={{$lineSetting->getLoginChannelId() }}&redirect_uri={{ $encodedBaseUrl }}&state={{ csrf_token() }}&scope=openid">LINEログインする</a>
             <a href="{{ route('logout.get') }}"class="list-group-item list-group-item-action">ログアウト</a>
     </div>
        

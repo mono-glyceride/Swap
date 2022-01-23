@@ -25,4 +25,5 @@
             @endif
         @endforeach
     @endif
+    @include('commons.footer')
 @endsection

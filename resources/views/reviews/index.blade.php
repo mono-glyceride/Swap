@@ -24,4 +24,5 @@
                 @endforeach
             @endif
         </ul>
+@include('commons.footer')
 @endsection

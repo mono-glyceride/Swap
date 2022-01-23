@@ -8,7 +8,6 @@
             ToDoリスト
     </h1>
 </header>
-<a href="{{ route('logout.get') }}"class="list-group-item list-group-item-action">ログアウト</a>
 <div class="lists">
     @if (count($checklists) > 0)      
         @foreach ($checklists as $checklist)
@@ -63,4 +62,5 @@
         @endforeach
     @endif
 </div>
+@include('commons.footer')
 @endsection
