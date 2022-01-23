@@ -27,7 +27,7 @@ class ReviewsController extends Controller
     {
         // バリデーション
         $request->validate([
-            'somment' => 'max:255',
+            'comment' => 'max:255',
         ]);
         
         //認証済みユーザー

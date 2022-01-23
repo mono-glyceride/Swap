@@ -8,9 +8,6 @@
             {{$partner->name}}さんとの取引画面
         </h1>
     </header>
-            
-            
-            {{ Form::open(['route' => 'reviews.store']) }}
             {{-- {{Form::hidden('status',4)}} 
             {{Form::hidden('proposition_id',$proposition->id)}}
             <label class="radio-button">
@@ -22,9 +19,12 @@
                 <span class="radio-button__icon">残念だった</span>
             </label>
             --}}
+            {{-- まだレビューがない（0件なら） --}}
             <div class="review_form">
+            {{ Form::open(['route' => 'reviews.store']) }}
+            {{Form::hidden('proposition_id',$proposition->id)}}
             {{Form::label('point','評価【必須】')}}
-            {{Form::select('point', ['0' => 'よかった', '1' => '残念だった'], '0', ['class' => 'form-control','id' => 'selectEvalute'])}}
+            {{Form::select('point', [1 => 'よかった', 0 => '残念だった'], 1, ['class' => 'form-control','id' => 'selectEvalute'])}}
             {{Form::label('comment','コメント【必須】')}}
             {{Form::textarea('comment', 'お取引ありがとうございました。', ['class' => 'form-control', 'id' => 'comment',  'rows' => '3'])}}
             {{ Form::submit('評価してこの取引を終了', ['class' => 'btn btn-info']) }}
@@ -74,7 +74,7 @@
             @endif
             
         <div class="talk_footer fixed-bottom">
-            {!! Form::open(['route' => 'messages.store']) !!}
+            {{ Form::open(['route' => 'messages.store']) }}
                 <div>
                     {{Form::hidden('user_id',Auth::id())}}
                     {{Form::hidden('proposition_id',$proposition->id)}}
