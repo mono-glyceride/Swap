@@ -28,7 +28,7 @@ class LineLoginController extends Controller
       //LINEログインチャネルID
       $client_id = "&client_id=$line_channel_id";
       //コールバックURL
-      $redirect_uri ="&redirect_uri=https://swap-gurido.herokuapp.com//callback";
+      $redirect_uri ="&redirect_uri=https://swap-gurido.herokuapp.com//api";
       $state_uri = "&state=".$state;
       $scope = "&scope=openid%20profile";
       $prompt = "&prompt=consent";
@@ -75,7 +75,7 @@ class LineLoginController extends Controller
     $post_data = array(
       'grant_type'    => 'authorization_code',
       'code'          => $req['code'],
-      'redirect_uri'  => 'https://swap-gurido.herokuapp.com//callback',
+      'redirect_uri'  => 'https://swap-gurido.herokuapp.com//api',
       'client_id'     => $line_channel_id,
       'client_secret' => $line_channel_secret
     );

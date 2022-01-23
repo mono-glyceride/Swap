@@ -17,14 +17,15 @@
             </div>
         </a>
     @else
-    <a href="#">
+    <a href="#" class="row>
         <div class="col-3">
             <i class="fab fa-line fa-4x"></i>
         </div>
         <div class="col">
-            <p>LINEは既に連携済です</p>
+            <p>LINEは既に連携済です。</p>
         </div>
     </a>
     @endif
 </div>
+@include('commons.footer')
 @endsection
