@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('exhibits', 'ExhibitsController', ['only' => ['store']]);
     // マイページ
     Route::get('wanted/{id}', 'ExhibitsController@wanted') ->name('exhibits.wanted');
+    Route::get('api', 'UsersController@api') ->name('users.api');
     Route::get('swapping/{id}', 'PropositionsController@swapping') ->name('propositions.swapping');
     Route::get('talk/{id}', 'PropositionsController@talk') ->name('propositions.talk');
     Route::resource('exhibits', 'ExhibitsController');
@@ -60,8 +61,6 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::resource('messages', 'MessagesController');
     
-    // LINEの認証画面に遷移
-    Route::get('auth/line', 'Auth\LineOAuthController@redirectToProvider')->name('line.login');
-    // 認証後にリダイレクトされるURL(コールバックURL)
-    Route::get('auth/line', 'Auth\LineOAuthController@handleProviderCallback');
+    Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
+    Route::get('/callback', 'LineLoginController@callback')->name('callback');
 });

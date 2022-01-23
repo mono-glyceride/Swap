@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/css/exhibit/create.css">
         <link rel="stylesheet" href="/css/common/footer.css">
         <link rel="stylesheet" href="/css/user/show.css">
+        <link rel="stylesheet" href="/css/user/sns.css">
         <link rel="stylesheet" href="/css/checklist/index.css">
         <link rel="stylesheet" href="/css/notification/index.css">
         <link rel="stylesheet" href="/css/proposition/talk.css">

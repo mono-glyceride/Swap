@@ -101,4 +101,11 @@ class UsersController extends Controller
     {
         //
     }
+    
+    //apiに関する表示
+    public function api()
+    {
+        $user = \Auth::user();
+        return view('users.api');
+    }
 }

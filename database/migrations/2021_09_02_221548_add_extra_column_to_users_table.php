@@ -22,6 +22,7 @@ class AddExtraColumnToUsersTable extends Migration
                 // 1:18歳未満 2:18歳以上 3:20歳以上 3:非公開
             $table->integer('gender')->nullable()->default(0);
                 // 1:女性 2:男性 3:その他 3:非公開
+            $table->string('line_id')->nullable();
             $table->text('introduce')->nullable();
         });
     }
@@ -37,7 +38,7 @@ class AddExtraColumnToUsersTable extends Migration
             $table->dropColumn('icon_id');
             $table->dropColumn('prefecture');
             $table->dropColumn('age');
-            $table->dropColumn('gender');
+            $table->dropColumn('line_id');
             $table->dropColumn('introduce');
         });
     }
