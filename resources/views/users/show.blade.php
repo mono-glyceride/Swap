@@ -14,14 +14,13 @@
         <div class="icon col-3 border">
         </div>
         <div class="col-9">
-            <div class="font-weight-bold">
-            <p><b>{{ $user->name }}</b>
-            <br>{{$user->review_avarage()}}</p>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+            <div>
+                <p><b>{{ $user->name }}</b>
+                    @if($user->reviewers()->exists())
+                        評価はまだありません。
+                    @else
+                        <br>平均評価：{{$user->review_avarage()}}</p>
+                    @endif
             </div>
             
             <div>

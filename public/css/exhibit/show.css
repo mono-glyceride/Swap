@@ -2,7 +2,6 @@
     width: 100%;
 }
 
-
 .tags{
     color: rgb(29, 155, 240);
 }
@@ -10,6 +9,10 @@
 .item_table th{
     background-color:  #F0F0E8;
     width: 38%;
+}
+
+.user{
+    margin-bottom: 20vh;
 }
 
 .requ_form{
