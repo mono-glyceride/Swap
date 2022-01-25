@@ -1,37 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="exhibit_form">
-        <div class="text-center">
-            {{-- 見出し --}}
-            <div class="border border-primary simple_header">
-                
-                <h1 sticky-top>
-                    {{ $user->name }}さんのプロフィール編集
-                </h1>
-                
-            </div>
-            
-                
-                
-                {{-- 交換ボタン --}}
-                    <div>
-                     {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'patch']) !!}
-                   
+{{ Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'patch']) }}
+<header class="sticky-top d-block d-sm-none">
+    <h1 class="d-flex align-items-center">
+        @include('commons.back_button')
+        {{$user->name}}さんのプロフィール編集
+    </h1>
+</header>
+
+<div class="goods_form">
                     {{--
-                    {!! Form::label('icon_id', 'アイコン') !!}
+                    {{ Form::label('icon_id', 'アイコン') }}
                     {{Form::file('icon_id', null, ['id' => 'icon_id'])}}
                     --}}
                 
-                    {!! Form::label('name', '名前') !!}
-                    {{Form::text('name', null, ['id' => 'name'])}}
-                    
-                    {!! Form::label('age', '年齢') !!}
-                    {{Form::select('age', [null,1 => '18歳未満', 2=> '18歳以上',3=> '20歳以上',4=> '非公開'],null,  ['id' => 'age'])}}
+    <div class="form_items">
+        {{ Form::label('name', '名前') }}
+        {{Form::text('name', null, ['id' => 'name'])}}
+    </div>
+          
+    <div class="form_items">          
+        {{ Form::label('age', '年齢') }}
+        {{Form::select('age', [null,1 => '18歳未満', 2=> '18歳以上',3=> '20歳以上',4=> '非公開'],null,  ['id' => 'age'])}}
+    </div>
            
-                    
-                    {!! Form::label('prefecture', '地域') !!}
-                    {{Form::select('prefecture',  [null,
+    <div class="form_items">                
+        {{ Form::label('prefecture', '地域') }}
+        {{Form::select('prefecture',  [null,
                         '1' => '北海道',
                         '2' => '青森県',
                         '3' => '岩手県',
@@ -81,28 +77,24 @@
                         '47' => '沖縄県',
                         ],  
                         null,
-                        ['id' => 'prefecture'])}}
-                        
-                    {!! Form::label('gender', '性別') !!}
-                    {{Form::select('gender', [null,1 => '女性', 2=> '男性',3=> 'その他',4=> '非公開'],  null, ['id' => 'gender'])}}
-                    
-                    {!! Form::label('introduce', '自己紹介') !!}
-                    {{Form::textarea('introduce', null, ['id' => 'introduce'])}}
-
-            {!! Form::submit('保存', ['class' => 'btn-block btn-primary']) !!}
-                        
-                        
-                        
-                        {!! Form::close() !!}
-                        
-                    </div>
-            </div>
-            
-            
-            
-            
-        </div>
-        
+        ['id' => 'prefecture'])}}
     </div>
+        
+    <div class="form_items">                    
+        {{ Form::label('gender', '性別') }}
+        {{Form::select('gender', [null,1 => '女性', 2=> '男性',3=> 'その他',4=> '非公開'],  null, ['id' => 'gender'])}}
+    </div>
+    
+    <div class="form_items">                
+        {{ Form::label('introduce', '自己紹介') }}
+        {{Form::textarea('introduce', null, ['id' => 'introduce'])}}
+    </div>
+    
+    <div class="form_items">
+        {{ Form::submit('保存', ['class' => 'btn-block btn-primary']) }}
+    </div>    
+{{ Form::close() }}
+</div>
+@include('commons.footer')
 @endsection
 
