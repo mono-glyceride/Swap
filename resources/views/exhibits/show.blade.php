@@ -34,7 +34,7 @@
                 </div>
             </div>
             
-            <footer class="fixed-bottom">
+            <footer class="fixed-bottom ">
             @include('exhibits.requ_button')
             </footer>
             

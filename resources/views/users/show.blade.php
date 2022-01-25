@@ -36,7 +36,7 @@
             </p>
     </div>
     
-    <div class="list-group d-black d-md-none">
+    <div class="list-group">
             <a href="{{ route('users.api') }}" class="list-group-item list-group-item-action">SNS連携</a>
             <a href="{{ route('users.edit', ['user' => Auth::id()]) }}" class="list-group-item list-group-item-action">プロフィール編集</a>
             <a href="{{ route('propositions.index') }}" class="list-group-item list-group-item-action">交換リクエスト</a>

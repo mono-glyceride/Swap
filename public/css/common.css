@@ -62,6 +62,12 @@ header{
 /*main領域*/
 
 
+/*PC*/
+img{
+    max-height: 70vh;
+}
+
+
 /*サムネイル一覧*/
 
 a img{

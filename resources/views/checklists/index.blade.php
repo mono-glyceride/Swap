@@ -2,7 +2,7 @@
 
 
 @section('content')
-<header class="sticky-top d-block d-sm-none">
+<header class="sticky-top">
     <h1 class="d-flex align-items-center">
         @include('commons.back_button')
             ToDoリスト

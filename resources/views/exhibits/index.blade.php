@@ -15,6 +15,7 @@
         @endauth
     </header>
         {{-- 出品一覧 --}}
+        <h2 class="d-none d-md-block">※PC未対応です</h2>
         @include('../commons.exhibits')
         @include('exhibits.exhibit_button')
         
