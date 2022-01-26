@@ -9,8 +9,14 @@ class MessagesController extends Controller
     // getでmessage/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
+        $user = \Auth::user();
+        $dealings = $user->dealings();
         
-        
+        //ユーザー関わった取引一覧、新しい順で
+        return view('messages.index' ,[
+            'dealings' => $dealings,
+            'user' => $user
+            ]);
     }
 
     // getでmessages/createにアクセスされた場合の「新規登録画面表示処理」

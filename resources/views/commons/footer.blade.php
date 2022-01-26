@@ -19,7 +19,7 @@
     </span>
     
     <span class="col">
-    <a href="{{ route('users.show', ['user' => Auth::id()]) }}">
+    <a href="{{ route('messages.index', ['user' => Auth::id()]) }}">
       <i class="fas fa-comments fa-lg"></i>
     </a>
     </span>
