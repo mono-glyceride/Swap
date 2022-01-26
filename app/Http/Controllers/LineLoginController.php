@@ -28,7 +28,7 @@ class LineLoginController extends Controller
       //LINEログインチャネルID
       $client_id = "&client_id=$line_channel_id";
       //コールバックURL
-      $redirect_uri ="&redirect_uri=https://swap-gurido.herokuapp.com//api";
+      $redirect_uri ="&redirect_uri=https://swap-gurido.herokuapp.com//callback";
       $state_uri = "&state=".$state;
       $scope = "&scope=openid%20profile";
       $prompt = "&prompt=consent";
@@ -43,7 +43,6 @@ class LineLoginController extends Controller
   
   public function callback(Request $request)
   {
-
     //LINEからアクセストークンを取得
     $accessToken = $this->getAccessToken($request);
     //プロフィール取得
@@ -57,9 +56,9 @@ class LineLoginController extends Controller
     $user->save();
     
     //メッセージ送信
-    //$this->sendMessage($userId, 'auto');
+    $this->sendMessage($line_id,1);
 
-    return view('users.callback');
+    return view('users.api');
 
   }
 
@@ -75,7 +74,7 @@ class LineLoginController extends Controller
     $post_data = array(
       'grant_type'    => 'authorization_code',
       'code'          => $req['code'],
-      'redirect_uri'  => 'https://swap-gurido.herokuapp.com//api',
+      'redirect_uri'  => 'https://swap-gurido.herokuapp.com//callback',
       'client_id'     => $line_channel_id,
       'client_secret' => $line_channel_secret
     );
@@ -150,7 +149,7 @@ class LineLoginController extends Controller
     $json = json_decode($res);
     $accessToken = $json->access_token;
 
-    //Messaging APIチャネルからtestメッセージを送信
+    //Messaging APIチャネルからメッセージを送信
     $messenger = new LINEBot(
         new CurlHTTPClient($accessToken),
         [
@@ -158,19 +157,9 @@ class LineLoginController extends Controller
         ]
     );
     
-    switch($message_flg){
-        case 1:
-          $text = "交換リクエストが成立しました";
-          break;
-        case 2:
-          $text = "取引メッセージが届きました";
-          break;
-        case 3:
-          $text = "交換リクエストが届きました";
-          break;
-    }
-
-    $messenger->pushMessage($userId, new TextMessageBuilder($text));
+    //定数ファイルからメッセージ本文を持ってくる
+    $line_message = \App\Consts\LineConst::LINE_MESSAGE_LIST[$message_flg];
+    $messenger->pushMessage($userId, new TextMessageBuilder($line_message));
 
   }
   

@@ -57,6 +57,9 @@ class MessagesController extends Controller
             'proposition_id' => $proposition->id,
         ]);
         
+        //相手ユーザー
+        $partner = \App\User::find($proposition->partner($user->id));
+        
         
         //リダイレクトさせる
          return back();
