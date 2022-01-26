@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="/css/notification/index.css">
         <link rel="stylesheet" href="/css/proposition/talk.css">
         <link rel="stylesheet" href="/css/review.css">
+        <link rel="stylesheet" href="/css/message.css">
         
     </head>
 
