@@ -209,6 +209,8 @@ class propositionsController extends Controller
         //リクエストの返事を求めるチェックリストを削除
         $receive_proposition->checklists()->where('checklists.user_id',\Auth::id())->delete();
        
+       $proposition_user = \App\User::find($receive_proposition->user_id);
+       
         //  不成立通知を作成
         if($request->status == 3){
             $exhibit->notifications()->create([
@@ -216,6 +218,13 @@ class propositionsController extends Controller
             'content_id' => 0,
             'exhibit_id' => $exhibit->id,
             ]);
+            
+            //相手が登録済みの場合lineにメッセージを送る
+            if($proposition_user->is_line_user()){
+                $called = app()->make('App\Http\Controllers\LineLoginController');
+                $called->sendMessage($proposition_user->line_id, 2);
+            }
+            
             return redirect()->action('ChecklistsController@index');
             }
         else{
@@ -225,6 +234,12 @@ class propositionsController extends Controller
             'content_id' => 0,
             'proposition_id' => $receive_proposition->id,
             ]);
+            
+            if($proposition_user->is_line_user()){
+                $called = app()->make('App\Http\Controllers\LineLoginController');
+                $called->sendMessage($proposition_user->line_id, 3);
+            }
+            
             return redirect()->action('PropositionsController@talk',['id' => $receive_proposition->id]);
             }
        
