@@ -88,6 +88,26 @@ th{
     padding: 1px;
 }
 
+
+.pagination{
+    margin-bottom:4rem;
+    width: 40vw;
+    margin-left: 30vw;
+    margin-right: 30vw;
+}
+
+.page-item{
+    width:10vw;
+}
+
+.page-item span{
+    text-align: center;
+}
+
+.page-item a{
+    text-align: center;
+}
+
 /*評価*/
 .fa-star{
     color:#ffc107;

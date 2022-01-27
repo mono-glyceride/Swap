@@ -13,7 +13,7 @@ class ExhibitsController extends Controller
     public function index()
     {
         // exhibit一覧を取得
-        $exhibits = Exhibit::where('exhibits.status',1)->paginate(10);
+        $exhibits = Exhibit::where('exhibits.status',1)->paginate(15);
         
         // exhibit一覧ビューでそれを表示
         return view('exhibits.index', [
