@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NotificationsTableSeeder::class);
         $this->call(ChecklistsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
+        $this->call(ExhibitTaggingTableSeeder::class);
     }
 }
