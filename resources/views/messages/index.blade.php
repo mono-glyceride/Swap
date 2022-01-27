@@ -14,8 +14,12 @@
         @foreach ($dealings as $array)
             @foreach ($array as $dealing)
                 <a href="{{ route('propositions.talk',['id'=>$dealing->id]) }}" class="list-group-item list-group-item-action">
-                    <b>{{$dealing->latest_message($user->id)->user->name}}</b>
-                    <p>{{$dealing->latest_message($user->id)->content}}</p>
+                    <b>{{$dealing->partner($user->id)->name}}</b>
+                    @if(is_null($dealing->latest_message()))
+                    <p>まだメッセージはありません</p>
+                    @else
+                    <p>{{$dealing->latest_message()->content}}</p>
+                    @endif
                 </a>
             @endforeach
         @endforeach
