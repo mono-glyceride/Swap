@@ -179,4 +179,14 @@ class User extends Authenticatable
          $dealings = array($exhibit_dealings, $proposition_dealings);
          return $dealings;
      }
+     
+     /**
+      * LINEを登録しているか。しているならboolのtrue
+      */
+      public function is_line_user(){
+          if(is_null($this->line_id)){
+              return false;
+          }
+          return true;
+      }
 }

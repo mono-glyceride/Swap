@@ -56,7 +56,7 @@ class LineLoginController extends Controller
     $user->save();
     
     //メッセージ送信
-    $this->sendMessage($line_id,1);
+    $this->sendMessage($line_id,0);
 
     return view('users.api');
 

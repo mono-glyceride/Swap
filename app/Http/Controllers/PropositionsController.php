@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Storage;
 use App\Proposition;
 use App\Checklist;
+use App\User;
 
 class propositionsController extends Controller
 {
@@ -108,13 +109,20 @@ class propositionsController extends Controller
         
         //リクエストの可否を出品者のやることリストに追加
         $exhibit = \App\Exhibit::find($request->exhibit_id);
-        
+    
         $proposition->checklists()->create([
             'user_id' => $exhibit->exhibitor_id,
             'content_id' => 3,
             'proposition_id' => $proposition->id,
             ]);
         
+        
+        //出品者が登録済みの場合lineにメッセージを送る
+        $exhibitor = \App\User::find($exhibit->exhibitor_id);
+        if($exhibitor->is_line_user()){
+            $called = app()->make('LineLoginController');
+            $called->sendMessage($exhibit->exhibitor_id, 1);
+        }
         
          // トップへリダイレクトさせる
          return redirect()->action('ExhibitsController@index');
@@ -304,6 +312,12 @@ class propositionsController extends Controller
             }
     
         
+    }
+    
+    public function call_send_message($userId, $message_flg)
+    {
+        $called = app()->make('LineLoginController');
+        $called->sendMessage($userId, $message_flg);
     }
         
         
