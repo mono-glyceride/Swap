@@ -7,7 +7,6 @@ use Storage;
 use App\Proposition;
 use App\Checklist;
 use App\User;
-use App\Http\Controllers\LineLoginController;
 
 class propositionsController extends Controller
 {
@@ -121,7 +120,7 @@ class propositionsController extends Controller
         //出品者が登録済みの場合lineにメッセージを送る
         $exhibitor = \App\User::find($exhibit->exhibitor_id);
         if($exhibitor->is_line_user()){
-            $called = app()->make('LineLoginController');
+            $called = app()->make('App\Http\Controllers\LineLoginController');
             $called->sendMessage($exhibit->exhibitor_id, 1);
         }
         
