@@ -121,7 +121,7 @@ class propositionsController extends Controller
         $exhibitor = \App\User::find($exhibit->exhibitor_id);
         if($exhibitor->is_line_user()){
             $called = app()->make('App\Http\Controllers\LineLoginController');
-            $called->sendMessage($exhibit->exhibitor_id, 1);
+            $called->sendMessage($exhibitor->line_id, 1);
         }
         
          // トップへリダイレクトさせる
