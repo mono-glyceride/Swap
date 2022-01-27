@@ -284,12 +284,7 @@ class propositionsController extends Controller
             $exhibit = $proposition->exhibit;
             
             //相手ユーザーの情報　自分が出品者じゃないとき
-                if ($exhibit->exhibitor_id == $user->id) {
-                    $partner = \App\User::find($proposition->user_id);
-                }
-                else{
-                    $partner = \App\User::find($exhibit->exhibitor_id);
-                }
+            $partner = $proposition->partner($user->id);
                 
 
             $data = [

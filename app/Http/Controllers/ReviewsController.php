@@ -37,11 +37,11 @@ class ReviewsController extends Controller
         $proposition = \App\Proposition::find($request->proposition_id);
         
         //レビューされる相手ユーザー
-        $partner_id = $proposition->partner($user->id);
+        $partner = $proposition->partner($user->id);
         
         // 認証済みユーザ（閲覧者）からの評価として作成
         $user = $request->user()->reviewings()->create([
-            'user_id' => $partner_id,
+            'user_id' => $partner->id,
             'proposition_id' => $proposition->id,
             'point' => $request->point,
             'comment' => $request->comment,

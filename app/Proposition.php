@@ -44,21 +44,22 @@ class Proposition extends Model
     }
     
     /**
-     * 与えられたuser_idの取引相手のidを返す
+     * 与えられたuser_idの取引相手を返す
      * * @param  int  $user_id
-     * @return int id
+     * @return user model
      */
     public function partner($user_id)
     {
-        // 出品者のid
+        // 出品者
         $exhibitor_id = $this->exhibit->exhibitor_id;
         //認証ユーザーが出品者なら
         if($exhibitor_id === $user_id){
-            return $this->user_id;
+            $partner = \App\User::find($this->user_id);
         }
         else{
-            return $exhibitor_id;
+            $partner = \App\User::find($exhibitor_id);
         }
+        return $partner;
     }
     
     /**

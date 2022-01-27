@@ -44,22 +44,15 @@ class MessagesController extends Controller
         
         //相手ユーザーのチェックリストに返信を追加
         $proposition = \App\Proposition::find($request->proposition_id);
-        //自分が出品者の時
-        if ($proposition->user_id != $user->id) {
-            $user_id = $proposition->user_id;
-        }
-        else{
-            $user_id = $proposition->exhibit->exhibitor_id;
-        }
+        
+        //相手ユーザー
+        $partner = $proposition->partner($user->id);
+        
         $proposition->checklists()->create([
-            'user_id' => $user_id,
+            'user_id' => $partner->id,
             'content_id' => 1,
             'proposition_id' => $proposition->id,
         ]);
-        
-        //相手ユーザー
-        $partner = \App\User::find($proposition->partner($user->id));
-        
         
         //リダイレクトさせる
          return back();
