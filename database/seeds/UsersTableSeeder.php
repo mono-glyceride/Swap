@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'prefecture' => '3',
             'age' => '1',
             'gender' => '1',
-            'introduce' => 'よろしくお願いします。ジャンルはワンピ、推しはルフィさんです。基本的に無限回収を行っております。お互いに気持ちのいいお取引にしましょう。'
+            'introduce' => 'よろしくお願いします。ジャンルはワンピと呪術、推しは双璧と2年ズです。お互いに気持ちのいいお取引にしましょう。'
         ]);
         
         DB::table('users')->insert([
@@ -89,6 +89,16 @@ class UsersTableSeeder extends Seeder
             'age' => '2',//1-3
             'gender' => '1',//1-3
             'introduce' => '推しはcv中村さんのキャラ全般です。ジャンルに偏りはそんなにないです。よろしくお願いします。'
+        ]);
+        
+        DB::table('users')->insert([
+            'name' => ' 梨',
+            'email' => 'test9@test',
+            'password' => bcrypt('testtest'),
+            'prefecture' => '31',//0-48
+            'age' => '2',//1-3
+            'gender' => '3',//1-3
+            'introduce' => '推しはルフィ先輩です。特にフィギュアを集めています。ワンピのフィギュア大好き'
         ]);
     }
 }
