@@ -7,6 +7,7 @@ use Storage;
 use App\Proposition;
 use App\Checklist;
 use App\User;
+use App\Http\Controllers\LineLoginController;
 
 class propositionsController extends Controller
 {
