@@ -96,4 +96,31 @@ class Proposition extends Model
             return $this->messages()->orderBy('created_at','desc')->first();
          }
      }
+     
+     /**
+      *Constから定数を呼び出す
+      * $kind string
+      * @return string
+      */
+      public function proposition_const($kind,$const_num)
+      {
+        switch ($kind) {
+            case "condition":
+                $const = \App\Consts\ExhibitConst::CONDITION_LIST[$const_num];
+                break;
+            case "mail_flag":
+                $const = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$const_num];
+                break;
+            case "ship_from":
+                $const = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$const_num];
+                break;
+            case "days":
+                $const = \App\Consts\ExhibitConst::DAY_LIST[$const_num];
+                break;
+            case "handing_flag":
+                $const = \App\Consts\ExhibitConst::HANDING_FLAG_LIST[$const_num];
+                break;
+        }
+         return $const;
+      }
 }
