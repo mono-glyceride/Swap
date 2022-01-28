@@ -48,10 +48,10 @@
                 </div>
                                 
             @elseif($checklist->content_id == 3) 
-                <a href="{{ route('propositions.edit', ['proposition' => $checklist ->proposition->id]) }}">
+                <a href="{{ route('propositions.select', ['exhibit_id' => $checklist ->proposition->exhibit->id]) }}">
                     <div class="row align-items-center d-flex">
                         <div class="col-3">
-                            <img src="{{$checklist->proposition->exhibit->pic_id }}" width="70" height="70" >
+                            <img src="{{$checklist->proposition->pic_id }}" width="70" height="70" >
                         </div>
                         <div class="col-9">
                             交換リクエストが届きました。３日以内に返答をお願いします。
