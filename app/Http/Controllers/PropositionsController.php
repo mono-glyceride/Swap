@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Storage;
 use App\Proposition;
+use App\Exhibit;
 use App\Checklist;
 use App\User;
 
@@ -18,8 +19,8 @@ class propositionsController extends Controller
             // 認証済みユーザを取得
             $user = \Auth::user();
             
-            // ユーザの貰った交換リクエスト一覧を取得
-            $receive_propositions = $user->receive_propositions()->where('propositions.status',1)->get();
+            // 削除していない出品を取得
+            $exhibits = $user->exhibits()->where('status','<>',3)->get();
             
             // ユーザの送った交換リクエスト一覧を取得
             $propositions = $user->propositions()->where('propositions.status',1)->get();
@@ -29,7 +30,7 @@ class propositionsController extends Controller
             
             $data = [
                 'user' => $user,
-                'receive_propositions' => $receive_propositions,
+                'exhibits' => $exhibits,
                 'propositions' => $propositions,
                 'reject_propositions' => $reject_propositions,
             ];
@@ -132,7 +133,7 @@ class propositionsController extends Controller
     public function show($id)
     {   
         // idの値でリクエストを検索して取得
-        $proposition = \App\Proposition::findOrFail($id);
+        $proposition = \App\Proposition::find($id);
         
         
         //認証ユーザーがリクエストを送ったユーザーなら
@@ -158,39 +159,32 @@ class propositionsController extends Controller
     }
 
     //リクエストの許可を選ぶ画面
-    public function edit($id)
+    public function select($exhibit_id)
     {
         $data = [];
-         // idの値でリクエストを検索して取得
-        $proposition = \App\Proposition::findOrFail($id);
-        
+         // idの値で出品を検索して取得
+        $exhibit = \App\Exhibit::find($exhibit_id);
         //認証ユーザーがリクエストをもらった人物なら
-        if (\Auth::id() === $proposition->exhibit()->first()->exhibitor_id) {
+        if (\Auth::id() === $exhibit->exhibitor_id) {
         
-        // 対応する自分の出品を検索して取得
-        $exhibit = $proposition->exhibit;
-        
-        //定数を取得
-        $condition = \App\Consts\ExhibitConst::CONDITION_LIST[$proposition->condition];
-        $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$proposition->mail_flag ?? 0];
-        $ship_from = \App\Consts\ExhibitConst::SHIP_FROM_LIST[$proposition->ship_from ?? 0];
-        $days = \App\Consts\ExhibitConst::DAY_LIST[$proposition->days ?? 0];
-        $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$proposition->handing_flag ?? 0];
+        //対応するリクエストを検索
+        $propositions = $exhibit->propositions;
         
         $data = [
             'exhibit' => $exhibit,
-            'proposition' => $proposition,
-            'condition' => $condition,
-            'mail_flag' => $mail_flag,
-            'ship_from' => $ship_from,
-            'days' => $days,
-            'handing_flag' => $handing_flag
+            'propositions' => $propositions,
             ];
 
-
         // リクエスト更新ビューでそれらを表示
-        return view('propositions.edit', $data);
+        return view('propositions.select', $data);
         }
+    }
+    
+    //リクエストの許可を選ぶ画面
+    public function edit($id)
+    {
+        // リクエスト更新ビューでそれらを表示
+        return view('propositions.edit');
         
     }
     
@@ -198,7 +192,7 @@ class propositionsController extends Controller
     public function update(Request $request, $id)
     {
         // idの値でリクエストを検索して取得
-        $receive_proposition = \App\Proposition::findOrFail($id);
+        $receive_proposition = \App\Proposition::find($id);
         $exhibit = $receive_proposition->exhibit;
         
         // リクエストをを更新

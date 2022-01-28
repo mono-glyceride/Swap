@@ -74,4 +74,13 @@ class Exhibit extends Model
         // タギング中のタグの中に $tag_idのものが存在するか
         return $this->tags()->where('tag_id', $tag_id)->exists();
     }
+    
+    /**
+     * $thisに紐づいた保留中のPropositionがあるかどうか。あるならtrue
+     * @return bool
+     */
+    public function is_proposed()
+    {
+        return $this->propositions()->where('status', 1)->exists();
+    }
 }

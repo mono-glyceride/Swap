@@ -2,24 +2,28 @@
 
 
 @section('content')
-<div>
-    <div class="border border-primary midasi">
-        <h1>交換リクエスト一覧</h1>
-    </div>
-    @if (count($receive_propositions) > 0)
-        <h2 class="requ">貰った交換リクエスト</h2>
-            <div class="exhibit_index">
-                @foreach ($receive_propositions as $receive_proposition)
-                <div class="col  d-block exhibit_item">
-                    {{-- 出品詳細ページへのリンク --}}
-                    <a href="{{ route('propositions.edit', ['proposition' => $receive_proposition ->id]) }}">
-                    <img src="{{ $receive_proposition->pic_id }}" width="70" height="70" >
-                    </a>
-                </div>
-                @endforeach
+<header class="sticky-top">
+    <h1 class="d-flex align-items-center">
+        @include('commons.back_button')
+            交換リクエスト一覧
+    </h1>
+</header>
+@if (count($exhibits) > 0)
+    <div class="exhibit_index">
+        @foreach ($exhibits as $exhibit)
+            @if(count($exhibit->propositions) > 0)
+            <div class="col  d-block exhibit_item">
+                <a href="{{ route('propositions.select', ['exhibit_id' => $exhibit ->id]) }}">
+                    <img src="{{ $exhibit->pic_id }}" width="70" height="70" >
+                    @foreach ($exhibit->propositions as $proposition)
+                    <img src="{{ $proposition->pic_id }}" width="70" height="70" >
+                    @endforeach
+                </a>
             </div>
-    @endif
-</div>
+            @endif
+        @endforeach
+    </div>
+@endif
     <div>
         @if (count($propositions) > 0)      
             <div>
