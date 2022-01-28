@@ -8,7 +8,7 @@
             ToDoリスト
     </h1>
 </header>
-<div class="lists">
+<div class="list-group">
     @if (count($checklists) > 0)      
         @foreach ($checklists as $checklist)
             @if($checklist->content_id == 0)

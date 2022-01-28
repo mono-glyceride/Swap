@@ -22,7 +22,7 @@ class propositionsController extends Controller
             // 削除していない出品を取得
             $exhibits = $user->exhibits()->where('status','<>',3)->get();
             
-            // ユーザの送った交換リクエスト一覧を取得
+            // ユーザの送った、申請中の交換リクエスト一覧を取得
             $propositions = $user->propositions()->where('propositions.status',1)->get();
             
             // ユーザの送った交換リクエストで、拒否されたもの一覧を取得
@@ -219,7 +219,6 @@ class propositionsController extends Controller
                 $called->sendMessage($proposition_user->line_id, 2);
             }
             
-            return redirect()->action('ChecklistsController@index');
             }
         else{
             //取引開始をリクエストしたユーザーのチェックリストに追加
@@ -233,17 +232,19 @@ class propositionsController extends Controller
                 $called = app()->make('App\Http\Controllers\LineLoginController');
                 $called->sendMessage($proposition_user->line_id, 3);
             }
-            
-            return redirect()->action('PropositionsController@talk',['id' => $receive_proposition->id]);
             }
+            
        
         }
+        return back();
     }
     
     //リクエストしたユーザーがリクエストを削除する
     public function destroy($id)
     {
-        if(\Auth::id() ===$receive_proposition->proposition_id){}
+        $proposition = \App\Proposition::find($id);
+        $proposition ->delete();
+        return back();
     }
     
     // getでswapping/（任意のid）にアクセスされた場合の取引中一覧表示処理
