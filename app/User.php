@@ -189,4 +189,25 @@ class User extends Authenticatable
           }
           return true;
       }
+      
+      /**
+      *Constから定数を呼び出す
+      * $kind string
+      * @return string
+      */
+      public function user_const($kind,$const_num)
+      {
+        switch ($kind) {
+            case "prefecture":
+                $const = \App\Consts\UserConst::PREFECTURE_LIST[$const_num];
+                break;
+            case "gender":
+                $const = \App\Consts\UserConst::GENDER_LIST[$const_num];
+                break;
+            case "age":
+                $const = \App\Consts\UserConst::AGE_LIST[$const_num];
+                break;
+        }
+         return $const;
+      }
 }

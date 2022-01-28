@@ -168,7 +168,7 @@ class propositionsController extends Controller
         if (\Auth::id() === $exhibit->exhibitor_id) {
         
         //対応するリクエストを検索
-        $propositions = $exhibit->propositions;
+        $propositions = $exhibit->propositions()->where('status','<>',3)->get();
         
         $data = [
             'exhibit' => $exhibit,
@@ -176,7 +176,7 @@ class propositionsController extends Controller
             ];
 
         // リクエスト更新ビューでそれらを表示
-        return view('propositions.select', $data);
+        return view('propositions.select',$data);
         }
     }
     

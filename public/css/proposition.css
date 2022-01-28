@@ -1,3 +1,4 @@
+/*talk*/
 .talk{
     height: 100vh;
     background-color:#f8f9fa;
@@ -63,4 +64,26 @@
 
 .talk_footer{
     height: 30px;
+}
+
+/*select*/
+.repry_btn{
+    margin-left: 53vw;
+}
+
+.swap_button{
+    height: 2.5rem;
+    width: 20vw;
+    padding: 0.2rem;
+    font-size: 0.7rem;
+}
+
+.select h2{
+    background-color: #55ACEE;
+    padding: 0.2rem;
+    color: white;
+}
+
+.btn-primary:disabled {
+    width: 40vw;
 }

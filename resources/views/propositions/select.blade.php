@@ -8,38 +8,78 @@
     </h1>
 </header>
 
-<h2 class="border border-primary">
-    あなたの出品したグッズ
-</h2>
-<div>
-    <img src="{{ $exhibit->pic_id }}" width="200" height="200" >
-</div>
-<p class="tags">
-    ＃{{ $exhibit->origin }}
-    ＃{{ $exhibit->goods_type }}
-    ＃{{ $exhibit->keyword }}
-</p>
+<main class="select">
+    <h2>
+        あなたの出品したグッズ
+    </h2>
+    <a href="{{ route('exhibits.show', ['exhibit' => $exhibit->id])}}">
+    <div class="proposition_card row shadow-sm">
+        <img src="{{ $exhibit->pic_id }}"  class="col-4" >
+        <p class="col-8">
+            {{ $exhibit->origin }} {{ $exhibit->goods_type }} {{ $exhibit->keyword }}
+        </p>
+    </div>
+    </a>
 
-<h2 class="border border-primary">
-    届いた交換リクエスト
-</h2>
+    <h2>
+        届いた交換リクエスト
+    </h2>
 
-@if(count($propositions) > 0)
-    @foreach($propositions as $proposition)
-        <img src="{{$proposition->pic_id}}" width="200" height="200" >
-            <table class="table table-striped table-sm goods_detail">
+    @if(count($propositions) > 0)
+        @foreach($propositions as $proposition)
+    <div class="proposition_card">
+        <a href="{{ route('users.show', ['user' => $proposition->user->id]) }}">
+            <div class="row proposition_user">
+                <div class="icon col-4">
+                </div>
+                    <div class="col-8">
+                        <p><b>{{ $proposition->user->name }}</b>
+                            @if(count($proposition->user->reviewers) > 0)
+                                {{$proposition->user->review_avarage()}}({{count($proposition->user->reviewers)}})
+                            @endif
+                            <br>{{ $proposition->user->user_const('prefecture' ,$proposition->user->prefecture) }}　
+                                /{{ $proposition->user->user_const('age' ,$proposition->user->age) }}　
+                                /{{ $proposition->user->user_const('gender' ,$proposition->user->gender) }}
+                        </p>
+                </div>
+        </div>
+        </a>
+    <div class="row"> 
+        <img src="{{$proposition->pic_id}}" class="col-4" >
+            <table class="table table-borderless goods_detail col-8">
                 <tr><th>状態</th><td>{{ $proposition->proposition_const('condition',$proposition->condition) }}</td></tr>
                 
                 @if($proposition->mail_flag == 1)
-                <tr><th>交換方法</th><td>郵送</td></tr>
-                <tr><th>発送元の地域</th><td>{{ $proposition->proposition_const('ship_from',$proposition->ship_from) }}</td></tr>
-                <tr><th>発送までの日数</th><td>{{ $proposition->proposition_const('days',$proposition->days) }}</td></tr>
+                <tr><th class="col-4">郵送</th><td>{{ $proposition->proposition_const('ship_from',$proposition->ship_from) }}</td></tr>
                 @else
-                <tr><th>交換方法</th><td>手渡し</td></tr>
-                <tr><th>手渡し対応地域</th><td>{{ $proposition->place }}</td></tr>
+                <tr><th class="col-4">手渡し</th><td>{{ $proposition->place }}</td></tr>
                 @endif
-                <tr><th>備考</th><td>{{ $proposition->notes }}</td></tr>
+                <tr><th class="col-4">備考</th><td>{{ $proposition->notes }}</td></tr>
             </table>
+    </div>
+    <div class="repry_btn row">
+        @if($proposition->status === 1)
+            <div class="repry_item">
+                {{ Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) }}
+                {{Form::hidden('status','2')}}
+                {{ Form::submit('交換する', ['class' => 'btn btn-primary swap_button']) }}
+                {{ Form::close() }}
+            </div>
+            <div class="repry_item">
+                {{ Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) }}
+                {{Form::hidden('status','3')}}
+                {{ Form::submit('お断りする', ['class' => 'btn btn-outline-primary swap_button']) }}
+                {{ Form::close() }}
+            </div>
+        @else
+            <div class="repry_item">
+                <button class="btn btn-primary swap_button" disabled>すでに交換中です</button>
+            </div>
+        @endif
+    </div>
+</div>
     @endforeach
 @endif
+</main>
+@include('commons.footer')
 @endsection
