@@ -35,14 +35,14 @@ class ExhibitsController extends Controller
         // バリデーション
         $request->validate([
             'pic_id' => 'required',
+            'origin' => 'required|max:255',
+            'keyword' => 'max:255',
+            'goods_type' => 'max:255',
             'character' => 'required|max:255',
             'want_character' => 'required|max:255',
             'shipping' => 'required',
-            'origin' => 'required|max:255',
-            'goods_type' => 'max:255',
-            'keyword' => 'max:255',
-            'notes' => 'max:255',
             'place' => 'max:255',
+            'notes' => 'max:255',
         ]);
         
         
@@ -84,24 +84,12 @@ class ExhibitsController extends Controller
             'place' => $request->place,
         ]);
         
-        //空白区切りで単語を要素数10の配列$wordsに取り出す（全角と半角の場合あり）
-        $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->keyword, 10, PREG_SPLIT_NO_EMPTY);
+        //タグになり得るものを空白も含め配列にする
+        $user_enter_words = array($request->origin,$request->keyword,$request->goods_type,$request->character,$request->want_character);
         
-        //配列すべてでループ
-        foreach($words as $word){
-        
-        //既存のタグか
-        $tag = DB::table('tags')->where('keyword', $word)->first();
-        
-        //タグにないなら$wordをタグテーブルのレコードに追加
-        if (is_null($tag)) {
-        $tag = \App\Tag::create(['keyword' => $word,]);
-        }
-        
-        //タグと出品を紐づけ
-        $exhibit->add_tagging($tag->id);
-        
-        }
+        //TagsControllerの処理を呼び出す
+        $called = app()->make('App\Http\Controllers\TagsController');
+        $called->store($user_enter_words, $exhibit);
         
         //トップにリダイレクト
         return redirect()->action('ExhibitsController@index');
