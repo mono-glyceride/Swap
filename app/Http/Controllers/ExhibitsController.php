@@ -74,11 +74,7 @@ class ExhibitsController extends Controller
         // 認証済みユーザ（閲覧者）の出品として作成（リクエストされた値をもとに作成）
         $exhibit = $request->user()->exhibits()->create([
             'pic_id' => $path1,
-            'origin' => $request->origin,
-            'character' => $request->character,
-            'goods_type' => $request->goods_type,
             'notes' => $request->notes,
-            'want_character' => $request->want_character,
             'mail_flag' => $mail_flag,
             'handing_flag' => $handing_flag,
             'place' => $request->place,
@@ -108,8 +104,12 @@ class ExhibitsController extends Controller
         // 出品に対応したリクエスト一覧を取得
         $propositions = $exhibit->propositions;
         
-        //対応するタグを取得
-        $tags = $exhibit->tags;
+        //対応するタグ(キャラ以外)を取得
+        $tags = $exhibit->tags()->where('kind_flg','<',3)->get();
+        
+        //キャラに関するタグを取得
+        $characters = $exhibit->tags()->where('kind_flg',3)->get();
+        $want_characters= $exhibit->tags()->where('kind_flg',4)->get();
         
         // 出品したユーザーを取得
         $user = \App\User::findOrFail($exhibit->exhibitor_id);
@@ -117,13 +117,14 @@ class ExhibitsController extends Controller
         //画像データを取得
         $path = Storage::disk('s3')->url('$exhibit->pic_id');
         
-        
         //定数を取得
         $mail_flag = \App\Consts\ExhibitConst::MAIL_FLAG_LIST[$exhibit->mail_flag];
         $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->handing_flag];
         
         $data = [
             'tags' => $tags,
+            'characters' => $characters,
+            'want_characters'=> $want_characters,
             'exhibit' => $exhibit,
             'propositions' => $propositions,
             'user' => $user,

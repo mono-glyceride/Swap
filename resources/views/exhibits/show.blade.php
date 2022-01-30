@@ -21,8 +21,14 @@
                     @endforeach
                     </p>
                     <table class="table table-sm item_table">
-                        <tr><th>キャラクター（譲）</th><td>{{ $exhibit->character }}</td></tr>
-                        <tr><th>キャラクター（求）</th><td>{{ $exhibit->want_character }}</td></tr>
+                        <tr><th>キャラクター（譲）</th><td>
+                            @foreach($characters as $character)
+                            {{ $character->keyword }}
+                            @endforeach</td></tr>
+                        <tr><th>キャラクター（求）</th><td>
+                            @foreach($want_characters as $want_character)
+                            {{ $want_character->keyword }}
+                            @endforeach</td></tr>
                         <tr><th>交換方法</th></th><td>郵送に{{ $mail_flag }}/手渡しに{{ $handing_flag }}</td></tr>
                         <tr><th>手渡し対応地域</th><td>{{ $exhibit->place }}</td></tr>
                         <tr><th>補足説明</th><td>{{ $exhibit->notes }}</td></tr>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     protected $fillable = [
-        'keyword'
+        'keyword','kind_flg'
     ];
     
     /**

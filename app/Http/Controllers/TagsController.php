@@ -8,6 +8,7 @@ class TagsController extends Controller
 {
     public function store($user_enter_words, $exhibit)
     {
+        $kind_flg = 0;
         foreach($user_enter_words as $user_enter_word){
             if(!is_null($user_enter_word)){
                 //空白区切りで単語を要素数10の配列$wordsに取り出す（全角と半角の場合あり）
@@ -21,13 +22,18 @@ class TagsController extends Controller
         
                     //タグにないなら$wordをタグテーブルのレコードに追加
                     if (is_null($tag)) {
-                    $tag = \App\Tag::create(['keyword' => $word,]);
+                    $tag = \App\Tag::create([
+                        'keyword' => $word,
+                        'kind_flg' =>$kind_flg
+                        ]);
                     }
         
                 //タグと出品を紐づけ
                 $exhibit->add_tagging($tag->id);
                 }
             }
+        
+        $kind_flg += 1;
         }
     }
 }
