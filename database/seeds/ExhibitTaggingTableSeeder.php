@@ -22,6 +22,11 @@ class ExhibitTaggingTableSeeder extends Seeder
         ]);
         
         DB::table('exhibit_tagging')->insert([
+            'exhibit_id' => 2,
+            'tag_id' => 3,
+        ]);
+        
+        DB::table('exhibit_tagging')->insert([
             'exhibit_id' => 3,
             'tag_id' => 3,
         ]);
