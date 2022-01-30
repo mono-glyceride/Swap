@@ -77,7 +77,6 @@ class ExhibitsController extends Controller
             'origin' => $request->origin,
             'character' => $request->character,
             'goods_type' => $request->goods_type,
-            'keyword' => $request->keyword,
             'notes' => $request->notes,
             'want_character' => $request->want_character,
             'mail_flag' => $mail_flag,

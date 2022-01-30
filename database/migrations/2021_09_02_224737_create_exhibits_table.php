@@ -23,7 +23,6 @@ class CreateExhibitsTable extends Migration
             $table->string('origin')->nullable();
             $table->string('character')->nullable();
             $table->string('goods_type')->nullable();
-            $table->string('keyword')->nullable();
             $table->string('notes')->nullable();
             $table->integer('status')->default(1);
                 // 1:交換相手は決まってない 2:決まった 3:削除済み
