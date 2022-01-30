@@ -15,10 +15,13 @@
                     <img src="{{ $exhibit->pic_id }}" class="show_imgs">
                 </div>
                 <div class="col-sm-6">
-                    <p class="tags">
-                    　＃{{ $exhibit->origin }}
-                    　＃{{ $exhibit->goods_type }}
-                    　＃{{ $exhibit->keyword }}
+                    <p class="tags">＃{{ $exhibit->origin }}
+                    @if(isset($exhibit->goods_type))＃{{ $exhibit->goods_type }}@endif
+                    @if( 0 < count($exhibit->tags))
+                    @foreach($tags as $tag)
+                    ＃{{ $tag->keyword }}
+                    @endforeach
+                    @endif
                     </p>
                     <table class="table table-sm item_table">
                         <tr><th>キャラクター（譲）</th><td>{{ $exhibit->character }}</td></tr>

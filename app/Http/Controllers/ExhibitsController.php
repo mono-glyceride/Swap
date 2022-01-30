@@ -36,8 +36,9 @@ class ExhibitsController extends Controller
         $request->validate([
             'pic_id' => 'required',
             'character' => 'required|max:255',
+            'want_character' => 'required|max:255',
             'shipping' => 'required',
-            'origin' => 'max:255',
+            'origin' => 'required|max:255',
             'goods_type' => 'max:255',
             'keyword' => 'max:255',
             'notes' => 'max:255',
@@ -120,6 +121,9 @@ class ExhibitsController extends Controller
         // 出品に対応したリクエスト一覧を取得
         $propositions = $exhibit->propositions;
         
+        //対応するタグを取得
+        $tags = $exhibit->tags;
+        
         // 出品したユーザーを取得
         $user = \App\User::findOrFail($exhibit->exhibitor_id);
         
@@ -132,6 +136,7 @@ class ExhibitsController extends Controller
         $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->handing_flag];
         
         $data = [
+            'tags' => $tags,
             'exhibit' => $exhibit,
             'propositions' => $propositions,
             'user' => $user,
