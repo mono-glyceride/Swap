@@ -16,7 +16,7 @@
     <div class="proposition_card row shadow-sm">
         <img src="{{ $exhibit->pic_id }}"  class="col-4" >
         <p class="col-8">
-            {{ $exhibit->origin }} {{ $exhibit->goods_type }} {{ $exhibit->keyword }}
+            {{$exhibit->categorize_tags(0)}}{{$exhibit->categorize_tags(1)}}{{$exhibit->categorize_tags(2)}}
         </p>
     </div>
     </a>

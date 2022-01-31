@@ -17,7 +17,7 @@
                     <div class="row align-items-center d-flex">    
                         <img src="{{$notification->exhibit->pic_id }}" class="col-3 listsimg">
                         <div class="col-9">
-                            「{{$notification->exhibit->character}} {{$notification->exhibit->goods_type}}」への交換リクエストは成立しませんでした
+                            「{{ $notification->exhibit->categorize_tags(0) }}{{ $notification->exhibit->categorize_tags(1) }}」への交換リクエストは成立しませんでした
                         </div>
                     </div>
                 </div>

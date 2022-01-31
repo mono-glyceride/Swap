@@ -20,15 +20,9 @@ class CreateExhibitsTable extends Migration
             $table->unsignedBigInteger('exhibitor_id');
             $table->string('pic_id')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->string('origin')->nullable();
-            $table->string('character')->nullable();
-            $table->string('goods_type')->nullable();
             $table->string('notes')->nullable();
             $table->integer('status')->default(1);
                 // 1:交換相手は決まってない 2:決まった 3:削除済み
-            
-            // 自分の求めているグッズの情報
-            $table->string('want_character')->nullable();
             
             // 交換方法
             $table->integer('mail_flag');

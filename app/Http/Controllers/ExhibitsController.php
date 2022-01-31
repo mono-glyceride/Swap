@@ -104,12 +104,7 @@ class ExhibitsController extends Controller
         // 出品に対応したリクエスト一覧を取得
         $propositions = $exhibit->propositions;
         
-        //対応するタグ(キャラ以外)を取得
-        $tags = $exhibit->tags()->where('kind_flg','<',3)->get();
-        
-        //キャラに関するタグを取得
-        $characters = $exhibit->tags()->where('kind_flg',3)->get();
-        $want_characters= $exhibit->tags()->where('kind_flg',4)->get();
+        //タグを分類して取得(タグ、グッズタイプ、作品)
         
         // 出品したユーザーを取得
         $user = \App\User::findOrFail($exhibit->exhibitor_id);
@@ -122,9 +117,6 @@ class ExhibitsController extends Controller
         $handing_flag = \App\Consts\ExhibitConst::HANDING_FLAG_LIST [$exhibit->handing_flag];
         
         $data = [
-            'tags' => $tags,
-            'characters' => $characters,
-            'want_characters'=> $want_characters,
             'exhibit' => $exhibit,
             'propositions' => $propositions,
             'user' => $user,

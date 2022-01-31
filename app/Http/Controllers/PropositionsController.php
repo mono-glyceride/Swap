@@ -174,8 +174,7 @@ class propositionsController extends Controller
             'exhibit' => $exhibit,
             'propositions' => $propositions,
             ];
-
-        // リクエスト更新ビューでそれらを表示
+        
         return view('propositions.select',$data);
         }
     }

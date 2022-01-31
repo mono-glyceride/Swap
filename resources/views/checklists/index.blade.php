@@ -19,11 +19,10 @@
                         </div>
                         <div class="col-9">
                             <p>
+                                「{{ $checklist->proposition->exhibit->categorize_tags(0) }}{{ $checklist->proposition->exhibit->categorize_tags(1) }}」
                                 @if($checklist->proposition->mail_flag == 1)
-                                    「{{$checklist->proposition->exhibit->character}} {{$checklist->proposition->exhibit->goods_type}}」
                                     への交換リクエストが成立しました。トーク画面から配送情報（住所など）の交換をお願いします。
                                 @else
-                                    「{{$checklist->proposition->exhibit->character}} {{$checklist->proposition->exhibit->goods_type}}」
                                     への交換リクエストが成立しました。トーク画面から交換場所や日時の話し合いをお願いします。
                                 @endif
                             </p>

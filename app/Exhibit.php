@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Exhibit extends Model
 {
     protected $fillable = [
-        'pic_id','origin', 'character','thumbnail', 'goods_type','keyword','notes',
-        'want_pic_id','want_character',
-        'mail_flag','handing_flag','place'
+        'pic_id','thumbnail', 'notes','mail_flag','handing_flag','place'
     ];
     
     /**
@@ -83,4 +81,21 @@ class Exhibit extends Model
     {
         return $this->propositions()->where('status', 1)->exists();
     }
+    
+    /**
+     * $thisに紐づいたタグを$kind_flgに応じて分類して返す。
+     * 返す際にはすべてのタグの中身（keywordカラム）を連結し一つの文字列として返す
+     */
+    public function categorize_tags($kind_flg)
+    {
+        $categorize_tags = $this->tags()->where('kind_flg',$kind_flg)->get();
+        $string_tag = '';
+        if($categorize_tags->isNotEmpty()){
+            foreach($categorize_tags as $categorize_tag){
+                $string_tag = $string_tag. $categorize_tag->keyword.'　';
+            }
+        }
+        return $string_tag;
+    }
+    
 }
