@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Exhibit;
+use App\Tag;
 use Storage;
 
 class ExhibitsController extends Controller
@@ -202,14 +203,34 @@ class ExhibitsController extends Controller
         $exhibit_ids = array();
         //ワード配列すべてでループ
         foreach($words as $word){
-            $tag = DB::table('tags')->where('keyword','like','%'.$word.'%')->first();
+            //部分一致するタグをすべて取り出す
+            $like_tags = DB::table('tags')->where('keyword','like','%'.$word.'%')->get();
             
             //入力された文字と部分一致するタグが見つかった場合
-            if (!is_null($tag)) {
-            $tag_id = $tag->id;
-            //中間テーブル(exhibit_tagging)からtag_idカラムに$tag_idとつながるexhibit_idを取り出す
-            $exhibit_ids = $exhibit_ids + DB::table('exhibit_tagging')->where('tag_id', $tag_id)->pluck('exhibit_id')->toArray();
+            if (!is_null($like_tags)) {
+                
+                //同じ入力文字に関連するタグ、に関連するexhibit_idの配列
+                $like_tag_exhibit_ids= array();
+                
+                //$like_tagsは同じ入力文字に関連するタグ
+                foreach($like_tags as $like_tag){
+                    
+                    $like_tag_id = $like_tag->id;
+                    
+                    //中間テーブル(exhibit_tagging)からtag_idカラムに$like_tag_idとつながるexhibit_idを取り出す
+                    $temp_array = DB::table('exhibit_tagging')->where('tag_id', $like_tag_id)->pluck('exhibit_id')->toArray();
+                    
+                    //同じ入力文字に関連するタグのexhibit_idの配列に連結
+                    $like_tag_exhibit_ids = array_merge($like_tag_exhibit_ids, $temp_array);
+                }
             }
+            
+            if(empty($exhibit_ids)){
+                $exhibit_ids = $like_tag_exhibit_ids;
+            }
+            
+            //他のタグに関連するexhibit_idと、重複するexhibit_idのみを配列に取り出す
+            $exhibit_ids = array_intersect($exhibit_ids, $like_tag_exhibit_ids);
         }
         
         //取得した出品を絞り込み日付順にして、ページネーション
