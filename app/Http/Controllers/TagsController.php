@@ -18,7 +18,7 @@ class TagsController extends Controller
                 foreach($words as $word){
         
                 //既存のタグか
-                $tag = DB::table('tags')->where('keyword', $word)->first();
+                $tag = DB::table('tags')->where('keyword', $word)->where('kind_flg',$kind_flg)->first();
         
                     //タグにないなら$wordをタグテーブルのレコードに追加
                     if (is_null($tag)) {
