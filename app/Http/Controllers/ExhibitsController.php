@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Exhibit;
+use App\Tag;
 use Storage;
 
 class ExhibitsController extends Controller
@@ -202,13 +203,18 @@ class ExhibitsController extends Controller
         $exhibit_ids = array();
         //ワード配列すべてでループ
         foreach($words as $word){
-            $tag = DB::table('tags')->where('keyword','like','%'.$word.'%')->first();
+            //部分一致するタグをすべて取り出す
+            $tags = DB::table('tags')->where('keyword','like','%'.$word.'%')->get();
             
             //入力された文字と部分一致するタグが見つかった場合
-            if (!is_null($tag)) {
-            $tag_id = $tag->id;
-            //中間テーブル(exhibit_tagging)からtag_idカラムに$tag_idとつながるexhibit_idを取り出す
-            $exhibit_ids = $exhibit_ids + DB::table('exhibit_tagging')->where('tag_id', $tag_id)->pluck('exhibit_id')->toArray();
+            if (!is_null($tags)) {
+                foreach($tags as $tag){
+                    $tag_id = $tag->id;
+                    //中間テーブル(exhibit_tagging)からtag_idカラムに$tag_idとつながるexhibit_idを取り出す
+                    $tagging_exhibit_ids = DB::table('exhibit_tagging')->where('tag_id', $tag_id)->pluck('exhibit_id')->toArray();
+                    //他のタグに関連するexhibit_idの配列に連結
+                    $exhibit_ids = array_merge($exhibit_ids, $tagging_exhibit_ids);
+                }
             }
         }
         
