@@ -35,3 +35,16 @@
 .requ_button.btn-outline-primary a{
     color: rgb(85, 172, 238);
 }
+
+.explore{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.explore [type="search"]{
+    margin: 0px;
+}
+
+.explore .form_items{
+    max-width: 500px;
+}

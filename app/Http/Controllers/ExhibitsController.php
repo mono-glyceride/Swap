@@ -246,6 +246,8 @@ class ExhibitsController extends Controller
         // exhibit一覧ビューでそれを表示
         return view('exhibits.quickfind', [
             'exhibits' => $exhibits,
+            'character'=>null,
+            'want_character'=>null,
             'keyword'=>$keyword,
         ]);
     }
@@ -255,4 +257,82 @@ class ExhibitsController extends Controller
         return view('exhibits.explore');
     }
     
+    public function search(Request $request){
+        
+        $character_much_ids = $this->find_exhibits($request->character,3);
+        
+        $want_character_much_ids = $this->find_exhibits($request->want_character,4);
+        
+        $keyword_much_ids = $this->find_exhibits($request->keyword,1);
+        
+        $union_ids = [$character_much_ids, $want_character_much_ids, $keyword_much_ids];
+        
+        $exhibit_ids = array();
+        
+        foreach($union_ids as $union_id){
+            
+            //中身があった
+            if(!empty($union_id)){
+                
+                //中身があった配列は初めて
+                if(empty($exhibit_ids)){
+                    $exhibit_ids = $union_id;
+                }
+                else{
+                    //既に見つかった配列と重複するexhibit_idのみに絞り込み
+                    $exhibit_ids = array_intersect($exhibit_ids, $union_id);
+                }
+            }
+        }
+        
+        //取得した出品を絞り込み日付順にして、ページネーション
+        if (empty($exhibit_ids)) {
+            $exhibits = null;
+        }
+        else{
+            $exhibits = Exhibit::whereIn('id',$exhibit_ids)->where('status', 1)->latest()->paginate(10);
+        }
+        
+        
+        return view('exhibits.quickfind', [
+            'exhibits' => $exhibits,
+            'character'=>$request->character,
+            'want_character'=>$request->want_character,
+            'keyword'=>$request->keyword
+        ]);
+        
+    }
+    
+    //渡された文字列を正規化し、一致するタグを持つExhibitのidを配列にして返す
+    //$kind_flg 0:作品 1:キーワード 2:グッズタイプ 3:譲るキャラ 4:求めるキャラ
+    public function find_exhibits($user_enter, $kind_flg){
+        
+        //空白区切りで単語を最大要素数10の配列$wordsに取り出す（全角と半角の場合あり）
+        $words = preg_split('/[\p{Z}\p{Cc}]++/u', $user_enter, 10, PREG_SPLIT_NO_EMPTY);
+        
+        $exhibit_ids = array();
+        //ワード配列すべてでループ
+        foreach($words as $word){
+            //単語、分類ともに完全一致するタグを取り出す（重複しないので一つに絞られる)
+            $much_tag = DB::table('tags')->where('keyword',$word)->where('kind_flg',$kind_flg)->first();
+            
+            $temp_array = array();
+            //完全一致するタグが見つかった場合
+            if (!is_null($much_tag)) {
+                    $much_tag_id = $much_tag->id;
+                    
+                    //中間テーブル(exhibit_tagging)からtag_idカラムに$much_tag_idとつながるexhibit_idを取り出す
+                    $temp_array = DB::table('exhibit_tagging')->where('tag_id', $much_tag_id)->pluck('exhibit_id')->toArray();
+            }
+            
+            //一個目の単語の場合、$exhibit_idsにそのままコピー
+            if(empty($exhibit_ids)){
+                $exhibit_ids = $temp_array;
+            }
+            
+            //他のタグに関連するexhibit_idと、重複するexhibit_idのみを配列に取り出す
+            $exhibit_ids = array_intersect($exhibit_ids, $temp_array);
+        }
+        return $exhibit_ids;
+    } 
 }

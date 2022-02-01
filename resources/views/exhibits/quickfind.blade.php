@@ -17,7 +17,16 @@
     </header>
     <h2 class="d-flex align-items-center">
         @include('commons.back_button')
-            「{{$keyword}}」の検索結果
+            @if(!is_null($character))
+            譲:{{$character}}
+            @endif
+            @if(!is_null($want_character))
+            求:{{$want_character}}
+            @endif
+            @if(!is_null($keyword))
+            {{$keyword}}
+            @endif
+            の検索結果
     </h2>
     @if($exhibits != null)
         @include('../commons.exhibits')

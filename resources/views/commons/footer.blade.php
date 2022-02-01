@@ -7,6 +7,12 @@
     </span>
     
     <span class="col">
+    <a href="{{ route('exhibits.explore') }}">
+      <i class="fas fa-search fa-lg"></i>
+    </a>
+    </span>
+    
+    <span class="col">
     <a href="{{ route('notifications.index') }}">
       <i class="fas fa-bell fa-lg">{{ auth()->user() ->count_notifications() }}</i>
     </a>
