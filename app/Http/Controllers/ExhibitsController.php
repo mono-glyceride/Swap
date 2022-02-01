@@ -194,9 +194,10 @@ class ExhibitsController extends Controller
         
     }
     
-    // getでsearchにアクセスされた場合の検索結果表示処理
-    public function search(Request $request)
+    // getでquickfindにアクセスされた場合の検索結果表示処理
+    public function quickfind(Request $request)
     {
+        
         //空白区切りで単語を最大要素数10の配列$wordsに取り出す（全角と半角の場合あり）
         $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->keyword, 10, PREG_SPLIT_NO_EMPTY);
         
@@ -243,11 +244,15 @@ class ExhibitsController extends Controller
         
         $keyword = $request->keyword;
         // exhibit一覧ビューでそれを表示
-        return view('exhibits.search', [
+        return view('exhibits.quickfind', [
             'exhibits' => $exhibits,
             'keyword'=>$keyword,
         ]);
     }
     
+    // getでexploreにアクセスされた場合の表示処理
+    public function explore(){
+        return view('exhibits.explore');
+    }
     
 }

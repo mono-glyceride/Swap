@@ -3,7 +3,7 @@
 
 @section('content')
     <header class="row">
-        {{ Form::open(['route' => 'exhibits.search', 'class' => 'col-10 search_bar d-flex align-items-center', 'method' => 'get']) }}
+        {{ Form::open(['route' => 'exhibits.quickfind', 'class' => 'col-10 search_bar d-flex align-items-center', 'method' => 'get']) }}
         {{Form::search('keyword', null, ['id' => 'keyword','class' => 'form-control rounded-pill ','placeholder'=>'グッズ検索'])}}
         {{--{{ Form::submit('検索', ['class' => 'btn btn-light']) }}--}}
         {{ Form::close() }}
@@ -17,7 +17,7 @@
     </header>
     <h2 class="d-flex align-items-center">
         @include('commons.back_button')
-            「{{$keyword}}」　の検索結果
+            「{{$keyword}}」の検索結果
     </h2>
     @if($exhibits != null)
         @include('../commons.exhibits')

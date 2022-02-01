@@ -29,8 +29,9 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 
 //検索結果の表示用
-Route::get('/search','ExhibitsController@search')->name('exhibits.search');;
-
+Route::get('/quickfind','ExhibitsController@quickfind')->name('exhibits.quickfind');
+//検索トップページ
+Route::get('/explore','ExhibitsController@explore')->name('exhibits.explore');
 
 // 認証が必要なもの
 Route::group(['middleware' => ['auth']], function () {
