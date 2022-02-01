@@ -250,34 +250,23 @@ class propositionsController extends Controller
     public function swapping($id)
     {   
         $data = [];
-        if (\Auth::check()) { // 認証済みの場合
-            // 認証済みユーザを取得
-            $user = \Auth::user();
         
+        $user = \Auth::user();
         
-        // ユーザーのリクエスト一覧のうち、取引中のものを抽出
-        $swapping_propositions = $user->propositions()->where('propositions.status',2)->get();
+        //ユーザーが関わっている取引のid
+        $dealing_ids = $user->dealings();
         
-        // ユーザーが貰ったリクエスト一覧のうち、取引中ものを抽出
-        $swapping_recieve_propositions = $user->receive_propositions()->where('propositions.status',2)->get();
-        
-        // ユーザーのリクエスト一覧のうち、取引が終了したのものを抽出
-        $finished_propositions = $user->propositions()->where('propositions.status',4)->get();
-        
-        // ユーザーが貰ったリクエスト一覧のうち、取引が終了したものを抽出
-        $finished_recieve_propositions = $user->receive_propositions()->where('propositions.status',4)->get();
-        
-
-        $data = [
-                'receive_propositions' => $swapping_recieve_propositions,
-                'propositions' => $swapping_propositions,
-                'finished_receive_propositions' => $finished_recieve_propositions,
-                'finished_propositions' => $finished_propositions,
-            ];
-            
-        // exhibit一覧ビューでそれを表示
-        return view('mypage.swapping', $data);
+        //関わっている取引
+        if(empty($dealing_ids)){
+            $dealings = null;
         }
+        else{
+            $dealings = Proposition::whereIn('id',$dealing_ids)->latest()->paginate(10);
+        }
+        
+        return view('users.swopping', [
+            'dealings' => $dealings
+            ]);
     }
     
     public function talk($id)

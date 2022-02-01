@@ -123,4 +123,27 @@ class Proposition extends Model
         }
          return $const;
       }
+      
+      /**
+       * 交換方法を文字列で返す
+       */
+       public function shipping()
+       {
+           if($this->mail_flag == 1){
+               return '郵送 '.$this->proposition_const('ship_from',$this->ship_from);
+           }
+           else{
+               return '手渡し '.$this->place;
+           }
+       }
+       
+       /**
+       * 開始日付を返す
+       */
+       public function day()
+       {
+           $date = date_create($this->date);
+           $date = date_format($date , 'Y年m月d日');
+           return $date;
+       }
 }
