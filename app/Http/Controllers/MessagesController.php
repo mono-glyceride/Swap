@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Proposition;
 use Illuminate\Http\Request;
 
 class MessagesController extends Controller
@@ -10,7 +10,16 @@ class MessagesController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $dealings = $user->dealings();
+        
+        //ユーザーが関わる取引のid
+        $dealing_ids = $user->dealings();
+        
+        if (empty($dealing_ids)) {
+            $dealings = null;
+        }
+        else{
+            $dealings = Proposition::whereIn('id',$dealing_ids)->latest()->paginate(10);
+        }
         
         //ユーザー関わった取引一覧、新しい順で
         return view('messages.index' ,[

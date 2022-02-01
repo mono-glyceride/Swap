@@ -167,17 +167,19 @@ class User extends Authenticatable
     }
     
     /**
-     * ユーザーの関わっている取引（終了済みの取引を含まない）
+     * ユーザーの関わっている取引のid（終了済みの取引を含まない）
      */
      public function dealings(){
-         //受け取ったリクエストの取引
-         $exhibit_dealings = $this->receive_propositions()->where('propositions.status',2)->get();
-         //dd($exhibit_dealings);
-         //リクエストを出した取引
-         $proposition_dealings = $this->propositions()->where('propositions.status',2)->get();
-         //dd($proposition_dealings);
-         $dealings = array($exhibit_dealings, $proposition_dealings);
-         return $dealings;
+         //受け取ったリクエストの取引のid
+         $exhibit_dealing_ids = $this->receive_propositions()->where('propositions.status',2)->pluck('propositions.id')->toArray();
+         
+         //リクエストを出した取引のid
+         $proposition_dealing_ids = $this->propositions()->where('propositions.status',2)->pluck('propositions.id')->toArray();
+         
+         //取引のidの配列を連結
+         $dealing_ids  = array_merge($exhibit_dealing_ids, $proposition_dealing_ids);
+         
+         return $dealing_ids;
      }
      
      /**
