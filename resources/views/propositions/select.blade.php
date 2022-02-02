@@ -4,7 +4,7 @@
 <header class="sticky-top">
     <h1 class="d-flex align-items-center">
         @include('commons.back_button')
-            交換リクエスト詳細
+            交換リクエスト詳細（回答保留中）
     </h1>
 </header>
 

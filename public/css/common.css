@@ -143,6 +143,10 @@ th{
     border-radius: 7px;
 }
 
+.proposition_card .row .table tbody tr td{
+    padding-right: 4vw;
+}
+
 .proposition_user:active{
     background-color: #e9ecef;
 }

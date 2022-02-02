@@ -1,84 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div >
-        <div class="text-center">
-            
-            
-            {{-- 見出し --}}
-            <div class="border border-primary midasi">
-                <h1>
-                    交換リクエスト詳細
-                </h1>
-            </div>
-            
-            <div class="goods_pair">
-                <h2 class="border border-primary">
-                    あなたが求めるグッズ
-                </h2>
-                <div>
-                    {{-- グッズ画像 --}}
-                    <img src="{{ $exhibit->pic_id }}" width="200" height="200" >
-                </div>
-                
-                
-            </div>
-            
-            <div class="goods_pair">
-                <h2 class="border border-primary">
-                    あなたが譲るグッズ
-                </h2>
-                
-                @if($proposition->mail_flag == 1)
-                <div>
-                    {{-- グッズ画像 --}}
-                    <img src="{{ $proposition->pic_id }}" width="200" height="200" >
-                    <table class="table table-striped table-sm goods_detail">
-                        <tr><th>状態</th><td>{{ $condition }}</td></tr>
-                        <tr><th>交換方法</th><td>郵送</td></tr>
-                        <tr><th>発送元の地域</th><td>{{ $ship_from }}</td></tr>
-                        <tr><th>発送までの日数</th><td>{{ $days }}</td></tr>
-                        <tr><th>備考</th><td>{{ $proposition->notes }}</td></tr>
-                    </table>
-                </div>
-                @else
-                
-                <div>
-                    {{-- グッズ画像 --}}
-                    <img src="{{ $proposition->pic_id }}" width="200" height="200" >
-                    <table class="table table-striped table-sm goods_detail">
-                        <tr><th>状態</th><td>{{ $condition }}</td></tr>
-                        <tr><th>交換方法</th><td>手渡し</td></tr>
-                        <tr><th>手渡し対応地域</th><td>{{ $proposition->place }}</td></tr>
-                        <tr><th>備考</th><td>{{ $proposition->notes }}</td></tr>
-                    </table>
-                </div>
-                
-                @endif
-            </div>
-            
-           
-            <div>
-                {{-- 出品者のアイコン
-                <h2 class="border border-primary">
-                    リクエストユーザー
-                </h2>
-                <img src="{{ asset('storage/images/icon.png') }}" class="img-responsive img-rounded "  width="80" height="80"> --}}
-                
-                
-                {{-- 削除ボタン --}}
-                @if($proposition->status == 1)
-                    {!! Form::model($proposition, ['route' => ['propositions.update', $proposition->id], 'method' => 'patch']) !!}
-    　               {{Form::hidden('status','6')}}
-                    {!! Form::submit('この交換リクエストを削除', ['class' => 'btn btn-danger btn-block requ_button']) !!}
-                    {!! Form::close() !!}
-                @elseif($proposition->status == 3)
-                    この交換リクエストは成立しませんでした。
-                @endif
-                
-            </div>
-            
+<header class="sticky-top">
+    <h1 class="d-flex align-items-center">
+        @include('commons.back_button')
+            交換リクエスト詳細（申請中）
+    </h1>
+</header>
+
+<main class="select">
+    <h2>
+        出品されたグッズ
+    </h2>
+
+    <div class="proposition_card shadow-sm">
+        <div class="row"> 
+            <img src="{{$exhibit->pic_id}}" class="col-4" >
+                <table class="table table-borderless goods_detail col-8">
+                    <tr><th>タグ</th><td>{{$exhibit->categorize_tags(0)}}{{$exhibit->categorize_tags(1)}}{{$exhibit->categorize_tags(2)}}</td></tr>
+                    <tr><th class="col-4">求</th><td>{{$exhibit->categorize_tags(3)}}</td></tr>
+                    <tr><th class="col-4">譲</th><td>{{$exhibit->categorize_tags(4)}}</td></tr>
+                    <tr><th class="col-4">備考</th><td>{{$exhibit->notes }}</td></tr>
+                </table>
         </div>
-        
     </div>
+    
+    <h2>
+        あなたが送った交換リクエスト
+    </h2>
+    <div class="proposition_card">
+        <div class="row"> 
+            <img src="{{$proposition->pic_id}}" class="col-4" >
+                <table class="table table-borderless goods_detail col-8">
+                    <tr><th>状態</th><td>{{ $proposition->proposition_const('condition',$proposition->condition) }}</td></tr>
+                
+                    @if($proposition->mail_flag == 1)
+                    <tr><th class="col-4">郵送</th><td>{{ $proposition->proposition_const('ship_from',$proposition->ship_from) }}</td></tr>
+                    @else
+                    <tr><th class="col-4">手渡し</th><td>{{ $proposition->place }}</td></tr>
+                    @endif
+                    <tr><th class="col-4">備考</th><td>{{ $proposition->notes }}</td></tr>
+                </table>
+        </div>
+    </div>
+</main>
+@include('commons.footer')
 @endsection
