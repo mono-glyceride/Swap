@@ -157,7 +157,12 @@ class ExhibitsController extends Controller
        }
        
        //リダイレクトさせる
-         return redirect()->action('PropositionsController@index');
+       if($request->status == 3){
+           return redirect()->action('ExhibitsController@index');
+       }
+       else{
+           return redirect()->action('PropositionsController@index');
+       }
     }
 
     // deleteでexhibits/（任意のid）にアクセスされた場合の「削除処理」
