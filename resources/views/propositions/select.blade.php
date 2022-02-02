@@ -34,10 +34,12 @@
                 </div>
                     <div class="col-8">
                         <p><b>{{ $proposition->user->name }}</b>
-                            @if(count($proposition->user->reviewers) > 0)
-                                {{$proposition->user->review_avarage()}}({{count($proposition->user->reviewers)}})
-                            @endif
-                            <br>{{ $proposition->user->user_const('prefecture' ,$proposition->user->prefecture) }}　
+                                @if($proposition->user->reviewers->isEmpty())
+                                    <br>評価はまだありません。
+                                @else
+                                    <br>評価：{{$proposition->user->review_avarage()}} / 5.0 （{{count($proposition->user->reviewers)}}件）</p>
+                                @endif
+                                {{ $proposition->user->user_const('prefecture' ,$proposition->user->prefecture) }}　
                                 /{{ $proposition->user->user_const('age' ,$proposition->user->age) }}　
                                 /{{ $proposition->user->user_const('gender' ,$proposition->user->gender) }}
                         </p>
