@@ -1,31 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="exhibit_form">
-        <div class="text-center">
-            {{-- 見出し --}}
-            <div class="border border-primary simple_header">
-                
-                <h2 sticky-top>
-                    交換リクエストを入力
-                </h2>
-                
-            </div>
-        </div>    
+    <main>
+        <header class="sticky-top d-block d-sm-none">
+            <h1 class="d-flex align-items-center">
+                @include('commons.back_button')
+                交換リクエストを入力（郵送）
+            </h1>
+        </header> 
                     
-            <div class="exhibit_form">
-                {!! Form::open(['route' => 'propositions.store', 'files' => true]) !!}
+        <div class="goods_form">
+                {{ Form::open(['route' => 'propositions.store', 'files' => true]) }}
                 
                     
                     {{Form::hidden('exhibit_id',$exhibit_id)}}
                     {{Form::hidden('mail_flag',1)}}
                     {{Form::hidden('handing_flag',2)}}
-                        
-                    {!! Form::label('pic', '画像　【必須】') !!}
+                       
+                    <div class="form_items"> 
+                    {{ Form::label('pic', '画像　【必須】') }}
                     {{Form::file('pic_id', null, ['id' => 'pic'])}}
+                    </div>
                     
-                    
-                    {!! Form::label('ship_from', '発送元') !!}
+                    <div class="form_items">
+                    {{ Form::label('ship_from', '発送元') }}
                     {{Form::select('ship_from',  [
                     '0' => '--',
                         '1' => '北海道',
@@ -77,25 +75,29 @@
                         '47' => '沖縄県',
                         ],  
                         ['id' => 'ship_from'])}}
-                        
-                    {!! Form::label('days', '発送までの日数') !!}
-                    {{Form::select('days', [0 => '--',1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
+                    </div>    
                     
-                    {!! Form::label('condition', '状態　【必須】') !!}
+                    <div class="form_items">
+                    {{ Form::label('days', '発送までの日数') }}
+                    {{Form::select('days', [0 => '--',1 => '1~2日', 2=> '2~3日',3=> '4~7日',],  ['id' => 'days'])}}
+                    </div>
+                    
+                    <div class="form_items">
+                    {{ Form::label('condition', '状態　【必須】') }}
                     {{Form::select('condition', [1 => '未開封', 2=> '確認のため開封',3=> 'その他',],  ['id' => 'condition'])}}
+                    </div>
                 
-                
-                    {!! Form::label('notes', '備考') !!}
+                    <div class="form_items">
+                    {{ Form::label('notes', '備考') }}
                     {{Form::text('notes', null, ['id' => 'notes'])}}
+                    </div>
+                    
+                    <div class="form_items">
+                    {{ Form::submit('交換リクエストを送信', ['class' => 'btn-block btn-primary']) }}
+                    {{ Form::close() }}
+                    </div>
             </div>    
-                
-            {!! Form::submit('交換リクエストを送信', ['class' => 'btn-block btn-primary']) !!}
-            {!! Form::close() !!}
-        
-            
-    
-        
-        
-    </div>
+    </main>
+@include('commons.footer')
 @endsection
 
