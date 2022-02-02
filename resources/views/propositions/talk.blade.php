@@ -8,18 +8,6 @@
             {{$partner->name}}さんとの取引画面
         </h1>
     </header>
-            {{-- {{Form::hidden('status',4)}} 
-            {{Form::hidden('proposition_id',$proposition->id)}}
-            <label class="radio-button">
-                {{ Form::radio('point', 1, true,['class' => 'radio-button__input']) }}
-                <span class="radio-button__icon">よかった</span>
-            </label>
-            <label class="radio-button">
-                {{ Form::radio('point', 0, false,['class' => 'radio-button__input']) }}
-                <span class="radio-button__icon">残念だった</span>
-            </label>
-            --}}
-            {{-- まだレビューがない（0件なら） --}}
             @if(!$proposition->is_reviewed($partner->id))
             <div class="review_form">
             {{ Form::open(['route' => 'reviews.store']) }}
@@ -76,7 +64,8 @@
                     @endif    
                 @endforeach
             @endif
-            
+        
+        @if(!$proposition->is_reviewed($partner->id))
         <div class="talk_footer fixed-bottom">
             {{ Form::open(['route' => 'messages.store']) }}
                 <div>
@@ -89,6 +78,9 @@
                 </div>
             {!! Form::close() !!}
         </div>
+        @else
+        @include('commons.footer')
+        @endif
     </div>    
 </div>        
 @endsection
