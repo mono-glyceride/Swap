@@ -9,6 +9,7 @@
     </h1>
 </header>
 
+<main>
 <div class="goods_form">
                     {{--
                     {{ Form::label('icon_id', 'アイコン') }}
@@ -95,6 +96,7 @@
     </div>    
 {{ Form::close() }}
 </div>
+</main>
 @include('commons.footer')
 @endsection
 

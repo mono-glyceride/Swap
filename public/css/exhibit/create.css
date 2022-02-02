@@ -9,6 +9,10 @@
     border-radius: 4px;
 }
 
+.goods_form textarea{
+    height: auto;
+}
+
 .form_items{
     margin-bottom: 2vh;
 }
