@@ -5,11 +5,12 @@
         <div class="col-9">
             <div>
                 <p><b>{{ $user->name }}</b>
-                @if($user->reviewers()->exists())
+                @if($user->reviewers->isEmpty())
                     評価はまだありません。
                 @else
-                    <br>平均評価：{{$user->review_avarage()}}</p>
+                    <br>評価：{{$user->review_avarage()}} / 5.0 （{{count($user->reviewers)}}件）
                 @endif
+            </p>
             </div>
             
         </div>

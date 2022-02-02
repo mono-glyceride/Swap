@@ -14,14 +14,14 @@
         <div class="icon col-3 border">
         </div>
         <div class="col-9">
-            <div class="font-weight-bold">
+            <div>
             <p><b>{{ $user->name }}</b>
-            <br>{{$user->review_avarage()}}</p>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+                @if($user->reviewers->isEmpty())
+                    評価はまだありません。
+                @else
+                    <br>評価：{{$user->review_avarage()}} / 5.0 （{{count($user->reviewers)}}件）
+                @endif
+            </p>
             </div>
             
             <div>

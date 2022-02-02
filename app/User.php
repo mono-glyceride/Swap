@@ -153,15 +153,12 @@ class User extends Authenticatable
         //0の除算に注意
         // レビューの件数
         $number = $this->reviewers()->get()->count();
-        if($number === null || $number<5){
-            return null;
-        }
 
         //1ポイント（良い）評価の件数
         $high = $this ->reviewers()-> where('point',1)->count();
 
         //良いレビュー（小数点以下四捨五入)
-        $average = round($high/$number*10);
+        $average = round($high/$number*10)/2;
 
         return $average;
     }
